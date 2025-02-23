@@ -1,10 +1,10 @@
-name = "fortran-gmt"
+name = "fplt"
 version = "0.1.0"
 license = "license"
 author = "Sebastian G. Mutz"
 maintainer = "sebastian@mutz.science"
 copyright = "Copyright 2025, Sebastian G. Mutz"
-description = "Fortran interface for GMT (Generic Mapping Tools)"
+description = "Fortran plotting library"
 [build]
 auto-executables = true
 auto-tests = true

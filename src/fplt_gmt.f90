@@ -1,7 +1,7 @@
-module fortran_gmt
+module mod_gmt
 
 ! |--------------------------------------------------------------------|
-! | fortra-gmt interface                                               |
+! | fplt - fortran plotting library                                    |
 ! |                                                                    |
 ! | about                                                              |
 ! | -----                                                              |
@@ -51,4 +51,5 @@ module fortran_gmt
         type(c_ptr)      , intent(in), value :: args
      end function gmt_call_module
   end interface
-end module fortran_gmt
+
+end module mod_gmt

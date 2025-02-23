@@ -1,3 +1,3 @@
-# fortran-gmt
+# fplt
 
-A Fortran interface for GMT (Generic Mapping Tools).
+A Fortran plotting library built mostly on GMT (Generic Mapping Tools).
