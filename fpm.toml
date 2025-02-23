@@ -1,0 +1,26 @@
+name = "fortran-gmt"
+version = "0.1.0"
+license = "license"
+author = "Sebastian G. Mutz"
+maintainer = "sebastian@mutz.science"
+copyright = "Copyright 2025, Sebastian G. Mutz"
+description = "Fortran interface for GMT (Generic Mapping Tools)"
+[build]
+auto-executables = true
+auto-tests = true
+auto-examples = true
+module-naming = false
+link = ["gmt"]
+external-modules = ["iso_c_binding"]
+[install]
+library = false
+[fortran]
+implicit-typing = false
+implicit-external = false
+source-form = "free"
+[library]
+source-dir = "src"
+[executable]
+name = "test_gmt"
+source-dir = "app"
+main = "main.f90"
