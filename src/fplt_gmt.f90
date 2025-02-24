@@ -1,4 +1,4 @@
-module mod_gmt
+module fplt_gmt
 
 ! |--------------------------------------------------------------------|
 ! | fplt - fortran plotting library                                    |
@@ -32,14 +32,14 @@ module mod_gmt
         character(c_char), intent(in)        :: name(*)
         integer(c_int)   , intent(in), value :: pad, mode
         type(c_ptr)      , intent(in), value :: opt
-     end function GMT_Create_Session
+     end function gmt_create_session
 
      ! destroy GMT session
      function gmt_destroy_session(session) bind(c, name="GMT_Destroy_Session")
         import :: c_ptr, c_int
         integer(c_int)                 :: gmt_destroy_session
         type(c_ptr), intent(in), value :: session
-     end function GMT_Destroy_Session
+     end function gmt_destroy_session
 
      ! GMT modules
      function gmt_call_module(session, gmod, mode, args) bind(c, name="GMT_Call_Module")
@@ -52,4 +52,4 @@ module mod_gmt
      end function gmt_call_module
   end interface
 
-end module mod_gmt
+end module fplt_gmt

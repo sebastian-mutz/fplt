@@ -13,39 +13,38 @@ module fplt
 
 ! load modules
   use, intrinsic :: iso_c_binding
-  use :: mod_typ
-  use :: mod_gmt
+  use :: fplt_typ
+  use :: fplt_gmt
 
 ! basic options
   implicit none
-!  private
+  private
 
-! declare public
-!  public :: fplt_s_map
+! declare public types
+  public :: TYP_cmap, TYP_map
+
+! declare public procedures
+  public :: fplt_map
 
 
 contains
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine fplt_map(map)
+subroutine fplt_map(map, outfile)
 
 ! ==== Description
 !! Uses fortran-gmt interface for creating a map.
 
 ! ==== Declarations
-  type(TYP_map), intent(in)               :: map
+  type(TYP_map)     , intent(in)          :: map
+  character(len=256), intent(in)          :: outfile
   type(c_ptr)                             :: session, parent
   character(kind=c_char, len=20)          :: session_name
   character(kind=c_char, len=256), target :: args
   integer(c_int)                          :: status
   integer(c_int), parameter               :: pad=0, mode=0, cmd=0
-
-!   data europe%reg%lon_min/-10/, europe%reg%lon_max/50/ &
-!     &, europe%reg%lat_min/30/, europe%reg%lat_max/60/ &
-!     &, europe%proj/"JM6i"/, europe%res/"f"/ &
-!     &, europe%l_maj/20/, europe%l_min/20/ &
-!     &, europe%grid/1/, europe%pen/1/
+  character(len=256)                      :: fstring
 
 ! ==== Instructions
 
@@ -62,10 +61,9 @@ subroutine fplt_map(map)
   end if
 
 ! Prepare the arguments for pscoast
-  args = "-R-10/50/30/60 -JM6i -Glightgray -W1p > map.ps" // c_null_char
-!  args = "-R" // map%reg%lon_min // "/" // map%reg%lon_max // "/"&
-!      & // map%reg%lat_min // "/" // map%reg%lat_max &
-!      & // " -" // trim(map%proj) // " -Glightgray -W1p > map.ps" // c_null_char
+  fstring = craft_args(map, outfile)
+  args = trim(fstring) // c_null_char
+  print *, "> GMT args constructed: ", trim(fstring)
 
 ! Call the pscoast module
   status = GMT_Call_Module(session, "pscoast" // c_null_char, cmd, c_loc(args))
@@ -84,6 +82,61 @@ subroutine fplt_map(map)
     print *, "> Failed to destroy GMT session. Error code:", status
     stop
   end if
+
+  contains
+
+     function craft_args(map, outfile) result(fstring)
+        !! crafts a fortran string from map options that serves
+        !! as argument string to be used in the gmt module
+        type(TYP_map)     , intent(in) :: map
+        character(len=256), intent(in) :: outfile
+        character(len=32)              :: fstring_partial
+        character(len=256)             :: fstring
+
+        ! region option
+        fstring="-R"
+        write(fstring_partial, '(F7.2)') map%region(1)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+        write(fstring_partial, '(F7.2)') map%region(2)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+        write(fstring_partial, '(F7.2)') map%region(3)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+        write(fstring_partial, '(F7.2)') map%region(4)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial))
+
+        ! projection and scale
+        fstring = trim(fstring) // " -J" // trim(map%projection)
+
+        ! resolution
+        fstring = trim(fstring) // " -D" // trim(map%resolution)
+
+        ! fill
+        fstring = trim(fstring) // " -G"
+        write(fstring_partial, '(I3)') map%fill(1)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+        write(fstring_partial, '(I3)') map%fill(2)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+        write(fstring_partial, '(I3)') map%fill(3)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial))
+
+        ! annotations and grid
+        fstring = trim(fstring) // " -B"
+        write(fstring_partial, '(F7.2)') map%an_maj
+        fstring = trim(fstring) // "a" // trim(adjustl(fstring_partial))
+        write(fstring_partial, '(F7.2)') map%an_min
+        fstring = trim(fstring) // "f" // trim(adjustl(fstring_partial))
+        write(fstring_partial, '(F7.2)') map%grid
+        fstring = trim(fstring) // "g" // trim(adjustl(fstring_partial))
+
+        ! pen
+        fstring = trim(fstring) // " -W"
+        write(fstring_partial, '(F3.1)') map%pen
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "p"
+
+        ! outfile
+        fstring = trim(fstring) // " > " // trim(outfile)
+     end function craft_args
+
 
 end subroutine fplt_map
 
