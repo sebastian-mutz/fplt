@@ -1,6 +1,6 @@
 name = "fplt"
 version = "0.1.0"
-license = "license"
+license = "MIT license"
 author = "Sebastian G. Mutz"
 maintainer = "sebastian@mutz.science"
 copyright = "Copyright 2025, Sebastian G. Mutz"
