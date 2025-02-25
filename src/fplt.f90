@@ -55,12 +55,13 @@ subroutine fplt_map(map, outfile)
 ! TODO: decouple gmt module as subroutine and pass module_stack (and associated arguments) from fplt_map, fplt_xy, fplt_raster, etc.
 ! TODO: create type for module stack and also includes arguments for each module
 
-! ---- module stack
+! construct  module stack
   module_stack(1) = DAT_mod_map01
   module_stack(2) = DAT_mod_map01
   module_stack(3) = DAT_mod_map01 ! pscoast
   module_stack(4) = DAT_mod_map01
 
+! initialise GMT session
   call gmt_init(session, session_name)
 
 ! prepare the arguments
@@ -68,7 +69,8 @@ subroutine fplt_map(map, outfile)
   args = trim(fstring) // c_null_char
   write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
-! gmt module call
+! gmt module calls
+! TODO: loop through module stack
   call gmt_module(session, trim(module_stack(3)%gmt_module), args)
 
 ! destroy GMT session
@@ -166,7 +168,8 @@ subroutine gmt_args(map, outfile, fstring)
 ! ==== Description
 !! crafts a fortran string from map options that serves
 !! as argument string to be used in the gmt module
-!! TODO: pass more args: typ_module (determines what args) are needed,
+!! TODO: pass more args: typ_module (determines what args) are needed.
+!! TODO: make each option block conditional on logical values of module presets
 
 ! ==== Declarations
   type(TYP_map)     , intent(in)   :: map
