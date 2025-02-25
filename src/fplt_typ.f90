@@ -12,8 +12,8 @@ module fplt_typ
 ! |--------------------------------------------------------------------|
 
 ! load modules
-  use iso_fortran_env, only: int32, int64, real32, real64&
-                          &, input_unit, output_unit, error_unit
+  use :: iso_fortran_env, only: int32, int64, real32, real64&
+                            &, input_unit, output_unit, error_unit
 
 ! basic options
   implicit none
@@ -22,9 +22,9 @@ module fplt_typ
 ! declare public
   public :: dp, sp, wp, i4, i8
   public :: std_i, std_o, std_e, std_rw
-  public :: TYP_cmap, TYP_map
+  public :: TYP_cmap, TYP_map, TYP_module
 
-! ==== Declarations ================================================== !
+! ==== Declarations
 
 ! define kinds (used consistently and explicitly in derived types and entire project)
   integer, parameter :: sp = real32  ! single precision
@@ -39,7 +39,7 @@ module fplt_typ
   integer, parameter :: std_e  = error_unit
   integer, parameter :: std_rw = 21
 
-! ==== Definitions =================================================== !
+! ==== Definitions
 
 ! colour map
   type :: TYP_cmap
@@ -47,9 +47,11 @@ module fplt_typ
      !!
      !! name : name of colour map
      !! rgb  : array of rgb values to interpolate between to make cmap
-     !!        dimensions=(3,x), where x=2 for a 2-colour scale, for example
-     character(len=20)        :: name
-     integer(i4), allocatable :: rgb(:,:)
+     !!        dimensions=(3,5), where 3 is for rgb, 2 = for 2 colour scale
+     !! TODO: change to max 5 colours to interpolate between and add attribute
+     !!       that informs cpt construction (e.g., "use only first 2 colours")
+     character(len=20) :: name
+     integer(i4)       :: rgb(3,2)
   end type TYP_cmap
 
 ! map
@@ -63,8 +65,8 @@ module fplt_typ
      !! an_maj, an_min  : major and minor annotations/labels
      !! grid            : grid spacing
      !! pen             : pen width (point)
-     !! z_range, z_step : range bounds (min and max value) and step size (used for plotting)
-     !! cmap            : colour map to use
+     !! z_min, z_max    : range bounds (min and max value)
+     !! z_step          : step size (used for plotting)
      !! title           : plot title (very top, larger)
      !! label_top       : label above figure (right aligned)
      !! label_bottom    : label below figure (centre)
@@ -72,9 +74,37 @@ module fplt_typ
      integer(i4)        :: fill(3)
      character(len=8)   :: projection, resolution
      real(wp)           :: an_maj, an_min, grid, pen
-     real(wp)           :: z_range(2), z_step
-     type(TYP_cmap)     :: cmap
+     real(wp)           :: z_min, z_max, z_step
      character(len=64)  :: title, label_top, label_bottom
   end type TYP_map
+
+! module templates
+  type :: TYP_module
+     !! Derived type for gmt modules. Includes a list of which arguments
+     !! are included and which aren't. Used as "blueprints" for gmt module
+     !! calls (mostly relevant for argument construction).
+     !!
+     !! name            : name given to module template
+     !! gmt_module      : name of gmt module to be used with template (e.g., pscoast)
+     !! region          : regional bounds: lon_min, lon_max, lat_min, lat_max
+     !! fill            : RGB values for fill
+     !! projection      : projection and scale (in cm)
+     !! resolution      : resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)
+     !! an_maj, an_min  : major and minor annotations/labels
+     !! grid            : grid spacing
+     !! pen             : pen width (point)
+     !! z_min, z_max    : range bounds (min and max value)
+     !! z_step          : step size (used for plotting)
+     !! title           : plot title (very top, larger)
+     !! label_top       : label above figure (right aligned)
+     !! label_bottom    : label below figure (centre)
+     !! overlay         : is module layed to be stacked on another (false for first)
+     character(len=32) :: name, gmt_module
+     logical           :: region, fill, projection, resolution
+     logical           :: an_maj, an_min, grid, pen
+     logical           :: z_min, z_max, z_step
+     logical           :: title, label_top, label_bottom
+     logical           :: overlay
+  end type TYP_module
 
 end module fplt_typ
