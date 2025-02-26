@@ -11,11 +11,11 @@ FPLT is a Fortran plotting library for producing publication-ready, high quality
 The aim is to create a library that lets you:
  - visualise your data directly from your Fortran programme,
  - produce professional figures quickly through the use of presets and automatic argument construction,
- - modify or create new presets easily, since these are simple data collections in the form of Fortran derived types.
+ - modify or create new presets easily from your programme (since these are simple data collections in the form of Fortran derived types).
 
 ## <span style="color:#734f96">Example</span>
 
-The following code modifies a colour map preset *cmap_monochrome* before creating a topographic map of europe using the *map_europe* preset. All presets are simple derived types with initialised values that can be overwritten as done with *cmap_monochrome* below. The *flpt_map* subroutine automatically generates gmt arguments (based on  *map_europe* presets) and works through a stack of gmt modules to successively build your map "behind the scenes".
+The following code modifies a colour map preset *cmap_monochrome* before creating a topographic map of europe using the *map_europe* preset. All presets are simple derived types with initialised values that can be overwritten, as done with *cmap_monochrome* below. The *fplt_map* subroutine automatically generates gmt arguments (based on  *map_europe* presets) and works through a stack of gmt modules to successively build your map "behind the scenes".
 
 ```
 program main
@@ -44,7 +44,7 @@ The code above will generate the map below:
 
 ## <span style="color:#734f96">Development</span>
 
-FPLT is currently developed further “as needed” for my research, but it may become useful for other researchers as it continues to grow - you are very welcome to contribute (through suggestions, coding, etc.) at any stage.
+FPLT is mostly developed “as needed” for my research, but it may become useful for other researchers as it continues to grow - you are very welcome to contribute (through suggestions, coding, etc.) at any stage.
 
 ## <span style="color:#734f96">Installation</span>
 
