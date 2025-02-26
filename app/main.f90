@@ -17,15 +17,14 @@ program main
 ! basic options
   implicit none
 
-! ==== Declarations
-  character(len=256) :: outfile
-
-! ==== Instructions
-
-! output
-  outfile = "test.ps"
+! modify preset colour map
+  DAT_cmap_greys%rgb(:,1) =[50, 50, 50]
+  DAT_cmap_greys%rgb(:,2) =[255, 255, 255]
+! modify preset range
+  DAT_cmap_greys%z_max = 2000
+  DAT_cmap_greys%z_step = 250
 
 ! plot map
-  call fplt_map(DAT_map_europe, outfile)
+  call fplt_map(DAT_map_europe, "ETOPO1_Bed_g_gmt4.grd", "topo.ps")
 
 end program main

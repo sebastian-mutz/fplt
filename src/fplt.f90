@@ -25,7 +25,7 @@ module fplt
   public :: TYP_cmap, TYP_map, TYP_module
 
 ! declare public data
-  public :: DAT_map_europe, DAT_mod_map01, DAT_cmap_greys
+  public :: DAT_map_europe, DAT_mod_coast01, DAT_cmap_greys
 
 ! declare public procedures
   public :: fplt_map
@@ -35,43 +35,53 @@ contains
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine fplt_map(map, outfile)
+subroutine fplt_map(map_opt, infile, outfile)
 
 ! ==== Description
 !! Uses fortran-gmt interface for creating a map.
 
 ! ==== Declarations
-  type(TYP_map)                  , intent(in) :: map
-  character(len=256)             , intent(in) :: outfile
+  type(TYP_map)                  , intent(in) :: map_opt
+  character(len=*)               , intent(in) :: infile, outfile
   type(c_ptr)                                 :: session
   character(kind=c_char, len=20)              :: session_name
   character(kind=c_char, len=256), target     :: args
   integer(c_int)                              :: status
   character(len=256)                          :: fstring
   type(TYP_module)                            :: module_stack(4)
+  integer(i4)                                 :: i
 
 ! ==== Instructions
 
-! TODO: decouple gmt module as subroutine and pass module_stack (and associated arguments) from fplt_map, fplt_xy, fplt_raster, etc.
-! TODO: create type for module stack and also includes arguments for each module
-
-! construct  module stack
-  module_stack(1) = DAT_mod_map01
-  module_stack(2) = DAT_mod_map01
-  module_stack(3) = DAT_mod_map01 ! pscoast
-  module_stack(4) = DAT_mod_map01
+! construct module stack for maps
+  module_stack(1) = DAT_mod_base01
+  module_stack(2) = DAT_mod_grdimg01
+  module_stack(3) = DAT_mod_coast01
+  module_stack(4) = DAT_mod_coast01
 
 ! initialise GMT session
   call gmt_init(session, session_name)
 
-! prepare the arguments
-  call gmt_args(map, outfile, fstring)
+! get args for making colour map
+  call gmt_args_cmap(DAT_cmap_greys, fstring)
   args = trim(fstring) // c_null_char
   write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
-! gmt module calls
-! TODO: loop through module stack
-  call gmt_module(session, trim(module_stack(3)%gmt_module), args)
+! make colour map
+  call gmt_module(session, "makecpt", args)
+  write(std_o, *) "> Colour map created: ", trim(DAT_cmap_greys%name)
+
+! work through module stack
+  do i=1,2
+
+     ! prepare the arguments
+     call gmt_args_map(map_opt, infile, outfile, module_stack(i), fstring)
+     args = trim(fstring) // c_null_char
+     write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
+
+     ! gmt module calls
+     call gmt_module(session, trim(module_stack(i)%gmt_module), args)
+  enddo
 
 ! destroy GMT session
   call gmt_destroy(session)
@@ -163,64 +173,152 @@ end subroutine gmt_destroy
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine gmt_args(map, outfile, fstring)
+subroutine gmt_args_cmap(cmap_opt, fstring)
 
 ! ==== Description
-!! crafts a fortran string from map options that serves
+!! Crafts a fortran string for making a colour map
+!! as argument string to be used in the gmt module
+
+! ==== Declarations
+  type(TYP_cmap)    , intent(in)  :: cmap_opt
+  character(len=256), intent(out) :: fstring
+  character(len=32)               :: fstring_partial
+
+! ==== Instructions
+
+  fstring = ""
+
+! RGB args
+  fstring = trim(fstring) // " -C"
+  write(fstring_partial, '(I3)') cmap_opt%rgb(1,1)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(I3)') cmap_opt%rgb(2,1)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(I3)') cmap_opt%rgb(3,1)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // ","
+  write(fstring_partial, '(I3)') cmap_opt%rgb(1,2)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(I3)') cmap_opt%rgb(2,2)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(I3)') cmap_opt%rgb(3,2)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+
+! Z value args
+  fstring = trim(fstring) // " -T"
+  write(fstring_partial, '(F17.2)') cmap_opt%z_min
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(F17.2)') cmap_opt%z_max
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(F17.2)') cmap_opt%z_step
+  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+
+! output
+  fstring = trim(fstring) // " -Z > " // trim(cmap_opt%name) // ".cpt"
+
+end subroutine gmt_args_cmap
+
+
+! ==================================================================== !
+! -------------------------------------------------------------------- !
+subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
+
+! ==== Description
+!! Crafts a fortran string from map options that serves
 !! as argument string to be used in the gmt module
 !! TODO: pass more args: typ_module (determines what args) are needed.
 !! TODO: make each option block conditional on logical values of module presets
 
 ! ==== Declarations
-  type(TYP_map)     , intent(in)   :: map
-  character(len=256), intent(in)   :: outfile
-  character(len=256), intent(out)  :: fstring
-  character(len=32)                :: fstring_partial
+  type(TYP_map)     , intent(in)  :: map_opt
+  type(TYP_module)  , intent(in)  :: module_opt
+  character(len=*)  , intent(in)  :: infile, outfile
+  character(len=256), intent(out) :: fstring
+  character(len=32)               :: fstring_partial
+
+  fstring = ""
+
+  ! infile
+  if (module_opt%infile) then
+     fstring = trim(fstring) // trim(infile)
+  endif
 
   ! region option
-  fstring="-R"
-  write(fstring_partial, '(F7.2)') map%region(1)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(F7.2)') map%region(2)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(F7.2)') map%region(3)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(F7.2)') map%region(4)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  if (module_opt%region) then
+     fstring = trim(fstring) // " -R"
+     write(fstring_partial, '(F7.2)') map_opt%region(1)
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+     write(fstring_partial, '(F7.2)') map_opt%region(2)
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+     write(fstring_partial, '(F7.2)') map_opt%region(3)
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+     write(fstring_partial, '(F7.2)') map_opt%region(4)
+     fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  endif
 
   ! projection and scale
-  fstring = trim(fstring) // " -J" // trim(map%projection)
+  if (module_opt%projection) then
+     fstring = trim(fstring) // " -J" // trim(map_opt%projection)
+  endif
 
   ! resolution
-  fstring = trim(fstring) // " -D" // trim(map%resolution)
+  if (module_opt%resolution) then
+     fstring = trim(fstring) // " -D" // trim(map_opt%resolution)
+  endif
 
   ! fill
-  fstring = trim(fstring) // " -G"
-  write(fstring_partial, '(I3)') map%fill(1)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') map%fill(2)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') map%fill(3)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  if (module_opt%fill) then
+     fstring = trim(fstring) // " -G"
+     write(fstring_partial, '(I3)') map_opt%fill(1)
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+     write(fstring_partial, '(I3)') map_opt%fill(2)
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+     write(fstring_partial, '(I3)') map_opt%fill(3)
+     fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  endif
 
   ! annotations and grid
-  fstring = trim(fstring) // " -B"
-  write(fstring_partial, '(F7.2)') map%an_maj
-  fstring = trim(fstring) // "a" // trim(adjustl(fstring_partial))
-  write(fstring_partial, '(F7.2)') map%an_min
-  fstring = trim(fstring) // "f" // trim(adjustl(fstring_partial))
-  write(fstring_partial, '(F7.2)') map%grid
-  fstring = trim(fstring) // "g" // trim(adjustl(fstring_partial))
+  if (module_opt%an_maj .and. module_opt%an_min .and. module_opt%grid) then
+     fstring = trim(fstring) // " -B"
+     write(fstring_partial, '(F7.2)') map_opt%an_maj
+     fstring = trim(fstring) // "a" // trim(adjustl(fstring_partial))
+     write(fstring_partial, '(F7.2)') map_opt%an_min
+     fstring = trim(fstring) // "f" // trim(adjustl(fstring_partial))
+     write(fstring_partial, '(F7.2)') map_opt%grid
+     fstring = trim(fstring) // "g" // trim(adjustl(fstring_partial))
+  endif
 
   ! pen
-  fstring = trim(fstring) // " -W"
-  write(fstring_partial, '(F3.1)') map%pen
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "p"
+  if (module_opt%pen) then
+     fstring = trim(fstring) // " -W"
+     write(fstring_partial, '(F3.1)') map_opt%pen
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "p"
+  endif
 
-  ! outfile
-  fstring = trim(fstring) // " > " // trim(outfile)
+  ! colour map
+  if (module_opt%cmap) then
+     fstring = trim(fstring) // " -C" // trim(map_opt%cmap) // ".cpt"
+  endif
 
-end subroutine gmt_args
+  ! writing/adding to outfile
+  if (module_opt%first) then
+     if (module_opt%last) then
+        ! single layer plot
+        fstring = trim(fstring) // " > " // trim(outfile)
+     else
+        ! first layer in a stack
+        fstring = trim(fstring) // " -K > " // trim(outfile)
+     endif
+  else
+     if (module_opt%last) then
+        ! sandwiched layer in stack
+        fstring = trim(fstring) // " -O >> " // trim(outfile)
+     else
+        ! last layer in a stack
+        fstring = trim(fstring) // " -O -K >> " // trim(outfile)
+     endif
+  endif
+
+end subroutine gmt_args_map
 
 
 end module fplt

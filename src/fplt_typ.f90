@@ -45,13 +45,17 @@ module fplt_typ
   type :: TYP_cmap
      !! Derived type for colour maps.
      !!
-     !! name : name of colour map
-     !! rgb  : array of rgb values to interpolate between to make cmap
-     !!        dimensions=(3,5), where 3 is for rgb, 2 = for 2 colour scale
+     !! name         : name of colour map
+     !! rgb          : array of rgb values to interpolate between to make cmap
+     !!                dimensions=(3,5), where 3 is for rgb, 2 = for 2 colour scale
+     !! z_min, z_max : range bounds (min and max value)
+     !! z_step       : step size (used for plotting)
+     !!
      !! TODO: change to max 5 colours to interpolate between and add attribute
      !!       that informs cpt construction (e.g., "use only first 2 colours")
-     character(len=20) :: name
+     character(len=16) :: name
      integer(i4)       :: rgb(3,2)
+     real(wp)          :: z_min, z_max, z_step
   end type TYP_cmap
 
 ! map
@@ -65,16 +69,13 @@ module fplt_typ
      !! an_maj, an_min  : major and minor annotations/labels
      !! grid            : grid spacing
      !! pen             : pen width (point)
-     !! z_min, z_max    : range bounds (min and max value)
-     !! z_step          : step size (used for plotting)
      !! title           : plot title (very top, larger)
      !! label_top       : label above figure (right aligned)
      !! label_bottom    : label below figure (centre)
      real(wp)           :: region(4)
      integer(i4)        :: fill(3)
-     character(len=8)   :: projection, resolution
+     character(len=16)  :: projection, resolution, cmap
      real(wp)           :: an_maj, an_min, grid, pen
-     real(wp)           :: z_min, z_max, z_step
      character(len=64)  :: title, label_top, label_bottom
   end type TYP_map
 
@@ -93,18 +94,18 @@ module fplt_typ
      !! an_maj, an_min  : major and minor annotations/labels
      !! grid            : grid spacing
      !! pen             : pen width (point)
-     !! z_min, z_max    : range bounds (min and max value)
-     !! z_step          : step size (used for plotting)
+     !! cmap            : use colour map
      !! title           : plot title (very top, larger)
      !! label_top       : label above figure (right aligned)
      !! label_bottom    : label below figure (centre)
-     !! overlay         : is module layed to be stacked on another (false for first)
+     !! first           : is module the bottom layer in stack
+     !! top             : is module the top layer in stack
      character(len=32) :: name, gmt_module
+     logical           :: infile
      logical           :: region, fill, projection, resolution
-     logical           :: an_maj, an_min, grid, pen
-     logical           :: z_min, z_max, z_step
+     logical           :: an_maj, an_min, grid, pen,  cmap
      logical           :: title, label_top, label_bottom
-     logical           :: overlay
+     logical           :: first, last
   end type TYP_module
 
 end module fplt_typ
