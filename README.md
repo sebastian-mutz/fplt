@@ -33,7 +33,7 @@ program main
   cmap_monochrome%z_step = 250
 
 ! create a topography map of europe using the "map_europe" template
-  call fplt_map(map_europe, "ETOPO1.grd", "outfile.ps")
+  call fplt_map(map_europe, "infile_topo.grd", "outfile.ps")
 
 end program main
 ```
