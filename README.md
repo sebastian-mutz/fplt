@@ -6,15 +6,13 @@
 
 A scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
 
+FPLT includes a Fortran interface for several GMT modules (using GMT’s C API). Additional features, provided through an abstraction layer, include Fortran derived types for colour maps, font management, and options for specific kinds of plots. Furthermore, FPLT includes procedures for the automatic construction of colour maps and (the infamously cryptic) GMT argument strings from pre-defined or user-defined options.
+
 The aim is to create a library that lets you:
 
  - visualise your data directly from your Fortran programme though familiar Fortran-native constructs,
  - produce professional figures quickly through the use of templates and automatic argument construction,
  - modify or create new templates easily from your programme (since these are simple Fortran-native constructs).
-
-## <span style="color:#734f96">How it works</span>
-
-FPLT includes a Fortran interface for several GMT modules (using GMT’s C API). Additional features, provided through an abstraction layer, include Fortran derived types for colour maps, font management, and options for specific kinds of plots. Furthermore, FPLT includes procedures for the automatic construction of colour maps and (the infamously cryptic) GMT argument strings from pre-defined or user-defined options.
 
 ## <span style="color:#734f96">Example</span>
 
