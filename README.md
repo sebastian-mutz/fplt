@@ -16,7 +16,7 @@ The aim is to create a library that lets you:
 
 ## <span style="color:#734f96">Example</span>
 
-The following code modifies a colour map preset *cmap_monochrome* before creating a topographic map of europe using the *map_europe* preset. All templates are simple derived types with initialised values that can be overwritten, as done with *cmap_monochrome* below. The *fplt_map* subroutine automatically generates gmt arguments (based on  *map_europe* template) and works through a stack of gmt modules to successively build your map "behind the scenes".
+The following code modifies a colour map template *cmap_monochrome* before creating a topographic map of europe using the *map_europe* template. All templates are simple derived types with initialised values that can be overwritten, as done with *cmap_monochrome* below. The *fplt_map* subroutine automatically generates gmt arguments (based on  *map_europe* template) and works through a stack of gmt modules to successively build your map "behind the scenes".
 
 ```
 program main
@@ -32,7 +32,7 @@ program main
 ! modify lower bound of colour map present (start with dark grey, not black)
   cmap_monochrome%rgb(:,1) =[50, 50, 50]
 
-! modify preset value range and step size
+! modify template value range and step size
   cmap_monochrome%z_max = 2000
   cmap_monochrome%z_step = 250
 
