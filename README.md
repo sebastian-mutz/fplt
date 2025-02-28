@@ -1,21 +1,24 @@
 # <span style="color:#734f96">FPLT - Fortran Plotting Library</span>
 
-A Fortran plotting library built mostly on GMT (Generic Mapping Tools).
+![image info](./doc/logo/FPLT.png)
 
 ## <span style="color:#734f96">Description</span>
 
-![image info](./doc/logo/FPLT.png)
-
-FPLT is a Fortran plotting library for producing publication-ready, high quality geographical maps, xy-plots, heat maps, animated figures, and more. It is built mostly on GMT (Generic Mapping Tools). FPLT includes a Fortran interface for several GMT modules (using GMT’s C API). Additional features, provided through an abstraction layer, include Fortran derived types for colour maps, font management, and options for specific kinds of plots. Furthermore, FPLT includes procedures for the automatic construction of colour maps and (the infamously cryptic) GMT argument strings from pre-defined or user-defined option sets.
+A scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
 
 The aim is to create a library that lets you:
- - visualise your data directly from your Fortran programme,
- - produce professional figures quickly through the use of presets and automatic argument construction,
- - modify or create new presets easily from your programme (since these are simple data collections in the form of Fortran derived types).
+
+ - visualise your data directly from your Fortran programme though familiar Fortran-native constructs,
+ - produce professional figures quickly through the use of templates and automatic argument construction,
+ - modify or create new templates easily from your programme (since these are simple Fortran-native constructs).
+
+## <span style="color:#734f96">How it works</span>
+
+FPLT includes a Fortran interface for several GMT modules (using GMT’s C API). Additional features, provided through an abstraction layer, include Fortran derived types for colour maps, font management, and options for specific kinds of plots. Furthermore, FPLT includes procedures for the automatic construction of colour maps and (the infamously cryptic) GMT argument strings from pre-defined or user-defined options.
 
 ## <span style="color:#734f96">Example</span>
 
-The following code modifies a colour map preset *cmap_monochrome* before creating a topographic map of europe using the *map_europe* preset. All presets are simple derived types with initialised values that can be overwritten, as done with *cmap_monochrome* below. The *fplt_map* subroutine automatically generates gmt arguments (based on  *map_europe* presets) and works through a stack of gmt modules to successively build your map "behind the scenes".
+The following code modifies a colour map preset *cmap_monochrome* before creating a topographic map of europe using the *map_europe* preset. All templates are simple derived types with initialised values that can be overwritten, as done with *cmap_monochrome* below. The *fplt_map* subroutine automatically generates gmt arguments (based on  *map_europe* template) and works through a stack of gmt modules to successively build your map "behind the scenes".
 
 ```
 program main
@@ -25,7 +28,10 @@ program main
 
   implicit none
 
-! modify lower bound of colour map present
+! choose colour map
+  map_europe%cmap = "monochrome"
+
+! modify lower bound of colour map present (start with dark grey, not black)
   cmap_monochrome%rgb(:,1) =[50, 50, 50]
 
 ! modify preset value range and step size
