@@ -42,21 +42,21 @@ module fplt_dat
   data DAT_cmap_greys%name /"monochrome"/
   data (DAT_cmap_greys%rgb(i,1), i=1,3) /0, 0, 0/
   data (DAT_cmap_greys%rgb(i,2), i=1,3) /255, 255, 255/
-  data DAT_cmap_greys%z_min             /0.0/
-  data DAT_cmap_greys%z_max             /100.0/
-  data DAT_cmap_greys%z_step            /5.0/
+  data DAT_cmap_greys%z_min             /0.0_wp/
+  data DAT_cmap_greys%z_max             /100.0_wp/
+  data DAT_cmap_greys%z_step            /5.0_wp/
 
 ! ---- maps
 
 ! europe map options
-  data DAT_map_europe%region     /-30, 60, 30, 72/
+  data DAT_map_europe%region     /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
   data DAT_map_europe%fill       /200, 200, 200/
   data DAT_map_europe%projection /"M15c"/
   data DAT_map_europe%resolution /"l"/
-  data DAT_map_europe%an_maj     /20/
-  data DAT_map_europe%an_min     /10/
-  data DAT_map_europe%grid       /2/
-  data DAT_map_europe%pen        /0.5/
+  data DAT_map_europe%an_maj     /20.0_wp/
+  data DAT_map_europe%an_min     /10.0_wp/
+  data DAT_map_europe%grid       /2.0_wp/
+  data DAT_map_europe%pen        /0.5_wp/
   data DAT_map_europe%cmap       /"monochrome"/
 
 ! ---- gmt module options (args construction)
