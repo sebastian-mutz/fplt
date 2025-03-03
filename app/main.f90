@@ -21,10 +21,11 @@ program main
   DAT_cmap_greys%rgb(:,1) =[50, 50, 50]
   DAT_cmap_greys%rgb(:,2) =[255, 255, 255]
 ! modify preset range
-  DAT_cmap_greys%z_max = 2000
-  DAT_cmap_greys%z_step = 250
+  DAT_cmap_greys%z_min = -1 !2000
+  DAT_cmap_greys%z_max = 1 !2000
+  DAT_cmap_greys%z_step = 0.1 !250
 
 ! plot map
-  call fplt_map(DAT_map_europe, "ETOPO1_Bed_g_gmt4.grd", "topo.ps")
+  call fplt_map(DAT_map_europe, "tmp.grd", "topo.ps")
 
 end program main
