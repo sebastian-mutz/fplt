@@ -62,6 +62,23 @@ subroutine fplt_map(map_opt, infile, outfile)
 ! initialise GMT session
   call gmt_init(session, session_name)
 
+! determine file format
+  call get_format(infile, fstring)
+  write(std_o, *) "> File format: ", trim(fstring)
+
+! convert file format if necessary
+  if (fstring .eq. "text") then
+     ! construct arguments
+     call gmt_args_xyz2grd(map_opt, infile, "temp.grd", fstring)
+     args = trim(fstring) // c_null_char
+     write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
+     ! gmt module calls
+     call gmt_module(session, "xyz2grd", args)
+     ! update infile
+!     infile="temp.grd"
+     stop
+  endif
+
 ! get args for making colour map
   call gmt_args_cmap(DAT_cmap_greys, fstring)
   args = trim(fstring) // c_null_char
@@ -173,6 +190,50 @@ end subroutine gmt_destroy
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
+subroutine gmt_args_xyz2grd(map_opt, infile, outfile, fstring)
+
+! ==== Description
+!! Crafts a fortran string for making a colour map
+!! as argument string to be used in the gmt module
+
+! ==== Declarations
+  type(TYP_map)     , intent(in)  :: map_opt
+  character(len=*)  , intent(in)  :: infile, outfile
+  character(len=256), intent(out) :: fstring
+  character(len=32)               :: fstring_partial
+
+! ==== Instructions
+
+  fstring = ""
+
+! infile
+  fstring = trim(fstring) // trim(infile)
+
+! region option
+  fstring = trim(fstring) // " -R"
+  write(fstring_partial, '(F7.2)') map_opt%region(1)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(F7.2)') map_opt%region(2)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(F7.2)') map_opt%region(3)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(F7.2)') map_opt%region(4)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+
+! set grid spacing; make high res (0.01 degrees) as default
+! TODO: worth making an option? not an attribute of map, so perhaps make
+! derived type for files
+  fstring = trim(fstring) // " -I1d"
+
+! grid output
+  fstring = trim(fstring) // " -G" // trim(outfile)
+
+end subroutine gmt_args_xyz2grd
+
+
+
+! ==================================================================== !
+! -------------------------------------------------------------------- !
 subroutine gmt_args_cmap(cmap_opt, fstring)
 
 ! ==== Description
@@ -234,6 +295,8 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
   character(len=*)  , intent(in)  :: infile, outfile
   character(len=256), intent(out) :: fstring
   character(len=32)               :: fstring_partial
+
+! ==== Instructions
 
   fstring = ""
 
@@ -319,6 +382,56 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
   endif
 
 end subroutine gmt_args_map
+
+
+! ==================================================================== !
+! -------------------------------------------------------------------- !
+subroutine get_format(filename, fmt)
+
+! ==== Description
+!! Determines file format by extension.
+!! in : filename - name of file
+!! out: fmt      - file format description
+
+! ==== Declarations
+  character(len=*), intent(in)  :: filename
+  character(len=*), intent(out) :: fmt
+  integer                       :: i, position, len_filename
+  character(len=10)             :: ext
+
+! ==== Instructions
+
+! initialize format
+  fmt = "unknown"
+
+! get the length of the filename
+  len_filename = len(trim(filename))
+
+! find the last occurrence of '.'
+  position = 0
+  do i = len_filename, 1, -1
+     if (filename(i:i) .eq. ".") then
+        position = i
+        exit
+     endif
+  enddo
+
+! if a dot is found and it's not the first character
+  if (position .gt. 1 .and. position .lt. len_filename) then
+     ext = filename(position+1:len_filename)
+
+     ! compare extensions to known formats
+     select case (trim(ext))
+        case ("txt", "TXT", "asc", "ASC")
+           fmt = "text"
+        case ("grd", "GRD")
+           fmt = "grid"
+        case default
+           fmt = 'unknown'
+     end select
+  endif
+
+end subroutine get_format
 
 
 end module fplt

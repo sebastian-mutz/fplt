@@ -67,7 +67,7 @@ module fplt_typ
      !! projection      : projection and scale (in cm)
      !! resolution      : resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)
      !! an_maj, an_min  : major and minor annotations/labels
-     !! grid            : grid spacing
+     !! grid            : grid spacing drawn
      !! pen             : pen width (point)
      !! title           : plot title (very top, larger)
      !! label_top       : label above figure (right aligned)

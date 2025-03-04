@@ -26,6 +26,7 @@ program main
   DAT_cmap_greys%z_step = 0.1 !250
 
 ! plot map
+!  call fplt_map(DAT_map_europe, "00_v200JJA_eofs.asc", "topo.ps")
   call fplt_map(DAT_map_europe, "tmp.grd", "topo.ps")
 
 end program main
