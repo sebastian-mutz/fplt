@@ -43,6 +43,7 @@ subroutine fplt_map(map_opt, infile, outfile)
 ! ==== Declarations
   type(TYP_map)                  , intent(in) :: map_opt
   character(len=*)               , intent(in) :: infile, outfile
+  character(len=256)                          :: workfile
   type(c_ptr)                                 :: session
   character(kind=c_char, len=20)              :: session_name
   character(kind=c_char, len=256), target     :: args
@@ -58,26 +59,39 @@ subroutine fplt_map(map_opt, infile, outfile)
   module_stack(2) = DAT_mod_grdimg01
   module_stack(3) = DAT_mod_coast01
   module_stack(4) = DAT_mod_coast01
+  write(std_o, *) "> Fortran-GMT module stack created"
 
 ! initialise GMT session
   call gmt_init(session, session_name)
 
 ! determine file format
   call get_format(infile, fstring)
-  write(std_o, *) "> File format: ", trim(fstring)
+  write(std_o, *) "> Input file format: ", trim(fstring)
 
 ! convert file format if necessary
-  if (fstring .eq. "text") then
-     ! construct arguments
-     call gmt_args_xyz2grd(map_opt, infile, "temp.grd", fstring)
-     args = trim(fstring) // c_null_char
-     write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
-     ! gmt module calls
-     call gmt_module(session, "xyz2grd", args)
-     ! update infile
-!     infile="temp.grd"
-     stop
-  endif
+! TODO: seperatre module if expanded
+  select case (fstring)
+     case ("text")
+        ! update workfile
+        workfile="temp.grd"
+
+        ! construct arguments
+        call gmt_args_xyz2grd(map_opt, infile, workfile, fstring)
+        args = trim(fstring) // c_null_char
+        write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
+
+        ! gmt module calls
+        call gmt_module(session, "xyz2grd", args)
+        write(std_o, *) "> Text file converted to grid file: ", trim(workfile)
+
+     case ("grid")
+        ! use infile as working file
+        workfile=infile
+
+     case ("unknown")
+        write(std_o, *) "> Unknown file format. Stopping."
+        stop
+  end select
 
 ! get args for making colour map
   call gmt_args_cmap(DAT_cmap_greys, fstring)
@@ -92,7 +106,7 @@ subroutine fplt_map(map_opt, infile, outfile)
   do i=1,2
 
      ! prepare the arguments
-     call gmt_args_map(map_opt, infile, outfile, module_stack(i), fstring)
+     call gmt_args_map(map_opt, workfile, outfile, module_stack(i), fstring)
      args = trim(fstring) // c_null_char
      write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
@@ -220,10 +234,10 @@ subroutine gmt_args_xyz2grd(map_opt, infile, outfile, fstring)
   write(fstring_partial, '(F7.2)') map_opt%region(4)
   fstring = trim(fstring) // trim(adjustl(fstring_partial))
 
-! set grid spacing; make high res (0.01 degrees) as default
+! set grid spacing; make high res (2 degrees) as default
 ! TODO: worth making an option? not an attribute of map, so perhaps make
-! derived type for files
-  fstring = trim(fstring) // " -I1d"
+! derived type for files. Alternatively determine automatically
+  fstring = trim(fstring) // " -I2d"
 
 ! grid output
   fstring = trim(fstring) // " -G" // trim(outfile)
