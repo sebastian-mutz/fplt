@@ -25,12 +25,12 @@ module fplt_dat
   public :: DAT_cmap_greys
 
 ! declase public module option lists
-  public :: DAT_mod_base01, DAT_mod_base02, DAT_mod_grdimg01, DAT_mod_coast01
+  public :: DAT_mod_base01, DAT_mod_grdimg01, DAT_mod_coast01, DAT_mod_title01
 
 ! ==== Declarations
 
   type(TYP_map)    :: DAT_map_europe
-  type(TYP_module) :: DAT_mod_base01, DAT_mod_base02, DAT_mod_grdimg01, DAT_mod_coast01
+  type(TYP_module) :: DAT_mod_base01, DAT_mod_grdimg01, DAT_mod_coast01, DAT_mod_title01
   type(TYP_cmap)   :: DAT_cmap_greys
   integer          :: i
 
@@ -49,15 +49,19 @@ module fplt_dat
 ! ---- maps
 
 ! europe map options
-  data DAT_map_europe%region     /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
-  data DAT_map_europe%fill       /200, 200, 200/
-  data DAT_map_europe%projection /"M15c"/
-  data DAT_map_europe%resolution /"l"/
-  data DAT_map_europe%an_maj     /20.0_wp/
-  data DAT_map_europe%an_min     /10.0_wp/
-  data DAT_map_europe%grid       /2.0_wp/
-  data DAT_map_europe%pen        /0.5_wp/
-  data DAT_map_europe%cmap       /"monochrome"/
+  data DAT_map_europe%region       /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
+  data DAT_map_europe%fill         /200, 200, 200/
+  data DAT_map_europe%projection   /"M"/
+  data DAT_map_europe%scale        /15.0_wp/
+  data DAT_map_europe%resolution   /"l"/
+  data DAT_map_europe%an_maj       /20.0_wp/
+  data DAT_map_europe%an_min       /10.0_wp/
+  data DAT_map_europe%grid         /2.0_wp/
+  data DAT_map_europe%pen          /0.5_wp/
+  data DAT_map_europe%cmap         /"monochrome"/
+  data DAT_map_europe%title        /"title"/
+  data DAT_map_europe%label_top    /"variable"/
+  data DAT_map_europe%label_bottom /"units"/
 
 ! ---- gmt module options (args construction)
 
@@ -66,7 +70,7 @@ module fplt_dat
   data DAT_mod_coast01%gmt_module   /"pscoast"/
   data DAT_mod_coast01%infile       /.false./
   data DAT_mod_coast01%region       /.true./
-  data DAT_mod_coast01%fill         /.true./
+  data DAT_mod_coast01%fill         /.false./
   data DAT_mod_coast01%projection   /.true./
   data DAT_mod_coast01%resolution   /.true./
   data DAT_mod_coast01%an_maj       /.true./
@@ -119,23 +123,23 @@ module fplt_dat
   data DAT_mod_base01%last         /.false./
 
 ! gmt argument selection - basemap layer
-  data DAT_mod_base02%name         /"basemap_top"/
-  data DAT_mod_base02%gmt_module   /"psbasemap"/
-  data DAT_mod_base02%infile       /.false./
-  data DAT_mod_base02%region       /.true./
-  data DAT_mod_base02%fill         /.true./
-  data DAT_mod_base02%projection   /.true./
-  data DAT_mod_base02%resolution   /.false./
-  data DAT_mod_base02%an_maj       /.true./
-  data DAT_mod_base02%an_min       /.true./
-  data DAT_mod_base02%grid         /.true./
-  data DAT_mod_base02%pen          /.false./
-  data DAT_mod_base02%cmap         /.false./
-  data DAT_mod_base02%title        /.false./
-  data DAT_mod_base02%label_top    /.false./
-  data DAT_mod_base02%label_bottom /.false./
-  data DAT_mod_base02%first        /.false./
-  data DAT_mod_base02%last         /.false./
+  data DAT_mod_title01%name         /"title"/
+  data DAT_mod_title01%gmt_module   /"pstext"/
+  data DAT_mod_title01%infile       /.false./
+  data DAT_mod_title01%region       /.true./
+  data DAT_mod_title01%fill         /.true./
+  data DAT_mod_title01%projection   /.true./
+  data DAT_mod_title01%resolution   /.false./
+  data DAT_mod_title01%an_maj       /.true./
+  data DAT_mod_title01%an_min       /.true./
+  data DAT_mod_title01%grid         /.true./
+  data DAT_mod_title01%pen          /.false./
+  data DAT_mod_title01%cmap         /.false./
+  data DAT_mod_title01%title        /.false./
+  data DAT_mod_title01%label_top    /.false./
+  data DAT_mod_title01%label_bottom /.false./
+  data DAT_mod_title01%first        /.false./
+  data DAT_mod_title01%last         /.false./
 
 ! NOTE: for reference for test below:
 ! gmt psbasemap -R${REGION} -J${PROJECTION} -Ba20f20g1 -BWS -X2.5 -Y6 -P -K >${OUTFILE}

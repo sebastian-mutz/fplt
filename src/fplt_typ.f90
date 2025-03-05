@@ -64,7 +64,8 @@ module fplt_typ
      !!
      !! region          : regional bounds: lon_min, lon_max, lat_min, lat_max
      !! fill            : RGB values for fill
-     !! projection      : projection and scale (in cm)
+     !! projection      : projection
+     !! scale           : scale (in cm)
      !! resolution      : resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)
      !! an_maj, an_min  : major and minor annotations/labels
      !! grid            : grid spacing drawn
@@ -75,6 +76,7 @@ module fplt_typ
      real(wp)           :: region(4)
      integer(i4)        :: fill(3)
      character(len=16)  :: projection, resolution, cmap
+     real(wp)           :: scale
      real(wp)           :: an_maj, an_min, grid, pen
      character(len=64)  :: title, label_top, label_bottom
   end type TYP_map
@@ -89,7 +91,7 @@ module fplt_typ
      !! gmt_module      : name of gmt module to be used with template (e.g., pscoast)
      !! region          : regional bounds: lon_min, lon_max, lat_min, lat_max
      !! fill            : RGB values for fill
-     !! projection      : projection and scale (in cm)
+     !! projection      : projection and scale
      !! resolution      : resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)
      !! an_maj, an_min  : major and minor annotations/labels
      !! grid            : grid spacing
@@ -103,7 +105,7 @@ module fplt_typ
      character(len=32) :: name, gmt_module
      logical           :: infile
      logical           :: region, fill, projection, resolution
-     logical           :: an_maj, an_min, grid, pen,  cmap
+     logical           :: an_maj, an_min, grid, pen, cmap
      logical           :: title, label_top, label_bottom
      logical           :: first, last
   end type TYP_module

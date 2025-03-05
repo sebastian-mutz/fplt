@@ -58,7 +58,7 @@ subroutine fplt_map(map_opt, infile, outfile)
   module_stack(1) = DAT_mod_base01
   module_stack(2) = DAT_mod_grdimg01
   module_stack(3) = DAT_mod_coast01
-  module_stack(4) = DAT_mod_coast01
+  module_stack(4) = DAT_mod_title01
   write(std_o, *) "> Fortran-GMT module stack created"
 
 ! initialise GMT session
@@ -103,7 +103,7 @@ subroutine fplt_map(map_opt, infile, outfile)
   write(std_o, *) "> Colour map created: ", trim(DAT_cmap_greys%name)
 
 ! work through module stack
-  do i=1,2
+  do i=1,3
 
      ! prepare the arguments
      call gmt_args_map(map_opt, workfile, outfile, module_stack(i), fstring)
@@ -245,7 +245,6 @@ subroutine gmt_args_xyz2grd(map_opt, infile, outfile, fstring)
 end subroutine gmt_args_xyz2grd
 
 
-
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
 subroutine gmt_args_cmap(cmap_opt, fstring)
@@ -335,6 +334,8 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
   ! projection and scale
   if (module_opt%projection) then
      fstring = trim(fstring) // " -J" // trim(map_opt%projection)
+     write(fstring_partial, '(F7.2)') map_opt%scale
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "c"
   endif
 
   ! resolution
