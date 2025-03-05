@@ -49,7 +49,7 @@ subroutine fplt_map(map_opt, infile, outfile)
   character(kind=c_char, len=256), target     :: args
   integer(c_int)                              :: status
   character(len=256)                          :: fstring
-  type(TYP_module)                            :: module_stack(4)
+  type(TYP_module)                            :: module_stack(7)
   integer(i4)                                 :: i
 
 ! ==== Instructions
@@ -58,7 +58,10 @@ subroutine fplt_map(map_opt, infile, outfile)
   module_stack(1) = DAT_mod_base01
   module_stack(2) = DAT_mod_grdimg01
   module_stack(3) = DAT_mod_coast01
-  module_stack(4) = DAT_mod_title01
+  module_stack(4) = DAT_mod_scale01
+  module_stack(5) = DAT_mod_text01
+  module_stack(6) = DAT_mod_text02
+  module_stack(7) = DAT_mod_text03
   write(std_o, *) "> Fortran-GMT module stack created"
 
 ! initialise GMT session
@@ -103,7 +106,7 @@ subroutine fplt_map(map_opt, infile, outfile)
   write(std_o, *) "> Colour map created: ", trim(DAT_cmap_greys%name)
 
 ! work through module stack
-  do i=1,3
+  do i=1,size(module_stack)
 
      ! prepare the arguments
      call gmt_args_map(map_opt, workfile, outfile, module_stack(i), fstring)
@@ -113,6 +116,9 @@ subroutine fplt_map(map_opt, infile, outfile)
      ! gmt module calls
      call gmt_module(session, trim(module_stack(i)%gmt_module), args)
   enddo
+
+! work through annotation module stack
+
 
 ! destroy GMT session
   call gmt_destroy(session)
@@ -363,6 +369,8 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
      fstring = trim(fstring) // "f" // trim(adjustl(fstring_partial))
      write(fstring_partial, '(F7.2)') map_opt%grid
      fstring = trim(fstring) // "g" // trim(adjustl(fstring_partial))
+     ! specify sides for annotations
+     fstring = trim(fstring) // " -BWNes"
   endif
 
   ! pen
@@ -377,6 +385,29 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
      fstring = trim(fstring) // " -C" // trim(map_opt%cmap) // ".cpt"
   endif
 
+  ! additional colour bar options
+  if (module_opt%cbar) then
+     fstring = trim(fstring) // " -B0.5f0.1 -DJRM+v+w100%"
+  endif
+
+  ! title (top centre)
+  ! TODO: separate font options
+  if (module_opt%title) then
+     fstring = trim(fstring) // " -Y3 -F+cTC+f24p+t" // trim(map_opt%title)
+  endif
+
+  ! top left corner text
+  ! TODO: separate font options
+  if (module_opt%label_top) then
+     fstring = trim(fstring) // " -Y-1.5 -F+cTL+f20p+t" // trim(map_opt%label_top)
+  endif
+
+  ! bottom centrer text
+  ! TODO: separate font options
+  if (module_opt%label_bottom) then
+     fstring = trim(fstring) // " -Y-2.5 -F+cBC+f20p+t" // trim(map_opt%label_bottom)
+  endif
+
   ! writing/adding to outfile
   if (module_opt%first) then
      if (module_opt%last) then
@@ -388,10 +419,10 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
      endif
   else
      if (module_opt%last) then
-        ! sandwiched layer in stack
+        ! last layer in a stack
         fstring = trim(fstring) // " -O >> " // trim(outfile)
      else
-        ! last layer in a stack
+        ! sandwiched layer in stack
         fstring = trim(fstring) // " -O -K >> " // trim(outfile)
      endif
   endif

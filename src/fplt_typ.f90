@@ -68,6 +68,8 @@ module fplt_typ
      !! scale           : scale (in cm)
      !! resolution      : resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)
      !! an_maj, an_min  : major and minor annotations/labels
+     !! an_ticks        : which side to put major annotation ticks (coordinates) on
+     !!                   e.g., WNes = coordinates annotated on west and north side
      !! grid            : grid spacing drawn
      !! pen             : pen width (point)
      !! title           : plot title (very top, larger)
@@ -78,6 +80,7 @@ module fplt_typ
      character(len=16)  :: projection, resolution, cmap
      real(wp)           :: scale
      real(wp)           :: an_maj, an_min, grid, pen
+     character(len=64)  :: an_ticks
      character(len=64)  :: title, label_top, label_bottom
   end type TYP_map
 
@@ -97,6 +100,7 @@ module fplt_typ
      !! grid            : grid spacing
      !! pen             : pen width (point)
      !! cmap            : use colour map
+     !! cbar            : additional colour bar options
      !! title           : plot title (very top, larger)
      !! label_top       : label above figure (right aligned)
      !! label_bottom    : label below figure (centre)
@@ -105,7 +109,7 @@ module fplt_typ
      character(len=32) :: name, gmt_module
      logical           :: infile
      logical           :: region, fill, projection, resolution
-     logical           :: an_maj, an_min, grid, pen, cmap
+     logical           :: an_maj, an_min, grid, pen, cmap, cbar
      logical           :: title, label_top, label_bottom
      logical           :: first, last
   end type TYP_module
