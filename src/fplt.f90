@@ -386,6 +386,7 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
   endif
 
   ! additional colour bar options
+  ! TODO: add cbar_ticks (and scale position?) to map options
   if (module_opt%cbar) then
      fstring = trim(fstring) // " -B0.5f0.1 -DJRM+v+w100%"
   endif

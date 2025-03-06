@@ -61,7 +61,7 @@ module fplt_dat
   data DAT_map_europe%an_maj       /20.0_wp/
   data DAT_map_europe%an_min       /10.0_wp/
   data DAT_map_europe%an_ticks     /"WNes"/
-  data DAT_map_europe%grid         /2.0_wp/
+  data DAT_map_europe%grid         /5.0_wp/
   data DAT_map_europe%pen          /0.5_wp/
   data DAT_map_europe%cmap         /"monochrome"/
   data DAT_map_europe%title        /"title"/
