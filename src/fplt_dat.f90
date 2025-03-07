@@ -18,8 +18,11 @@ module fplt_dat
   implicit none
   private
 
+! settings
+  public :: DAT_set_default
+
 ! declare public maps
-  public :: DAT_map_europe
+  public :: DAT_map_default
 
 ! declare public colour maps
   public :: DAT_cmap_greys
@@ -31,14 +34,34 @@ module fplt_dat
 
 ! ==== Declarations
 
-  type(TYP_map)    :: DAT_map_europe
-  type(TYP_module) :: DAT_mod_base01, DAT_mod_grdimg01, DAT_mod_coast01
-  type(TYP_module) :: DAT_mod_text01, DAT_mod_text02, DAT_mod_text03
-  type(TYP_module) :: DAT_mod_scale01
-  type(TYP_cmap)   :: DAT_cmap_greys
-  integer          :: i
+  type(TYP_map)      :: DAT_map_default
+  type(TYP_settings) :: DAT_set_default
+  type(TYP_module)   :: DAT_mod_base01, DAT_mod_grdimg01, DAT_mod_coast01
+  type(TYP_module)   :: DAT_mod_text01, DAT_mod_text02, DAT_mod_text03
+  type(TYP_module)   :: DAT_mod_scale01
+  type(TYP_cmap)     :: DAT_cmap_greys
+  integer            :: i
 
 ! ==== Data (presents)
+
+! ---- gmt settings
+
+  data DAT_set_default%font               /"Helvetica"/
+  data DAT_set_default%col_font_primary   /50, 50, 50/
+  data DAT_set_default%col_font_secondary /100, 100, 100/
+  data DAT_set_default%col_lines_primary  /100, 100, 100/
+  data DAT_set_default%col_background     /255, 255, 255/
+  data DAT_set_default%col_foreground     /255, 255, 255/
+  data DAT_set_default%col_nan            /255, 255, 255/
+  data DAT_set_default%font_size_primary  /18.0_wp/
+  data DAT_set_default%font_size_title    /25.0_wp/
+  data DAT_set_default%font_size_label    /20.0_wp/
+  data DAT_set_default%pen_grid           /0.1_wp/
+  data DAT_set_default%pen_tick           /1.0_wp/
+  data DAT_set_default%pen_frame          /0.5_wp/
+  data DAT_set_default%paper_width        /600.0_wp/
+  data DAT_set_default%paper_height       /500.0_wp/
+
 
 ! ---- colour maps
 
@@ -53,20 +76,23 @@ module fplt_dat
 ! ---- maps
 
 ! europe map options
-  data DAT_map_europe%region       /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
-  data DAT_map_europe%fill         /200, 200, 200/
-  data DAT_map_europe%projection   /"M"/
-  data DAT_map_europe%scale        /15.0_wp/
-  data DAT_map_europe%resolution   /"l"/
-  data DAT_map_europe%an_maj       /20.0_wp/
-  data DAT_map_europe%an_min       /10.0_wp/
-  data DAT_map_europe%an_ticks     /"WNes"/
-  data DAT_map_europe%grid         /5.0_wp/
-  data DAT_map_europe%pen          /0.5_wp/
-  data DAT_map_europe%cmap         /"monochrome"/
-  data DAT_map_europe%title        /"title"/
-  data DAT_map_europe%label_top    /"units"/
-  data DAT_map_europe%label_bottom /"variable"/
+  data DAT_map_default%region          /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
+  data DAT_map_default%fill            /200, 200, 200/
+  data DAT_map_default%projection      /"M"/
+  data DAT_map_default%scale           /400.0_wp/
+  data DAT_map_default%resolution      /"l"/
+  data DAT_map_default%an_major        /20.0_wp/
+  data DAT_map_default%an_minor        /10.0_wp/
+  data DAT_map_default%an_ticks        /"WNes"/
+  data DAT_map_default%grid            /5.0_wp/
+  data DAT_map_default%pen             /0.5_wp/
+  data DAT_map_default%cmap            /"monochrome"/
+  data DAT_map_default%cbar_tick_major /0.5_wp/
+  data DAT_map_default%cbar_tick_minor /0.1_wp/
+  data DAT_map_default%cbar_size       /100.0_wp/
+  data DAT_map_default%title           /"title"/
+  data DAT_map_default%label_top       /"units"/
+  data DAT_map_default%label_bottom    /"variable"/
 
 ! ---- gmt module options (args construction)
 
@@ -78,8 +104,8 @@ module fplt_dat
   data DAT_mod_coast01%fill         /.false./
   data DAT_mod_coast01%projection   /.true./
   data DAT_mod_coast01%resolution   /.true./
-  data DAT_mod_coast01%an_maj       /.true./
-  data DAT_mod_coast01%an_min       /.true./
+  data DAT_mod_coast01%an_major       /.true./
+  data DAT_mod_coast01%an_minor       /.true./
   data DAT_mod_coast01%grid         /.true./
   data DAT_mod_coast01%pen          /.true./
   data DAT_mod_coast01%cmap         /.false./
@@ -98,8 +124,8 @@ module fplt_dat
   data DAT_mod_grdimg01%fill         /.false./
   data DAT_mod_grdimg01%projection   /.true./
   data DAT_mod_grdimg01%resolution   /.false./
-  data DAT_mod_grdimg01%an_maj       /.false./
-  data DAT_mod_grdimg01%an_min       /.false./
+  data DAT_mod_grdimg01%an_major       /.false./
+  data DAT_mod_grdimg01%an_minor       /.false./
   data DAT_mod_grdimg01%grid         /.false./
   data DAT_mod_grdimg01%pen          /.false./
   data DAT_mod_grdimg01%cmap         /.true./
@@ -118,8 +144,8 @@ module fplt_dat
   data DAT_mod_base01%fill         /.false./
   data DAT_mod_base01%projection   /.true./
   data DAT_mod_base01%resolution   /.false./
-  data DAT_mod_base01%an_maj       /.true./
-  data DAT_mod_base01%an_min       /.true./
+  data DAT_mod_base01%an_major       /.true./
+  data DAT_mod_base01%an_minor       /.true./
   data DAT_mod_base01%grid         /.true./
   data DAT_mod_base01%pen          /.false./
   data DAT_mod_base01%cmap         /.false./
@@ -138,8 +164,8 @@ module fplt_dat
   data DAT_mod_text01%fill         /.false./
   data DAT_mod_text01%projection   /.true./
   data DAT_mod_text01%resolution   /.false./
-  data DAT_mod_text01%an_maj       /.false./
-  data DAT_mod_text01%an_min       /.false./
+  data DAT_mod_text01%an_major       /.false./
+  data DAT_mod_text01%an_minor       /.false./
   data DAT_mod_text01%grid         /.false./
   data DAT_mod_text01%pen          /.false./
   data DAT_mod_text01%cmap         /.false./
@@ -158,8 +184,8 @@ module fplt_dat
   data DAT_mod_text02%fill         /.false./
   data DAT_mod_text02%projection   /.true./
   data DAT_mod_text02%resolution   /.false./
-  data DAT_mod_text02%an_maj       /.false./
-  data DAT_mod_text02%an_min       /.false./
+  data DAT_mod_text02%an_major       /.false./
+  data DAT_mod_text02%an_minor       /.false./
   data DAT_mod_text02%grid         /.false./
   data DAT_mod_text02%pen          /.false./
   data DAT_mod_text02%cmap         /.false./
@@ -178,8 +204,8 @@ module fplt_dat
   data DAT_mod_text03%fill         /.false./
   data DAT_mod_text03%projection   /.true./
   data DAT_mod_text03%resolution   /.false./
-  data DAT_mod_text03%an_maj       /.false./
-  data DAT_mod_text03%an_min       /.false./
+  data DAT_mod_text03%an_major       /.false./
+  data DAT_mod_text03%an_minor       /.false./
   data DAT_mod_text03%grid         /.false./
   data DAT_mod_text03%pen          /.false./
   data DAT_mod_text03%cmap         /.false./
@@ -198,8 +224,8 @@ module fplt_dat
   data DAT_mod_scale01%fill         /.false./
   data DAT_mod_scale01%projection   /.true./
   data DAT_mod_scale01%resolution   /.false./
-  data DAT_mod_scale01%an_maj       /.true./
-  data DAT_mod_scale01%an_min       /.false./
+  data DAT_mod_scale01%an_major       /.true./
+  data DAT_mod_scale01%an_minor       /.false./
   data DAT_mod_scale01%grid         /.false./
   data DAT_mod_scale01%pen          /.false./
   data DAT_mod_scale01%cmap         /.true./
@@ -220,8 +246,8 @@ module fplt_dat
 !   data DAT_mod_title01%fill         /.true./
 !   data DAT_mod_title01%projection   /.true./
 !   data DAT_mod_title01%resolution   /.false./
-!   data DAT_mod_title01%an_maj       /.false./
-!   data DAT_mod_title01%an_min       /.false./
+!   data DAT_mod_title01%an_major       /.false./
+!   data DAT_mod_title01%an_minor       /.false./
 !   data DAT_mod_title01%grid         /.false./
 !   data DAT_mod_title01%pen          /.false./
 !   data DAT_mod_title01%cmap         /.false./

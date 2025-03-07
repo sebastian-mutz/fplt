@@ -22,7 +22,7 @@ module fplt_typ
 ! declare public
   public :: dp, sp, wp, i4, i8
   public :: std_i, std_o, std_e, std_rw
-  public :: TYP_cmap, TYP_map, TYP_module
+  public :: TYP_settings, TYP_cmap, TYP_map, TYP_module
 
 ! ==== Declarations
 
@@ -40,6 +40,34 @@ module fplt_typ
   integer, parameter :: std_rw = 21
 
 ! ==== Definitions
+
+! gmt font settings
+  type :: TYP_settings
+     !! Derived type for gmt settings.
+     !!
+     !! font               : name of font to be used
+     !! col_font_primary   : primary font colour (rgb value)
+     !! col_font_secondary : secondary font colour (rgb value)
+     !! col_lines_primary  : primary annotation line colour (rgb value)
+     !! col_background     : background colour (rgb value)
+     !! col_foreground     : foreground colour (rgb value)
+     !! col_nan            : colour for NANs (rgb value)
+     !! font_size_primary  : size of primary font (pixels)
+     !! font_size_title    : font size of title (pixels)
+     !! font_size_label    : font size for labels (pixels)
+     !! pen_grid           : pen size for grid (pixels)
+     !! pen_tick           : pen size for ticks (pixels)
+     !! pen_frame          : pen size for frame (pixels)
+     !! paper_width        : width of paper to plot on (pixels)
+     !! paper_height       : height of paper to plot on (pixels)
+     character(len=64) :: font
+     integer(i4)       :: col_font_primary(3), col_font_secondary(3)
+     integer(i4)       :: col_lines_primary(3)
+     integer(i4)       :: col_background(3), col_foreground(3), col_nan(3)
+     real(wp)          :: font_size_primary, font_size_title, font_size_label
+     real(wp)          :: pen_grid, pen_tick, pen_frame
+     real(wp)          :: paper_width, paper_height
+  end type TYP_settings
 
 ! colour map
   type :: TYP_cmap
@@ -65,12 +93,16 @@ module fplt_typ
      !! region          : regional bounds: lon_min, lon_max, lat_min, lat_max
      !! fill            : RGB values for fill
      !! projection      : projection
-     !! scale           : scale (in cm)
+     !! scale           : scale (pixels)
      !! resolution      : resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)
-     !! an_maj, an_min  : major and minor annotations/labels
+     !! an_major        : major annotations/labels
+     !! an_minor        : minor annotations/labels
      !! an_ticks        : which side to put major annotation ticks (coordinates) on
      !!                   e.g., WNes = coordinates annotated on west and north side
      !! grid            : grid spacing drawn
+     !! cbar_tick_major : colour bar major ticks
+     !! cbar_tick_minor : colour bar minor ticks
+     !! cbar_size       : colour bar size (percentage of map length)
      !! pen             : pen width (point)
      !! title           : plot title (very top, larger)
      !! label_top       : label above figure (right aligned)
@@ -79,7 +111,8 @@ module fplt_typ
      integer(i4)        :: fill(3)
      character(len=16)  :: projection, resolution, cmap
      real(wp)           :: scale
-     real(wp)           :: an_maj, an_min, grid, pen
+     real(wp)           :: an_major, an_minor, grid, pen
+     real(wp)           :: cbar_tick_major, cbar_tick_minor, cbar_size
      character(len=64)  :: an_ticks
      character(len=64)  :: title, label_top, label_bottom
   end type TYP_map
@@ -96,7 +129,8 @@ module fplt_typ
      !! fill            : RGB values for fill
      !! projection      : projection and scale
      !! resolution      : resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)
-     !! an_maj, an_min  : major and minor annotations/labels
+     !! an_major        : major annotations/labels
+     !! an_minor        : minor annotations/labels
      !! grid            : grid spacing
      !! pen             : pen width (point)
      !! cmap            : use colour map
@@ -109,7 +143,7 @@ module fplt_typ
      character(len=32) :: name, gmt_module
      logical           :: infile
      logical           :: region, fill, projection, resolution
-     logical           :: an_maj, an_min, grid, pen, cmap, cbar
+     logical           :: an_major, an_minor, grid, pen, cmap, cbar
      logical           :: title, label_top, label_bottom
      logical           :: first, last
   end type TYP_module

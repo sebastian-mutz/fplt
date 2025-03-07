@@ -25,7 +25,7 @@ module fplt
   public :: TYP_cmap, TYP_map, TYP_module
 
 ! declare public data
-  public :: DAT_map_europe, DAT_mod_coast01, DAT_cmap_greys
+  public :: DAT_map_default, DAT_mod_coast01, DAT_cmap_greys
 
 ! declare public procedures
   public :: fplt_map
@@ -65,10 +65,14 @@ subroutine fplt_map(map_opt, infile, outfile)
   write(std_o, *) "> Fortran-GMT module stack created"
 
 ! initialise GMT session
-  call gmt_init(session, session_name)
+  call plt_init(session, session_name)
+
+! gmt settings
+  call plt_set(session, DAT_set_default)
+
 
 ! determine file format
-  call get_format(infile, fstring)
+  call plt_get_format(infile, fstring)
   write(std_o, *) "> Input file format: ", trim(fstring)
 
 ! convert file format if necessary
@@ -79,12 +83,12 @@ subroutine fplt_map(map_opt, infile, outfile)
         workfile="temp.grd"
 
         ! construct arguments
-        call gmt_args_xyz2grd(map_opt, infile, workfile, fstring)
+        call plt_args_xyz2grd(map_opt, infile, workfile, fstring)
         args = trim(fstring) // c_null_char
         write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
         ! gmt module calls
-        call gmt_module(session, "xyz2grd", args)
+        call plt_module(session, "xyz2grd", args)
         write(std_o, *) "> Text file converted to grid file: ", trim(workfile)
 
      case ("grid")
@@ -97,38 +101,38 @@ subroutine fplt_map(map_opt, infile, outfile)
   end select
 
 ! get args for making colour map
-  call gmt_args_cmap(DAT_cmap_greys, fstring)
+  call plt_args_cmap(DAT_cmap_greys, fstring)
   args = trim(fstring) // c_null_char
   write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
 ! make colour map
-  call gmt_module(session, "makecpt", args)
+  call plt_module(session, "makecpt", args)
   write(std_o, *) "> Colour map created: ", trim(DAT_cmap_greys%name)
 
 ! work through module stack
   do i=1,size(module_stack)
 
      ! prepare the arguments
-     call gmt_args_map(map_opt, workfile, outfile, module_stack(i), fstring)
+     call plt_args_map(map_opt, workfile, outfile, module_stack(i), fstring)
      args = trim(fstring) // c_null_char
      write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
      ! gmt module calls
-     call gmt_module(session, trim(module_stack(i)%gmt_module), args)
+     call plt_module(session, trim(module_stack(i)%gmt_module), args)
   enddo
 
 ! work through annotation module stack
 
 
 ! destroy GMT session
-  call gmt_destroy(session)
+  call plt_destroy(session)
 
 end subroutine fplt_map
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine gmt_module(session, module_name, args)
+subroutine plt_module(session, module_name, args)
 
 ! ==== Description
 !! Single GMT  module call.
@@ -151,12 +155,12 @@ subroutine gmt_module(session, module_name, args)
      stop
   end if
 
-end subroutine gmt_module
+end subroutine plt_module
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine gmt_init(session, session_name)
+subroutine plt_init(session, session_name)
 
 ! ==== Description
 !! Create GMT session.
@@ -180,12 +184,57 @@ subroutine gmt_init(session, session_name)
      stop
   endif
 
-end subroutine gmt_init
+end subroutine plt_init
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine gmt_destroy(session)
+subroutine plt_set(session, settings)
+
+! ==== Description
+!! Apply GMT settings.
+
+! ==== Declarations
+  type(TYP_settings)             , intent(in) :: settings
+  type(c_ptr)                    , intent(in) :: session
+  character(kind=c_char, len=256), target     :: args
+  integer(c_int)                              :: status
+  character(len=256)                          :: fstring, fstring_partial
+
+! TODO: create functions in new utl module: append_real, append_int, append_char
+
+! ==== Instructions
+
+! paper settings
+  write(fstring_partial, '(F7.2)') settings%paper_height
+  fstring = "PS_MEDIA Custom_" // trim(adjustl(fstring_partial))
+  write(fstring_partial, '(F7.2)') settings%paper_width
+  fstring = trim(fstring) // "x" // trim(adjustl(fstring_partial)) // "p"
+  args = fstring // c_null_char
+  call plt_module(session, "gmtset", args)
+
+! font options
+  write(fstring_partial, '(F7.2)') settings%font_size_primary
+  fstring = "FONT_ANNOT_PRIMARY " // trim(adjustl(fstring_partial)) // "p,"
+  fstring = trim(fstring) // trim(settings%font) // ","
+  write(fstring_partial, '(I3)') settings%col_font_primary(1)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(I3)') settings%col_font_primary(2)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+  write(fstring_partial, '(I3)') settings%col_font_primary(3)
+  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  args = fstring // c_null_char
+  call plt_module(session, "gmtset", args)
+
+!  write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
+
+
+end subroutine plt_set
+
+
+! ==================================================================== !
+! -------------------------------------------------------------------- !
+subroutine plt_destroy(session)
 
 ! ==== Description
 !! Destroy GMT session.
@@ -205,12 +254,12 @@ subroutine gmt_destroy(session)
      stop
   endif
 
-end subroutine gmt_destroy
+end subroutine plt_destroy
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine gmt_args_xyz2grd(map_opt, infile, outfile, fstring)
+subroutine plt_args_xyz2grd(map_opt, infile, outfile, fstring)
 
 ! ==== Description
 !! Crafts a fortran string for making a colour map
@@ -248,12 +297,12 @@ subroutine gmt_args_xyz2grd(map_opt, infile, outfile, fstring)
 ! grid output
   fstring = trim(fstring) // " -G" // trim(outfile)
 
-end subroutine gmt_args_xyz2grd
+end subroutine plt_args_xyz2grd
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine gmt_args_cmap(cmap_opt, fstring)
+subroutine plt_args_cmap(cmap_opt, fstring)
 
 ! ==== Description
 !! Crafts a fortran string for making a colour map
@@ -295,12 +344,12 @@ subroutine gmt_args_cmap(cmap_opt, fstring)
 ! output
   fstring = trim(fstring) // " -Z > " // trim(cmap_opt%name) // ".cpt"
 
-end subroutine gmt_args_cmap
+end subroutine plt_args_cmap
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
+subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
 
 ! ==== Description
 !! Crafts a fortran string from map options that serves
@@ -341,7 +390,7 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
   if (module_opt%projection) then
      fstring = trim(fstring) // " -J" // trim(map_opt%projection)
      write(fstring_partial, '(F7.2)') map_opt%scale
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "c"
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "p"
   endif
 
   ! resolution
@@ -361,11 +410,11 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
   endif
 
   ! annotations and grid
-  if (module_opt%an_maj .and. module_opt%an_min .and. module_opt%grid) then
+  if (module_opt%an_major .and. module_opt%an_minor .and. module_opt%grid) then
      fstring = trim(fstring) // " -B"
-     write(fstring_partial, '(F7.2)') map_opt%an_maj
+     write(fstring_partial, '(F7.2)') map_opt%an_major
      fstring = trim(fstring) // "a" // trim(adjustl(fstring_partial))
-     write(fstring_partial, '(F7.2)') map_opt%an_min
+     write(fstring_partial, '(F7.2)') map_opt%an_minor
      fstring = trim(fstring) // "f" // trim(adjustl(fstring_partial))
      write(fstring_partial, '(F7.2)') map_opt%grid
      fstring = trim(fstring) // "g" // trim(adjustl(fstring_partial))
@@ -386,9 +435,15 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
   endif
 
   ! additional colour bar options
-  ! TODO: add cbar_ticks (and scale position?) to map options
   if (module_opt%cbar) then
-     fstring = trim(fstring) // " -B0.5f0.1 -DJRM+v+w100%"
+     fstring = trim(fstring) // " -B"
+     write(fstring_partial, '(F7.2)') map_opt%cbar_tick_major
+     fstring = trim(fstring) // trim(adjustl(fstring_partial))
+     write(fstring_partial, '(F7.2)') map_opt%cbar_tick_minor
+     fstring = trim(fstring) // "f" // trim(adjustl(fstring_partial))
+     fstring = trim(fstring) // " -DJRM+v+w"
+     write(fstring_partial, '(F7.2)') map_opt%cbar_size
+     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "%"
   endif
 
   ! title (top centre)
@@ -428,12 +483,12 @@ subroutine gmt_args_map(map_opt, infile, outfile, module_opt, fstring)
      endif
   endif
 
-end subroutine gmt_args_map
+end subroutine plt_args_map
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine get_format(filename, fmt)
+subroutine plt_get_format(filename, fmt)
 
 ! ==== Description
 !! Determines file format by extension.
@@ -478,7 +533,7 @@ subroutine get_format(filename, fmt)
      end select
   endif
 
-end subroutine get_format
+end subroutine plt_get_format
 
 
 end module fplt
