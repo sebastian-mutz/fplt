@@ -202,6 +202,8 @@ subroutine plt_set(session, settings)
   character(len=256)                          :: fstring, fstring_partial
 
 ! TODO: create functions in new utl module: append_real, append_int, append_char
+! TODO: adjust paper size depending on plot size (both in pixels)
+
 
 ! ==== Instructions
 

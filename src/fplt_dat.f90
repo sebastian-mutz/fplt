@@ -5,7 +5,7 @@ module fplt_dat
 ! |                                                                    |
 ! | about                                                              |
 ! | -----                                                              |
-! | Plotting resets for fplt.                                          |
+! | Plotting templates for fplt.                                       |
 ! |                                                                    |
 ! | license : MIT                                                      |
 ! | author  : Sebastian G. Mutz (sebastian@sebastianmutz.com)          |
