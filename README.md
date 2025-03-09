@@ -52,7 +52,7 @@ FPLT is mostly developed “as needed” for my research. You are very welcome t
 
 ## <span style="color:#734f96">Implemented and Planned Features</span>
 
-![20%](https://progress-bar.xyz/20?title=Progress)
+![20%](https://progress-bar.xyz/20?title=Beta)
 
 ### <span style="color:#734f96">Plot Types</span> <br/>
 
@@ -75,6 +75,7 @@ FPLT is mostly developed “as needed” for my research. You are very welcome t
 | GMT argument construction | 20%         |
 | GMT module templates      | 20%         |
 | Make colour maps          | 50%         |
+| Autolabel                 | 80%         |
 | Read text                 | ✓           |
 | Read netcdf               | -           |
 | Convert text to grid      | ✓           |
