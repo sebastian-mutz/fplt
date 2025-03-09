@@ -52,6 +52,8 @@ FPLT is mostly developed “as needed” for my research. You are very welcome t
 
 ## <span style="color:#734f96">Implemented and Planned Features</span>
 
+![20%](https://progress-bar.xyz/20?title=Progress)
+
 ### <span style="color:#734f96">Plot Types</span> <br/>
 
 | Feature                   | Implemented |
