@@ -2,11 +2,6 @@
 
 ![image info](./doc/logo/FPLT.png)
 
-## <span style="color:#734f96">Status</span>
-
-Very early development.
-
-
 ## <span style="color:#734f96">Description</span>
 
 A scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
@@ -53,7 +48,36 @@ The code above will generate the map below:
 
 ## <span style="color:#734f96">Development</span>
 
-FPLT is mostly developed “as needed” for my research, but it may become useful for other researchers as it continues to grow - you are very welcome to contribute (through suggestions, coding, etc.) at any stage.
+FPLT is mostly developed “as needed” for my research. You are very welcome to contribute (through suggestions, coding, etc.) at any stage. The library is in early development stages, but already usable for a few type of plots. See details below.
+
+## <span style="color:#734f96">Implemented and Planned Features</span>
+
+### <span style="color:#734f96">Plot Types</span> <br/>
+
+| Feature                   | Implemented |
+| ------------------------- | ----------- |
+| Maps (Cylindrical Proj.)  | ✓           |
+| Maps (Conic Proj.)        | -           |
+| Maps (Orthographic Proj.) | -           |
+| Heatmaps                  | -           |
+| xy scatter plots          | -           |
+| xy line graphs            | -           |
+| bar plots                 | -           |
+
+
+### <span style="color:#734f96">Technical Features</span> <br/>
+
+| Feature                   | Implemented |
+| ------------------------- | ----------- |
+| Bindings for GMT C-APIs   | 50%         |
+| GMT argument construction | 20%         |
+| GMT module templates      | 20%         |
+| Make colour maps          | 50%         |
+| Read text                 | ✓           |
+| Read netcdf               | -           |
+| Convert text to grid      | ✓           |
+| Convert netcdf to grid    | -           |
+
 
 ## <span style="color:#734f96">Installation</span>
 
