@@ -72,7 +72,6 @@ subroutine fplt_map(map_opt, infile, outfile)
   call plt_set(session, DAT_set_default)
   write(std_o, *) "test"
 
-
 ! determine file format
   call plt_get_format(infile, fstring)
   write(std_o, *) "> Input file format: ", trim(fstring)
@@ -366,8 +365,6 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
 ! ==== Description
 !! Crafts a fortran string from map options that serves
 !! as argument string to be used in the gmt module
-!! TODO: pass more args: typ_module (determines what args) are needed.
-!! TODO: make each option block conditional on logical values of module presets
 
 ! ==== Declarations
   type(TYP_map)     , intent(in)  :: map_opt

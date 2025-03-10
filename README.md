@@ -4,7 +4,7 @@
 ![20%](https://progress-bar.xyz/20?title=Alpha)
 
 > [!IMPORTANT]
-> FPLT is in a pre-alpha state, and only suitable for use by developers at this point.
+> FPLT is in a pre-alpha state, and only suitable for developers at this point.
 >
 
 ## <span style="color:#734f96">Description</span>
@@ -78,7 +78,7 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 
 | Feature                   | Implemented |
 | ------------------------- | ----------- |
-| Bindings for GMT C-APIs   | ✓           |
+| Bindings for GMT's C-API  | ✓           |
 | Maps (Cylindrical Proj.)  | ✓           |
 | Maps (Conic & Ortho Proj.)| -           |
 | Heat maps                 | -           |

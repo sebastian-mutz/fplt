@@ -252,25 +252,4 @@ module fplt_dat
   data DAT_mod_scale01%first          /.false./
   data DAT_mod_scale01%last           /.false./
 
-! gmt psscale -R${REGION} -J${PROJECTION} -X0 -Y-8.2 -DjCT+w5.0i/0.4c+o0/2c -Ccol1.cpt -B0.5f0.1 -K -O >> $OUTFILE
-
-! ! gmt argument selection - filled text layer
-!   data DAT_mod_title01%name         /"fill text"/
-!   data DAT_mod_title01%gmt_module   /"pstext"/
-!   data DAT_mod_title01%infile       /.false./
-!   data DAT_mod_title01%region       /.true./
-!   data DAT_mod_title01%fill         /.true./
-!   data DAT_mod_title01%projection   /.true./
-!   data DAT_mod_title01%resolution   /.false./
-!   data DAT_mod_title01%an_major       /.false./
-!   data DAT_mod_title01%an_minor       /.false./
-!   data DAT_mod_title01%grid         /.false./
-!   data DAT_mod_title01%pen          /.false./
-!   data DAT_mod_title01%cmap         /.false./
-!   data DAT_mod_title01%title        /.true./
-!   data DAT_mod_title01%label_topleft    /.false./
-!   data DAT_mod_title01%label_topright /.false./
-!   data DAT_mod_title01%first        /.false./
-!   data DAT_mod_title01%last         /.false./
-
 end module fplt_dat
