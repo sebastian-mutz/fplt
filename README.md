@@ -5,14 +5,13 @@
 ![20%](https://progress-bar.xyz/20?title=Alpha)
 <!-- markdownlint-enable -->
 
-> [!IMPORTANT]
-> FPLT is in a pre-alpha state, and only suitable for use by developers at this point.
->
-
-
 ![image info](./doc/logo/FPLT.png)
 
 ## <span style="color:#734f96">Description</span>
+
+> [!IMPORTANT]
+> FPLT is in a pre-alpha state, and only suitable for use by developers at this point.
+>
 
 A scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
 
