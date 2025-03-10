@@ -1,5 +1,15 @@
 # <span style="color:#734f96">FPLT - Fortran Plotting Library</span>
 
+<!-- markdownlint-disable -->
+[![GitHub](https://img.shields.io/github/license/sebastian-mutz/fplt)](https://img.shields.io/github/license/sebastian-mutz/fplt/LICENSE)
+![20%](https://progress-bar.xyz/20?title=Alpha)
+<!-- markdownlint-enable -->
+
+> [!IMPORTANT]
+> FPLT is in a pre-alpha state, and only suitable for use by developers at this point.
+>
+
+
 ![image info](./doc/logo/FPLT.png)
 
 ## <span style="color:#734f96">Description</span>
