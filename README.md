@@ -65,35 +65,30 @@ FPLT is mostly developed “as needed” for my research. You are very welcome t
 
 ## <span style="color:#734f96">Implemented and Planned Features</span>
 
-![20%](https://progress-bar.xyz/20?title=Beta)
-
 ### <span style="color:#734f96">Plot Types</span> <br/>
 
+![50%](https://progress-bar.xyz/20?title=Maps)
+![0%](https://progress-bar.xyz/20?title=Heatmaps)
+![0%](https://progress-bar.xyz/20?title=XYPlots)
+![0%](https://progress-bar.xyz/20?title=BarPlots)
+
+### <span style="color:#734f96">All Progress</span> <br/>
+
 | Feature                   | Implemented |
 | ------------------------- | ----------- |
+| Bindings for GMT C-APIs   | ✓           |
 | Maps (Cylindrical Proj.)  | ✓           |
-| Maps (Conic Proj.)        | -           |
-| Maps (Orthographic Proj.) | -           |
-| Heatmaps                  | -           |
-| xy scatter plots          | -           |
-| xy line graphs            | -           |
-| bar plots                 | -           |
-
-
-### <span style="color:#734f96">Technical Features</span> <br/>
-
-| Feature                   | Implemented |
-| ------------------------- | ----------- |
-| Bindings for GMT C-APIs   | 50%         |
+| Maps (Conic & Ortho Proj.)| -           |
+| Heat maps                 | -           |
+| XY scatter &  line plots  | -           |
+| Bar plots                 | -           |
 | GMT argument construction | 20%         |
 | GMT module templates      | 20%         |
 | Make colour maps          | 50%         |
 | Auto label                | 80%         |
 | Auto page setup           | -           |
-| Read text                 | ✓           |
-| Read netcdf               | -           |
-| Convert text to grid      | ✓           |
-| Convert netcdf to grid    | -           |
+| Read and convert text     | ✓           |
+| Read and convert netcdf   | -           |
 
 
 ## <span style="color:#734f96">Installation</span>
