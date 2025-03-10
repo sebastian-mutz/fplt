@@ -12,34 +12,38 @@ The aim is to create a library that lets you:
 
  - visualise your data directly from your Fortran programme though familiar Fortran-native constructs,
  - produce professional figures quickly through the use of templates and automatic argument construction,
- - modify or create new templates easily from your programme (since these are simple Fortran-native constructs).
+ - modify or create new templates easily from your programme.
 
 ## <span style="color:#734f96">Example</span>
 
-The following code modifies a colour map template *cmap_monochrome* before creating a topographic map of europe using the *map_europe* template. All templates are simple derived types with initialised values that can be overwritten, as done with *cmap_monochrome* below. The *fplt_map* subroutine automatically generates gmt arguments (based on  *map_europe* template) and works through a stack of gmt modules to successively build your map "behind the scenes".
+The following code modifies a colour map template *cmap_bluered01* before creating a temperature map of Europe using the *map_default* template. All templates are simple derived types with initialised values that can be overwritten, as done with *cmap_bluered01* below. The *fplt_map* subroutine automatically generates gmt arguments (based on  *map_default* template) and works through a stack of gmt modules to successively build your map "behind the scenes".
 
 ```
-program main
+program check_maps01
 
-! load library
+! load modules
   use :: fplt
 
+! basic options
   implicit none
 
-! choose colour map
-  map_europe%cmap = "monochrome"
+! modify preset colour map
+  cmap_bluered01%z_min = -25
+  cmap_bluered01%z_max = 25
+  cmap_bluered01%z_step = 1
 
-! modify lower bound of colour map present (start with dark grey, not black)
-  cmap_monochrome%rgb(:,1) =[50, 50, 50]
+! set plot labels
+  map_default%title = "Simulated Temperature (1979-2000)"
+  map_default%label_topleft = "2m air temperature"
+  map_default%label_topright= "deg C"
 
-! modify template value range and step size
-  cmap_monochrome%z_max = 2000
-  cmap_monochrome%z_step = 250
+! change colour map
+  map_default%cmap="bluered01"
 
-! create a topography map of europe using the "map_europe" template
-  call fplt_map(map_europe, "infile_topo.grd", "outfile.ps")
+! plot map from text file using the default map template
+  call fplt_map(DAT_map_default, "data_Mutz_et_al_2018.asc", "map01.pdf")
 
-end program main
+end program check_maps01
 ```
 
 The code above will generate the map below:
@@ -75,7 +79,8 @@ FPLT is mostly developed “as needed” for my research. You are very welcome t
 | GMT argument construction | 20%         |
 | GMT module templates      | 20%         |
 | Make colour maps          | 50%         |
-| Autolabel                 | 80%         |
+| Auto label                | 80%         |
+| Auto page setup           | -           |
 | Read text                 | ✓           |
 | Read netcdf               | -           |
 | Convert text to grid      | ✓           |

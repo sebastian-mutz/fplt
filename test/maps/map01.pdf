@@ -5,7 +5,7 @@
 %%Creator: GMT6
 %%For: unknown
 %%DocumentNeededResources: font Helvetica
-%%CreationDate: Fri Mar  7 18:00:08 2025
+%%CreationDate: Mon Mar 10 16:58:38 2025
 %%LanguageLevel: 2
 %%DocumentData: Clean7Bit
 %%Orientation: Landscape
@@ -708,7 +708,7 @@ O0
 1200 1200 TM
 
 % PostScript produced by:
-%@GMT: gmt psbasemap -R-30.00/60.00/30.00/72.00 -JM400.00p -Ba20.00f10.00g5.00 -BWNes -K topo.ps
+%@GMT: gmt psbasemap -R-30.00/60.00/30.00/72.00 -JM400.00p -Ba20.00f10.00g5.00 -BWneS -K ./test/maps/map01.pdf
 %@PROJ: merc -30.00000000 60.00000000 30.00000000 72.00000000 -5009377.086 5009377.086 3482189.085 11712494.454 +proj=merc +lon_0=15 +k=1 +x_0=0 +y_0=0 +units=m +a=6378137.000 +b=6356752.314 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 %GMTBoundingBox: 72 72 400 328.595960267
 %%BeginObject PSL_Layer_1
@@ -870,13 +870,13 @@ N 6750 5560 M -6833 0 D S
 N 0 5560 M 0 -5643 D S
 N -83 5560 M 0 -5643 D S
 0.196 A
-741 5643 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
+741 -167 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
 300 F0
-(-20°) bc Z
-2222 5643 M (0°) bc Z
-3704 5643 M (20°) bc Z
-5185 5643 M (40°) bc Z
-6667 5643 M (60°) bc Z
+(-20°) tc Z
+2222 -167 M (0°) tc Z
+3704 -167 M (20°) tc Z
+5185 -167 M (40°) tc Z
+6667 -167 M (60°) tc Z
 /PSL_AH1 0
 -167 902 M (40°) mr Z
 (40°) sw mx
@@ -892,7 +892,7 @@ O0
 0 0 TM
 
 % PostScript produced by:
-%@GMT: gmt grdimage temp.grd -R-30.00/60.00/30.00/72.00 -JM400.00p -Cmonochrome.cpt -O -K >topo.ps
+%@GMT: gmt grdimage temp.grd -R-30.00/60.00/30.00/72.00 -JM400.00p -Cbluered01.cpt -O -K >./test/maps/map01.pdf
 %@PROJ: merc -30.00000000 60.00000000 30.00000000 72.00000000 -5009377.086 5009377.086 3482189.085 11712494.454 +proj=merc +lon_0=15 +k=1 +x_0=0 +y_0=0 +units=m +a=6378137.000 +b=6356752.314 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 %%BeginObject PSL_Layer_2
 0 setlinecap
@@ -905,20 +905,40 @@ clipsave
 -6667 0 D
 P
 PSL_clip N
-V N -74 -130 T 6815 5737 scale /DeviceGray setcolorspace
-<< /ImageType 1 /Decode [0 1] /Width 46 /Height 22 /BitsPerComponent 8
+V N -74 -130 T 6815 5737 scale /DeviceRGB setcolorspace
+<< /ImageType 1 /Decode [0 1 0 1 0 1] /Width 46 /Height 22 /BitsPerComponent 8
    /ImageMatrix [46 0 0 -22 0 22] /DataSource currentfile /ASCII85Decode filter /FlateDecode filter
 >> image
-G[Bd"8P^6*!/5oh<X#mKM%['OeVcmq[BXGIH_T)f.]_P;0F/#;.fr#(&J1LA(2!aj5aEmo6;q,-Pu_X:dqeL-hpCie%PM2G
-)]en'^K>;)N$*,i^$T7\:cRY`S/)2P*ZGt<)4)anbBc]91,q*F,m+,I"AKh1%n2VP*>GE"/Ba^U\m?[%*ul+7Scfi\S+*FM
-.M,-`AcPZ1<3BCEfIfNU_0EXMAm`pc;Sc3(qlTsng?b\-QUsEF;+#A#%aD!if3pL?)N9=Nqd,_5>BGC/@^Nn`V7#@DSBXFM
-\D)kmN4N/g;PdF[Q7NO*+F8M,3?I^;.CW:f$:b=^Rd02W];J[L-r,(keq^DD+[m03AmoP?M-["-2lZCE/:jnJ8j7>S]r7s4
-C$ZPuXY/o.1ms:^%$4.4(+BrZekAIEf9sZ$G8IMIA5PP<f32*NoXsbFl[IM"9EZ$<R2!*(P)1M5Zg%pq*In"PiQpu]QRCW!
-eTc":I0D"%TY._D7q+`^i;)cX2/1JgVBljGUKt=e:W]f4ku>lBT'C*lk7p5)aXbW9Lf_$5U!r?)YJ/8hGpNGc6[HZe9ASE:
-maG6o.((o*Y(9rGT9EJU`c(&FXE6.:P.J=fhKKjFRX(UT*_rOR*]#_ka`s2Ybk*aB<cE*N35su:D*k"Q%7Q<''(PSGhWF['
-=fg@>9AO,"^*U\rIEVs,[I?gLH2674&mho[KJ@gIp0fTm3=B4#Jr+SokW!R)HQ<J8Gg+Oe>CKEMVi\eJk-YJR4/gVg\1u3=
-@o!.?7Kt/n/_Y]=r,QfpARV^JpLV/sDFo#dWqPZd'"9MIRN2m9""*qp2@qn"D\*/)cr$%_AaF.sgf_n`QB[_9<k"!H*o(Y#
->D+^FB5e[LMoO(P(7=SG3,17d2XS_q\?h49j&P[-#h>usQ;n14[8o4YqaoG^*$l9'^MLAerr~>
+G[<7npN'87(<?H3rI&<kB/;WU/T")3Kb-T7&ASh_Qr"Dd*',@]e78k;Cfj;[&:-(N%3tTkpMRO_Q7^:cA]lQhXknD75?HS3
+S9a__eU@1>chI<"kP=fF$Q#oqc.H?Dpf..N4LLt_>MioV)mj@emMU)]km@ZIZ$8C!9I/V[8Asg#g8tDIN,RG.d:kaB'5jql
+2)47AW83Zt*o3Vn5NOcfr%le&bA>O?%b`HWV^!,L-XtJ)if%D-''DNh2_mPV*uM9u82Q$s'-o0/d_>NCd@uT*bcLZ!fB#G4
+P:[fP6)B"Pi3bX5_2uHoLrH)PDocAME1^!'3g"i<e=dcr0fj+i*j?*q5n^Dh7FFRZ)GPn%nQ2o#7K%\NLR`OjnSfnE9L`NK
+?nc2:L()PFOYLKQpPcK4-uC_=8p)XB=(Z'pAY850I50U6@8a*GVHL[c(Q$*EM.e^]%#!Fhs/ZM2W1CTpOWjUX_PZP+aEsuj
+^"1"`9>:m+E0X,8IJtXu)biNp[#\D=A-+FLpB`+%"Is^aO]b=b;Wgnm>_BrfG1eElCDmU?mL;<.:cGaVK0a/Bg)M7c9#fo]
+E1#7pDC8D.oNM#;*I5a:#'4_GXK7'?9QqFH@\KHn;=3F`;?4UBnek>,c30NX*KEPIS;c7)C\8a9miAWUpR,5H:&(En?E[2Z
+a!][QB,Ehc%(GIc?jKD-bikX-6O=:chQGP'Ng[%N;b&Vuh:;jpT[cAgM@hp)3T\(_d"2`!7c0Heb6ll%_]HrWcM0si3pu?9
+=ClL\831:f=@1_P`(O&Dn[Lr0.t3!U./!J4Ll3R81`JEjgt*i+Zo8kkUkYaM@rn3GV&ln3mP$$KE3hEX#<9NX%%43u;O]6=
+X"A"i"T^NTF^mY<cGNE0)]GtKMgWT8oZ/UYm3_aC*>G581<p+r+:uHRc7p'5/TM`p.4s7P(i&a:e[jK*WL>SjI225ad0Q!M
+?=+Bc7!r<5o*8_GDZiM5$<MZ[$q([oZ=tCKND6p=d;bLfbW.@n_^[I5Jnh;A2G7J*[_&*[E,K?jdFVA2ihiE<]Xlf(D3]dA
+W\1,lTT4+(=-tLT'!tdj,j]Uuij!UCZ2nHC;0n=@<dPBKBo5a6Qnf:,Jg`/W/^pg2U=-VFb+,O]SgZ&7]Zeh=k@l4;)KDB6
+;-Ko\'X7SO-nAaG;hA1(efYiEo<?D0CI8\KEXs5F(8hb]r5]n7\igWZVn#,X_5&(`"]pdAXE%,m(oVPN["uBT065*kSrFKH
+N"nHTk<Bj/H_er6`!QK$`R"?[+I!S5*<<a2Q`19<(p::t#=T`VHW]g+N(h"9A@'_$0U,8FJtE;_KuIStfhiD^Zk@WU7PCp!
+lH/T5S3L&A6f-5G#HDG2<B9eR:[a<+\YFQM/(a=NkJifKW)2YA*\2O@T#pP4gk'&m?#?7/]<O)O['k$\jYc6=_G".K0TKNf
+('o_&Ld[E*&OUKViaUc!638!KOGmX?6jcr>4lrGGL@=">](bgC?/iHTcF)U92b=HCQimTCH&kI:+-&N$!C_5MKAeF:#ZK8T
+Vl&5\/j_+dO<B=`04qqh.33H]d#JTi-tXgA0Ke-",d]pj'Sb?B:u&c?E9jh-k=Yn9r[m-l:N3&1PR*SHhB`sR)M+`_G9IMl
+nJFf)A%K(>jruATh2FP0;Sb2%"M$AhLLen%<9fZX"B`HS"sMVC*gZjB"&;2QlW#^'^&Qf?^Aj_j]DP%b:M8+lrSXg$0EWfO
+@Mn'og]qd(.eJ<+-4E2\M5Eqj?@(Ma-h*qG"hcgJ*+5`_j>-g!!E-la@u)kYbQM7nDI]-W/tD2jJ$St,M=.^j\ph^q`A-dL
+S3,$"ZAYW,/q#s'it@HhK6t!@09H>RUe[J^AFPH_d*ofr&>,bIRAmO3eBu,SGiL.`XUL(JDUL?S4L-']J-91op>4AqHWlK-
+Y1\0VNpUaHI\?)HJbG94gJ8mU3.435WPb;,qR6;!$0C4%pe"ajJjmYVfjpa:@Fp5P)B?l'0tg9-#T-eAn.ul1T'GQ'DU\hc
+BFQAd2b0K)@YK0Yf1@KK\hCPBAS'GB[C(J0V[\!^2'1E'Gi5p*6_?:XhVEQi2t4E)*etE^`RF<7o&MFd&)FdV_iYB$aO9WR
+(3Etd(]XR-LHSbQlV)KBG@+98\e*Y.<V/W^roZPrk8YBROSBom<c.f6HJ@/Bm27cC12;#NW;V+=FS@/*?YiKTCY6+K>TfYL
+TU!2U*R)G#l;-$9^HO.])"MGYRu_qo\RcMqAibJG(g'OVrZhsVZf:[Ynl!k7FU>e$1[*S@G^%oII7W7Fm:+D&hm'q4rJ0JV
+0.GegXFf*3]Q3VdWm'!n>Ls.*4#3VD2RT/:.*fJFC&#NHL4.h"5@,f`[CKo4L5JcmK;\7tB066%If7<u0/FRAmsm,^-":9e
+i#s27%&T#2@Z9a`'+FBC:*KR;0@2@XB9!`\IA_>C]>_tV8lj6$XI<Med=TfS$VT)'&dUEI0&*U4Z>*^jp2uVD+tR/:AEppM
+SmFdrQRi(*ElC8rPD]1!eaJd)H(RH]Qd+XS`Sro-76.L'qiG-qCErRI,k5/UW5^"5L.?J5o&os#J,Wd^(AtRZiTipjhW!AN
+V=/Fg-^Uo`YAF0sL-=9h*H\maqer]YbI:h%+uh*^X99^EP[uD?S>$POk!^["0T\\RU;j`K@2/tX]l`'8"Uk=L@a!A+GQX-p
+8Df\R&-A9GhY^[Ihgb\(S_*Gpr\8p%T@mAWn-oD4aW+W<MP`bQ?lm=dPRptWIu27`ajo.sV/=*bfW=S"FSDZ$*U>F!Y%p,5
+T+ZCeMPY+aVtmIM3Ic;Kg2D#gpar8"l,9sI7G-b;3A9o+~>
 U
 PSL_cliprestore
 %%EndObject
@@ -928,7 +948,7 @@ O0
 0 0 TM
 
 % PostScript produced by:
-%@GMT: gmt pscoast -R-30.00/60.00/30.00/72.00 -JM400.00p -Dl -Ba20.00f10.00g5.00 -BWNes -W0.5p -O -K >topo.ps
+%@GMT: gmt pscoast -R-30.00/60.00/30.00/72.00 -JM400.00p -Dl -Ba20.00f10.00g5.00 -BWneS -W0.5p -O -K >./test/maps/map01.pdf
 %@PROJ: merc -30.00000000 60.00000000 30.00000000 72.00000000 -5009377.086 5009377.086 3482189.085 11712494.454 +proj=merc +lon_0=15 +k=1 +x_0=0 +y_0=0 +units=m +a=6378137.000 +b=6356752.314 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 %%BeginObject PSL_Layer_3
 0 setlinecap
@@ -951,13 +971,13 @@ N 6667 902 M 83 0 D S
 N 0 3248 M -83 0 D S
 N 6667 3248 M 83 0 D S
 0.196 A
-741 5643 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
+741 -167 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
 300 F0
-(-20°) bc Z
-2222 5643 M (0°) bc Z
-3704 5643 M (20°) bc Z
-5185 5643 M (40°) bc Z
-6667 5643 M (60°) bc Z
+(-20°) tc Z
+2222 -167 M (0°) tc Z
+3704 -167 M (20°) tc Z
+5185 -167 M (40°) tc Z
+6667 -167 M (60°) tc Z
 /PSL_AH1 0
 -167 902 M (40°) mr Z
 (40°) sw mx
@@ -15981,7 +16001,7 @@ O0
 0 0 TM
 
 % PostScript produced by:
-%@GMT: gmt psscale -R-30.00/60.00/30.00/72.00 -JM400.00p -Cmonochrome.cpt -B0.50f0.10 -DJRM+v+w100.00% -O -K >topo.ps
+%@GMT: gmt psscale -R-30.00/60.00/30.00/72.00 -JM400.00p -Cbluered01.cpt -B10.00f2.00 -DJRM+v+w100.00% -O -K >./test/maps/map01.pdf
 %@PROJ: merc -30.00000000 60.00000000 30.00000000 72.00000000 -5009377.086 5009377.086 3482189.085 11712494.454 +proj=merc +lon_0=15 +k=1 +x_0=0 +y_0=0 +units=m +a=6378137.000 +b=6356752.314 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 %%BeginObject PSL_Layer_4
 0 setlinecap
@@ -15991,16 +16011,39 @@ O0
 22 W
 219 0 T
 90 R
-V N 0 0 T 5477 219 scale /DeviceGray setcolorspace
-<< /ImageType 1 /Decode [0 1] /Width 2738 /Height 1 /BitsPerComponent 8
+V N 0 0 T 5477 219 scale /DeviceRGB setcolorspace
+<< /ImageType 1 /Decode [0 1 0 1 0 1] /Width 2738 /Height 1 /BitsPerComponent 8
    /ImageMatrix [2738 0 0 -1 0 1] /DataSource currentfile /ASCII85Decode filter /FlateDecode filter
 >> image
-G[=CdB3,QC!.`JsoLcD5HW/TR
-,:gAt_^K'ACm&=nS\9krfjok+87o0RiQLiJ)[Q@?LOuJ-"B.GjOo!Qm)H%ep/>:RHRS"DSUZU!V>#Hkb9l6[X[A3HDJN?[V
-ktGA2>TtSZ\k4pH:-GC#ooe1]L\aV-l;%L-M?_KO),*CG>)'mJ)GVMj,fJ%X)GO^L/<-Fp1-o@u:?!RN&g^*rdNhDM'M5,X
-R4M9MW_AUub)kjE6Y94Cc'$a:LZZ`ARSO<%+YAkr["O`;(+l<CZ@Z-*.U#P^BJ$?]Cg'Up["37/,N[#ofdp?@X5lnSD3O@o
-6[$m1fhHgl;"i=$g+N]p+<?'OFG,\&0fVoUkTl[mdo7T*jK''E3B8`/kb;=FbB-1U8dSdelZ.Vqat:.UGNc3bP>\tF&*+ls
-P/m-HSk9k_KBMk.b3:3Ocms?8Q10ObaucVdpJO^-jJ.*cch'Z?8e$34>5:oXjJVpMht#sF^W-jmRK~>
+G[>76G?iJk(C+o'Dg*?LAFI3CAV<DD*nb(BZ=dc-m6O;]V-tVn
+8YnSK:f?"?7=B1ErLMu]+7J`Fr*GHIJ+(G<][(lRW-,8_(LP^YSc9VX&\]E7_RH2@%JLmB-[\_T"'b6sf)YatdmlXegBe>V
+I[2jsqaI_ZNU;3qrFV_$C#DgoM;ia+<;6PP"-20/TXjP.BgJ9gk#sOJ\5oOdEb8K:f9*I,H@h&]>F2o>m9JqUlF1u&2#nX2
+qOf(C5T55L66jpH]@`Km@19ZKW!VL=\tQ",mV^9[4kr>E=\nc-Wg:?6-!@;*MUnF2nGmDk?U\1,.'teCN;<kJ8UmT>j4Ri@
+l6mU-3cTe&=(dq`<u6k4?<tqnY1jLVG;,8n$@7526;M!jk[f.Df5REB)8Yt(7U@Hj3>5rERA,/-hSL\j?T-Vb!9:tUnJS8D
+A>V%9]4!Ns0mK3t#T+)"a\X`Y(e,hb5@\RD)D7M<7Nd1;"c\a@74(?Oag;%HeYq_9UM&AHN<(g=1GFaB,%JH*@2t]Qh&]A9
+R0hYR1m,=)E?6omRu\o>('IC[=;X"t2/Nr8b=r5"'f2.p6!u$AWgEr@K\7.8cn]2C\"#0cm[LCFF1IQLSno,IShF:g]Kft$
+n3Zbt>I7G9(p)a=JgK^t9>LhK!ej`m'UFkUb]7Um,HudS_Q;fLd43=9@4PM5gD7ATGtce,f35XN(:J[i@KY8ZfEcXbiAQf]
+_Ig(iKS(l35%Me&B=@5h?k/iH1965u66nT/\O3drOCHi#V]*1../&1d,`:pla+SlZRb;U"boC@+O;!Qf'4Z.t*L**]LLd;m
+%r7\l4eau`(;t45c=pFRkMj<t?mD0a[_bVj"D#QCip<)^`$(85i>g6JR1i+P-Z`$DYHi-kac(#@Xig'`m$U#HW,M`SJg5U0
+kUniW98k[s!%G^;]?Id*T'1c=Wo0.g;<(9K)j<bHYH"b%>uJ?)\?<=M]G7$Rk9]:[DD5-O?gnD--%=&qc6$=^ktD*JQJG7/
+&Mh_8N#T(W)87T840LO>!u1jp0$#:s8W[nLg`p`TPP`3;'$LKQ/G&quPs%N$6?Z0rp-$t)8#jr&i6\s=#EKT15o>pj6GO8n
+&IB7?_fJZXo9_p$@GK<onq;ofiNh[[M!04T9R`cg2ZG4)^r-sUWM8EaKeX]9&IT5*3)gTY`5IjM+b;`X`?::iNfmp%-on+l
+81f+aO]M%C.7Gm^;cK_L29O?R.:.OHi?cTja1VPXKliJLb!?5W_n>-;:aW2MZI'WEgPRPU1+T7X>9gWJXXY^e]dsu\/+Pq+
+pd"CAThk`H\>hknbS5%C9JNP:V5Qd_<aD`PQ+k_4ai\bp1b*V/'d%!%Q&83'SpVaN_$Ap$W"Q,15,2kdRckS/o8i;aqC)5o
+506"gqcWV'qFC64jZi257!ehFc%s\:q*q^/8#.]96TTZi28`1k'#)lcWTo+dID$H$bt@Ph@,huZMK5,figm5WUJ1DW<iRZ#
+X]CZcQcb1_$*$<\9JKVi'TmtX>Tq0)$:l4`&+W#h+qNbU.WaLIZ7BuQZ7=aD<=!LmZ=TFPM^_0"d2O]jaX$-/*I1@c#oVYI
+=-cTf#d6L^iall(`etP]o?oHp_E9>?eOV;a&W0MMcuW>6HH%7],*5LXKd7;O,fURn=<R^`.,mO7JLiEGos>j-a_)gh@q62I
+d>GU#n@U1&'D.Ls,Irrl@jZe\1>sW/r/pK%KEu#E+aD0n"qMEA_6WFSqq7$0+nnr%fai_@KY-H!/._u[2s:`mTA14MO^"5!
+Lti^4OoY%k"9O(l*C#OBgV0[,)7O-?))kF(i11o3]8lfW=6LRnj/t/Oj9g,<DK&p@&+S^eG_=1slbGl-m8BCi4mf97MAo,u
+/uEr/>Y+N%;ES74A^6#"i1.W)E/?P/m_htAF*r]^KT!WPE<4]<b?Sma2T[RF&og+=3g\nQ4.?KqAS7),GFBf0P>dD\GET4"
+n[9eJ)ff1C&$/&:GOCjLfqVe'3-.K13;0`!TpScaKBT,T$D"DYAe$N8aaV6uM6c!Y*$]faUL4UX8reGXMSm%_+qO'?*8I7A
+*bg<PKP_;+A6[H1-@EQSZ]Ejmp2ZY='<m7.&pBIu>hC[56*V*)=6s&`=LNX[f![F]PZ]$<<ON6;$BH`>U+P.-Ai$n9KP]Y6
+0cPt'Yef<B=t6TY9,-\-K*U18YXl$2+W$(Q"L$CD+1t3(mlji&Ru:<dk%M=$4_>21N18'oTHK.q_GW'dYlr8NGIb]A'oTja
+/eBS(WgXR15\'AUq6ES**]K4L47P3b!L\#hR5ng5/T*Ha/'J',j<g9$`X"B9BN`.C;-MFB<@.`F:&K^-BSpU/RZ.0kE&:-u
+N$`S_I)uLH<#ADcO;hRI(p"QiUbFUq0cQo*1JfsEB/JYno_0CQl\A/fl_]EXK^4OcEdc$:&R96d39__+pUY+p;_\^Q&;Gf)
+i!MCGFAiV9b'B[5?:Gj(]`uS>H%LTP7l3K^!VPo#R;(">,OGV$jC-\AkR6)mqLI/T''Tj/.=/Cd\V$J*<6a6GaI3.=m]r^-
+h.05V=*0QZ5[Cn>9P;f;!nW8c'KQ;DiX._s#)`,I^<EEZ4]PdS[MjHED=j?P3iKHf[W<t=$.V?o\\FOJgg?);3VcTe#6*O#
+5Z@0acihit(t>oOpeB02=4JttNKB_#ZX#rO:NlSdXo=B[Ja<V@TDK\^J9p9<Te?/,40Jn'&aGI]L"bIcF0\t,aSu6$Z&(.~>
 U
 2 setlinecap
 N 0 219 M 5477 0 D S
@@ -16011,50 +16054,54 @@ N 0 5477 M 0 -5477 D S
 /PSL_A0_y 73 def
 /PSL_A1_y 0 def
 7 W
-N 0 0 M 73 0 D S
-N 0 1369 M 73 0 D S
+N 0 548 M 73 0 D S
+N 0 1643 M 73 0 D S
 N 0 2738 M 73 0 D S
-N 0 4107 M 73 0 D S
-N 0 5477 M 73 0 D S
+N 0 3834 M 73 0 D S
+N 0 4929 M 73 0 D S
 0.196 A
 /MM {exch M} def
 /PSL_AH0 0
 PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
 264 F0
-(-1.0) sw mx
-(-0.5) sw mx
-(0.0) sw mx
-(0.5) sw mx
-(1.0) sw mx
+(-20) sw mx
+(-10) sw mx
+(0) sw mx
+(10) sw mx
+(20) sw mx
 def
 /PSL_A0_y PSL_A0_y 73 add PSL_AH0 add def
-0 PSL_A0_y MM
-(-1.0) mr Z
-1369 PSL_A0_y MM
-(-0.5) mr Z
+548 PSL_A0_y MM
+(-20) mr Z
+1643 PSL_A0_y MM
+(-10) mr Z
 2738 PSL_A0_y MM
-(0.0) mr Z
-4107 PSL_A0_y MM
-(0.5) mr Z
-5477 PSL_A0_y MM
-(1.0) mr Z
+(0) mr Z
+3834 PSL_A0_y MM
+(10) mr Z
+4929 PSL_A0_y MM
+(20) mr Z
 0 A
-N 0 274 M 37 0 D S
-N 0 548 M 37 0 D S
-N 0 821 M 37 0 D S
-N 0 1095 M 37 0 D S
-N 0 1643 M 37 0 D S
-N 0 1917 M 37 0 D S
-N 0 2191 M 37 0 D S
-N 0 2464 M 37 0 D S
-N 0 3012 M 37 0 D S
-N 0 3286 M 37 0 D S
-N 0 3560 M 37 0 D S
-N 0 3834 M 37 0 D S
-N 0 4381 M 37 0 D S
-N 0 4655 M 37 0 D S
-N 0 4929 M 37 0 D S
-N 0 5203 M 37 0 D S
+N 0 110 M 37 0 D S
+N 0 329 M 37 0 D S
+N 0 767 M 37 0 D S
+N 0 986 M 37 0 D S
+N 0 1205 M 37 0 D S
+N 0 1424 M 37 0 D S
+N 0 1862 M 37 0 D S
+N 0 2081 M 37 0 D S
+N 0 2300 M 37 0 D S
+N 0 2519 M 37 0 D S
+N 0 2957 M 37 0 D S
+N 0 3176 M 37 0 D S
+N 0 3395 M 37 0 D S
+N 0 3615 M 37 0 D S
+N 0 4053 M 37 0 D S
+N 0 4272 M 37 0 D S
+N 0 4491 M 37 0 D S
+N 0 4710 M 37 0 D S
+N 0 5148 M 37 0 D S
+N 0 5367 M 37 0 D S
 /PSL_LH 0 def /PSL_L_y PSL_A0_y PSL_A1_y mx def
 90 R
 -90 R
@@ -16065,10 +16112,10 @@ N 0 5203 M 37 0 D S
 0 A
 FQ
 O0
-0 1417 TM
+0 1039 TM
 
 % PostScript produced by:
-%@GMT: gmt pstext -R-30.00/60.00/30.00/72.00 -JM400.00p -Y3 -F+cTC+f24p+ttitle -O -K >topo.ps
+%@GMT: gmt pstext -R-30.00/60.00/30.00/72.00 -JM400.00p -Y2.2 '-F+cTC+f24p+tSimulated Temperature (1979-2000)' -O -K >./test/maps/map01.pdf
 %@PROJ: merc -30.00000000 60.00000000 30.00000000 72.00000000 -5009377.086 5009377.086 3482189.085 11712494.454 +proj=merc +lon_0=15 +k=1 +x_0=0 +y_0=0 +units=m +a=6378137.000 +b=6356752.314 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 %%BeginObject PSL_Layer_5
 0 setlinecap
@@ -16084,16 +16131,16 @@ PSL_clip N
 0.196 A
 3333 5477 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
 400 F0
-(title) tc Z
+(Simulated Temperature \(1979­2000\)) tc Z
 PSL_cliprestore
 %%EndObject
 0 A
 FQ
 O0
-0 -709 TM
+0 -567 TM
 
 % PostScript produced by:
-%@GMT: gmt pstext -R-30.00/60.00/30.00/72.00 -JM400.00p -Y-1.5 -F+cTL+f20p+tunits -O -K >topo.ps
+%@GMT: gmt pstext -R-30.00/60.00/30.00/72.00 -JM400.00p -Y-1.2 '-F+cTL+f20p+t2m air temperature' -O -K >./test/maps/map01.pdf
 %@PROJ: merc -30.00000000 60.00000000 30.00000000 72.00000000 -5009377.086 5009377.086 3482189.085 11712494.454 +proj=merc +lon_0=15 +k=1 +x_0=0 +y_0=0 +units=m +a=6378137.000 +b=6356752.314 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 %%BeginObject PSL_Layer_6
 0 setlinecap
@@ -16109,16 +16156,16 @@ PSL_clip N
 0.196 A
 0 5477 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
 333 F0
-(units) tl Z
+(2m air temperature) tl Z
 PSL_cliprestore
 %%EndObject
 0 A
 FQ
 O0
-0 -1181 TM
+0 0 TM
 
 % PostScript produced by:
-%@GMT: gmt pstext -R-30.00/60.00/30.00/72.00 -JM400.00p -Y-2.5 -F+cBC+f20p+tvariable -O -K >topo.ps
+%@GMT: gmt pstext -R-30.00/60.00/30.00/72.00 -JM400.00p '-F+cTR+f20p+tdeg C' -O -K >./test/maps/map01.pdf
 %@PROJ: merc -30.00000000 60.00000000 30.00000000 72.00000000 -5009377.086 5009377.086 3482189.085 11712494.454 +proj=merc +lon_0=15 +k=1 +x_0=0 +y_0=0 +units=m +a=6378137.000 +b=6356752.314 +ellps=WGS84 +datum=WGS84 +units=m +no_defs
 %%BeginObject PSL_Layer_7
 0 setlinecap
@@ -16132,8 +16179,8 @@ clipsave
 P
 PSL_clip N
 0.196 A
-3333 0 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
+6667 5477 M PSL_font_encode 0 get 0 eq {ISOLatin1+_Encoding /Helvetica /Helvetica PSL_reencode PSL_font_encode 0 1 put} if
 333 F0
-(variable) bc Z
+(deg C) tr Z
 PSL_cliprestore
 %%EndObject

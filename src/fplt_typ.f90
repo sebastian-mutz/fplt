@@ -75,14 +75,16 @@ module fplt_typ
      !!
      !! name         : name of colour map
      !! rgb          : array of rgb values to interpolate between to make cmap
-     !!                dimensions=(3,5), where 3 is for rgb, 2 = for 2 colour scale
+     !!                dimensions=(3,5), where 3 is for rgb, 5 = up to 5 colours on scale
+     !! picker       : which of the 5 rgb values are to be used for creating a colour map
+     !!                0 = do not use, 1 = use; last colour must always be used.
      !! z_min, z_max : range bounds (min and max value)
      !! z_step       : step size (used for plotting)
      !!
      !! TODO: change to max 5 colours to interpolate between and add attribute
      !!       that informs cpt construction (e.g., "use only first 2 colours")
      character(len=16) :: name
-     integer(i4)       :: rgb(3,2)
+     integer(i4)       :: rgb(3,5), picker(5)
      real(wp)          :: z_min, z_max, z_step
   end type TYP_cmap
 
@@ -105,8 +107,8 @@ module fplt_typ
      !! cbar_size       : colour bar size (percentage of map length)
      !! pen             : pen width (point)
      !! title           : plot title (very top, larger)
-     !! label_top       : label above figure (right aligned)
-     !! label_bottom    : label below figure (centre)
+     !! label_topleft       : label above figure (right aligned)
+     !! label_topright  : label below figure (centre)
      real(wp)           :: region(4)
      integer(i4)        :: fill(3)
      character(len=16)  :: projection, resolution, cmap
@@ -114,7 +116,7 @@ module fplt_typ
      real(wp)           :: an_major, an_minor, grid, pen
      real(wp)           :: cbar_tick_major, cbar_tick_minor, cbar_size
      character(len=64)  :: an_ticks
-     character(len=64)  :: title, label_top, label_bottom
+     character(len=64)  :: title, label_topleft, label_topright
   end type TYP_map
 
 ! module templates
@@ -136,15 +138,15 @@ module fplt_typ
      !! cmap            : use colour map
      !! cbar            : additional colour bar options
      !! title           : plot title (very top, larger)
-     !! label_top       : label above figure (right aligned)
-     !! label_bottom    : label below figure (centre)
+     !! label_topleft       : label above figure (right aligned)
+     !! label_topright    : label below figure (centre)
      !! first           : is module the bottom layer in stack
      !! top             : is module the top layer in stack
      character(len=32) :: name, gmt_module
      logical           :: infile
      logical           :: region, fill, projection, resolution
      logical           :: an_major, an_minor, grid, pen, cmap, cbar
-     logical           :: title, label_top, label_bottom
+     logical           :: title, label_topleft, label_topright
      logical           :: first, last
   end type TYP_module
 

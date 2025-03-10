@@ -14,6 +14,7 @@ module fplt
 ! load modules
   use, intrinsic :: iso_c_binding
   use            :: fplt_typ
+  use            :: fplt_utl
   use            :: fplt_gmt
   use            :: fplt_dat
 
@@ -25,7 +26,7 @@ module fplt
   public :: TYP_cmap, TYP_map, TYP_module
 
 ! declare public data
-  public :: DAT_map_default, DAT_mod_coast01, DAT_cmap_greys
+  public :: DAT_map_default, DAT_mod_coast01, DAT_cmap_greys, DAT_cmap_bluered01
 
 ! declare public procedures
   public :: fplt_map
@@ -69,6 +70,7 @@ subroutine fplt_map(map_opt, infile, outfile)
 
 ! gmt settings
   call plt_set(session, DAT_set_default)
+  write(std_o, *) "test"
 
 
 ! determine file format
@@ -101,13 +103,14 @@ subroutine fplt_map(map_opt, infile, outfile)
   end select
 
 ! get args for making colour map
-  call plt_args_cmap(DAT_cmap_greys, fstring)
+! TODO: search for cmap based on name
+  call plt_args_cmap(DAT_cmap_bluered01, fstring)
   args = trim(fstring) // c_null_char
   write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
 ! make colour map
   call plt_module(session, "makecpt", args)
-  write(std_o, *) "> Colour map created: ", trim(DAT_cmap_greys%name)
+  write(std_o, *) "> Colour map created: ", trim(DAT_cmap_bluered01%name)
 
 ! work through module stack
   do i=1,size(module_stack)
@@ -121,11 +124,10 @@ subroutine fplt_map(map_opt, infile, outfile)
      call plt_module(session, trim(module_stack(i)%gmt_module), args)
   enddo
 
-! work through annotation module stack
-
-
 ! destroy GMT session
   call plt_destroy(session)
+
+! TODO: clean up temporary files (separate subroutine)
 
 end subroutine fplt_map
 
@@ -314,27 +316,35 @@ subroutine plt_args_cmap(cmap_opt, fstring)
   type(TYP_cmap)    , intent(in)  :: cmap_opt
   character(len=256), intent(out) :: fstring
   character(len=32)               :: fstring_partial
+  integer(i4)                     :: i
 
 ! ==== Instructions
 
   fstring = ""
 
-! RGB args
+! ---- RGB args
   fstring = trim(fstring) // " -C"
-  write(fstring_partial, '(I3)') cmap_opt%rgb(1,1)
+! loop through all rgb values and append to-be-used ones to arguments
+  do i=1,size(cmap_opt%picker)-1
+     if (cmap_opt%picker(i) .eq. 1) then
+        write(fstring_partial, '(I3)') cmap_opt%rgb(1,i)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+        write(fstring_partial, '(I3)') cmap_opt%rgb(2,i)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
+        write(fstring_partial, '(I3)') cmap_opt%rgb(3,i)
+        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // ","
+     endif
+  enddo
+! append string for last rgb value
+  i=size(cmap_opt%picker)
+  write(fstring_partial, '(I3)') cmap_opt%rgb(1,i)
   fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') cmap_opt%rgb(2,1)
+  write(fstring_partial, '(I3)') cmap_opt%rgb(2,i)
   fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') cmap_opt%rgb(3,1)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // ","
-  write(fstring_partial, '(I3)') cmap_opt%rgb(1,2)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') cmap_opt%rgb(2,2)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') cmap_opt%rgb(3,2)
+  write(fstring_partial, '(I3)') cmap_opt%rgb(3,i)
   fstring = trim(fstring) // trim(adjustl(fstring_partial))
 
-! Z value args
+! ---- Z value args
   fstring = trim(fstring) // " -T"
   write(fstring_partial, '(F17.2)') cmap_opt%z_min
   fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
@@ -343,7 +353,7 @@ subroutine plt_args_cmap(cmap_opt, fstring)
   write(fstring_partial, '(F17.2)') cmap_opt%z_step
   fstring = trim(fstring) // trim(adjustl(fstring_partial))
 
-! output
+! ---- output
   fstring = trim(fstring) // " -Z > " // trim(cmap_opt%name) // ".cpt"
 
 end subroutine plt_args_cmap
@@ -377,7 +387,8 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
 
   ! region option
   if (module_opt%region) then
-     fstring = trim(fstring) // " -R"
+     call append_char(fstring, " -R")
+!     fstring = trim(fstring) // " -R"
      write(fstring_partial, '(F7.2)') map_opt%region(1)
      fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
      write(fstring_partial, '(F7.2)') map_opt%region(2)
@@ -421,7 +432,7 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
      write(fstring_partial, '(F7.2)') map_opt%grid
      fstring = trim(fstring) // "g" // trim(adjustl(fstring_partial))
      ! specify sides for annotations
-     fstring = trim(fstring) // " -BWNes"
+     fstring = trim(fstring) // " -B" // trim(map_opt%an_ticks)
   endif
 
   ! pen
@@ -450,20 +461,29 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
 
   ! title (top centre)
   ! TODO: separate font options
+  ! NOTE: char(34) is ascii code for ", which is needed to put the title in double
+  ! quotations, so the text can include spaces.
   if (module_opt%title) then
-     fstring = trim(fstring) // " -Y3 -F+cTC+f24p+t" // trim(map_opt%title)
+     fstring = trim(fstring) // " -Y2.2 -F+cTC+f24p+t" &
+     &// char(34) //  trim(map_opt%title) // char(34) // ""
   endif
 
   ! top left corner text
   ! TODO: separate font options
-  if (module_opt%label_top) then
-     fstring = trim(fstring) // " -Y-1.5 -F+cTL+f20p+t" // trim(map_opt%label_top)
+  ! NOTE: char(34) is ascii code for ", which is needed to put the title in double
+  ! quotations, so the text can include spaces.
+  if (module_opt%label_topleft) then
+     fstring = trim(fstring) // " -Y-1.2 -F+cTL+f20p+t" &
+     &// char(34) // trim(map_opt%label_topleft) // char(34) // ""
   endif
 
-  ! bottom centrer text
+  ! top right text
   ! TODO: separate font options
-  if (module_opt%label_bottom) then
-     fstring = trim(fstring) // " -Y-2.5 -F+cBC+f20p+t" // trim(map_opt%label_bottom)
+  ! NOTE: char(34) is ascii code for ", which is needed to put the title in double
+  ! quotations, so the text can include spaces.
+  if (module_opt%label_topright) then
+     fstring = trim(fstring) // " -F+cTR+f20p+t" &
+     &// char(34) // trim(map_opt%label_topright) // char(34) // ""
   endif
 
   ! writing/adding to outfile

@@ -1,4 +1,4 @@
-program main
+program check_maps01
 
 ! |--------------------------------------------------------------------|
 ! | fplt - fortran plotting library                                    |
@@ -18,18 +18,19 @@ program main
   implicit none
 
 ! modify preset colour map
-!  DAT_cmap_greys%rgb(:,1) =[50, 50, 50]
-!  DAT_cmap_greys%rgb(:,2) =[255, 255, 255]
-! modify preset range
-  DAT_cmap_bluered01%z_min = -20 !2000
-  DAT_cmap_bluered01%z_max = 30 !2000
-  DAT_cmap_bluered01%z_step = 1 !250
+  DAT_cmap_bluered01%z_min = -25
+  DAT_cmap_bluered01%z_max = 25
+  DAT_cmap_bluered01%z_step = 1
+
+! set plot labels
+  DAT_map_default%title = "Simulated Temperature (1979-2000)"
+  DAT_map_default%label_topleft = "2m air temperature"
+  DAT_map_default%label_topright= "deg C"
 
 ! change colour map
-  DAT_map_default%cmap="whitered01"
+  DAT_map_default%cmap="bluered01"
 
-! plot map
-  call fplt_map(DAT_map_default, "Mutz_et_al_2018_pd_temp2.asc", "topo.ps")
-!  call fplt_map(DAT_map_europe, "tmp.grd", "topo.ps")
+! plot map from text file using the default map template
+  call fplt_map(DAT_map_default, "./test/maps/Mutz_et_al_2018_pd_temp2.asc", "./test/maps/map01.pdf")
 
-end program main
+end program check_maps01

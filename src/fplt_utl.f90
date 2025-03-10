@@ -11,6 +11,9 @@ module fplt_utl
 ! | author  : Sebastian G. Mutz (sebastian@sebastianmutz.com)          |
 ! |--------------------------------------------------------------------|
 
+! load modules
+  use :: fplt_typ
+
 ! basic options
   implicit none
   private
@@ -37,7 +40,7 @@ subroutine append_real(fstring, r)
   write(fstring_partial, '(F7.2)') r
   fstring = trim(fstring) // trim(adjustl(fstring_partial))
 
-end module append_real
+end subroutine append_real
 
 
 ! ==================================================================== !
@@ -56,7 +59,7 @@ subroutine append_int(fstring, i)
   write(fstring_partial, '(I3)') i
   fstring = trim(fstring) // trim(adjustl(fstring_partial))
 
-end module append_real
+end subroutine append_int
 
 
 ! ==================================================================== !
@@ -71,9 +74,9 @@ subroutine append_char(fstring, fstring_partial)
   character(*), intent(in)    :: fstring_partial
 
 ! ==== Instructions
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  fstring = trim(fstring) // fstring_partial
 
-end module append_real
+end subroutine append_char
 
 
 end module fplt_utl
