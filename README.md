@@ -5,9 +5,9 @@
 ![20%](https://progress-bar.xyz/20?title=Alpha)
 <!-- markdownlint-enable -->
 
-![image info](./doc/logo/FPLT.png)
-
 ## <span style="color:#734f96">Description</span>
+
+![image info](./doc/logo/FPLT.png)
 
 > [!IMPORTANT]
 > FPLT is in a pre-alpha state, and only suitable for use by developers at this point.
@@ -72,7 +72,7 @@ FPLT is mostly developed “as needed” for my research. You are very welcome t
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
 
-### <span style="color:#734f96">All Progress</span> <br/>
+### <span style="color:#734f96">Progress Details</span> <br/>
 
 | Feature                   | Implemented |
 | ------------------------- | ----------- |
