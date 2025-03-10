@@ -27,7 +27,7 @@ The aim is to create a library that lets you:
 
 The following code modifies a colour map template *cmap_bluered01* before creating a temperature map of Europe using the *map_default* template. All templates are simple derived types with initialised values that can be overwritten, as done with *cmap_bluered01* below. The *fplt_map* subroutine automatically generates gmt arguments (based on  *map_default* template) and works through a stack of gmt modules to successively build your map "behind the scenes".
 
-```
+```fortran
 program check_maps01
 
 ! load modules
