@@ -1,17 +1,15 @@
 # <span style="color:#734f96">FPLT - Fortran Plotting Library</span>
 
-<!-- markdownlint-disable -->
 [![GitHub](https://img.shields.io/github/license/sebastian-mutz/fplt)](https://img.shields.io/github/license/sebastian-mutz/fplt/LICENSE)
 ![20%](https://progress-bar.xyz/20?title=Alpha)
-<!-- markdownlint-enable -->
-
-## <span style="color:#734f96">Description</span>
-
-![image info](./doc/logo/FPLT.png)
 
 > [!IMPORTANT]
 > FPLT is in a pre-alpha state, and only suitable for use by developers at this point.
 >
+
+## <span style="color:#734f96">Description</span>
+
+![image info](./doc/logo/FPLT.png)
 
 A scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
 
