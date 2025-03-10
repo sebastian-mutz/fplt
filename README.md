@@ -44,7 +44,7 @@ program check_maps01
 ! set plot labels
   map_default%title = "Simulated Temperature (1979-2000)"
   map_default%label_topleft = "2m air temperature"
-  map_default%label_topright= "deg C"
+  map_default%label_topright = "deg C"
 
 ! change colour map
   map_default%cmap="bluered01"
