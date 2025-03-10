@@ -67,10 +67,10 @@ FPLT is mostly developed “as needed” for my research. You are very welcome t
 
 ### <span style="color:#734f96">Plot Types</span> <br/>
 
-![50%](https://progress-bar.xyz/20?title=Maps)
-![0%](https://progress-bar.xyz/20?title=Heatmaps)
-![0%](https://progress-bar.xyz/20?title=XYPlots)
-![0%](https://progress-bar.xyz/20?title=BarPlots)
+![50%](https://progress-bar.xyz/50?title=Maps)
+![0%](https://progress-bar.xyz/0?title=Heatmaps)
+![0%](https://progress-bar.xyz/0?title=XYPlots)
+![0%](https://progress-bar.xyz/0?title=BarPlots)
 
 ### <span style="color:#734f96">All Progress</span> <br/>
 
