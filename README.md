@@ -45,10 +45,10 @@ program check_maps01
   map_default%label_topright = "deg C"
 
 ! change colour map
-  map_default%cmap="bluered01"
+  map_default%cmap = "bluered01"
 
 ! plot map from text file using the default map template
-  call fplt_map(DAT_map_default, "data_Mutz_et_al_2018.asc", "map01.pdf")
+  call fplt_map(map_default, "data_Mutz_et_al_2018.asc", "map01.pdf")
 
 end program check_maps01
 ```
@@ -59,18 +59,22 @@ The code above will generate the map below:
 
 ## <span style="color:#734f96">Development</span>
 
-FPLT is mostly developed “as needed” for my research. You are very welcome to contribute (through suggestions, coding, etc.) at any stage. The library is in early development stages, but already usable for a few type of plots. See details below.
+FPLT is mostly developed “as needed” for my research. As such, it will cover a lot of different plot styles, but its features will never be exhaustive. However, you are very welcome to contribute and add new features (through suggestions, coding, etc.) at any stage.
 
-## <span style="color:#734f96">Implemented and Planned Features</span>
+### <span style="color:#734f96">Alpha</span>
 
-### <span style="color:#734f96">Plot Types</span> <br/>
+I will consider the library to be in "alpha" once FPLT is able to reproduce ~80% of all the plots I've created in the past ~15 years.
+
+### <span style="color:#734f96">Implemented and Planned Features</span>
+
+#### <span style="color:#734f96">Plot Types</span> <br/>
 
 ![50%](https://progress-bar.xyz/50?title=Maps)
 ![0%](https://progress-bar.xyz/0?title=Heatmaps)
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
 
-### <span style="color:#734f96">Progress Details</span> <br/>
+#### <span style="color:#734f96">Progress Details</span> <br/>
 
 | Feature                   | Implemented |
 | ------------------------- | ----------- |
