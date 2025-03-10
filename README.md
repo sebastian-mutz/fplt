@@ -86,7 +86,7 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | Bar plots                 | -           |
 | GMT argument construction | 20%         |
 | GMT module templates      | 20%         |
-| Make colour maps          | 50%         |
+| Auto-generate colour maps | ✓           |
 | Auto label                | 80%         |
 | Auto page setup           | -           |
 | Read and convert text     | ✓           |
