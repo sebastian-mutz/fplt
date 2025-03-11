@@ -93,7 +93,9 @@ module fplt_typ
      !! region          : regional bounds: lon_min, lon_max, lat_min, lat_max
      !! fill            : RGB values for fill
      !! projection      : projection
-     !! scale           : scale (pixels)
+     !! scale           : scale (width in pixels)
+     !! centre          : N-E coordinate pair for centres (for conic projections)
+     !! parallels       : 2 N coordinates; standard parallels (for conic projections)
      !! resolution      : resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)
      !! an_major        : major annotations/labels
      !! an_minor        : minor annotations/labels
@@ -105,19 +107,19 @@ module fplt_typ
      !! cbar_size       : colour bar size (percentage of map length)
      !! pen             : pen width (point)
      !! title           : plot title (very top, larger)
-     !! label_topleft   : label above figure (right aligned)
-     !! label_topright  : label below figure (centre)
+     !! label_left      : label above figure (right aligned)
+     !! label_right     : label below figure (centre)
      !! font_size_title : font size of title (pixels)
      !! font_size_label : font size for labels (pixels)
      !! padding         : padding value used for labels
      real(wp)           :: region(4)
      integer(i4)        :: fill(3)
      character(len=16)  :: projection, resolution, cmap
-     real(wp)           :: scale
+     real(wp)           :: scale, centre(2), parallels(2)
      real(wp)           :: an_major, an_minor, grid, pen
      real(wp)           :: cbar_tick_major, cbar_tick_minor, cbar_size
      character(len=64)  :: an_ticks
-     character(len=64)  :: title, label_topleft, label_topright
+     character(len=64)  :: title, label_left, label_right
      real(wp)           :: font_size_title, font_size_label, padding
   end type TYP_map
 
@@ -140,15 +142,15 @@ module fplt_typ
      !! cmap            : use colour map
      !! cbar            : additional colour bar options
      !! title           : plot title (very top, larger)
-     !! label_topleft       : label above figure (right aligned)
-     !! label_topright    : label below figure (centre)
+     !! label_left      : label above figure (right aligned)
+     !! label_right     : label below figure (centre)
      !! first           : is module the bottom layer in stack
      !! top             : is module the top layer in stack
      character(len=32) :: name, gmt_module
      logical           :: infile
      logical           :: region, fill, projection, resolution
      logical           :: an_major, an_minor, grid, pen, cmap, cbar
-     logical           :: title, label_topleft, label_topright
+     logical           :: title, label_left, label_right
      logical           :: first, last
   end type TYP_module
 

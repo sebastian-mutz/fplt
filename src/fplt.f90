@@ -368,9 +368,26 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
 
   ! projection and scale
   if (module_opt%projection) then
-     fstring = trim(fstring) // " -J"&
-     & // trim(map_opt%projection)&
-     & // trim(f_r2c( map_opt%scale )) // "p"
+     select case (map_opt%projection)
+        ! M - Mercator projection
+        ! J - Miller Cylindrical projection
+        ! Q - Cylindrical equidistant projection
+        case ("M", "J", "Q")
+           fstring = trim(fstring) // " -J"&
+           & // trim(map_opt%projection)&
+           & // trim(f_r2c( map_opt%scale )) // "p"
+        ! L - Lambert conic conformal projection
+        ! B - Albers conic equal-area
+        ! D - Equidistant conic projection
+        case ("L", "B", "D")
+           fstring = trim(fstring) // " -J"&
+           & // trim(map_opt%projection)&
+           & // trim(f_r2c( map_opt%centre(1) )) // "/"&
+           & // trim(f_r2c( map_opt%centre(2) )) // "/"&
+           & // trim(f_r2c( map_opt%parallels(1) )) // "/"&
+           & // trim(f_r2c( map_opt%parallels(2) )) // "/"&
+           & // trim(f_r2c( map_opt%scale )) // "p"
+     end select
   endif
 
   ! resolution
@@ -410,7 +427,8 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
      fstring = trim(fstring) // " -B"&
      & // trim(f_r2c( map_opt%cbar_tick_major )) // "f"&
      & // trim(f_r2c( map_opt%cbar_tick_minor )) // " -DJRM+v+w"&
-     & // trim(f_r2c( map_opt%cbar_size )) // "%"
+     & // trim(f_r2c( map_opt%cbar_size )) // "%"&
+     & // " -X" // trim(f_r2c( map_opt%padding )) // "p"
   endif
 
   ! title (top centre)
@@ -420,6 +438,7 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
      & map_opt%font_size_title + &
      & map_opt%font_size_label + &
      & 2*map_opt%padding )) // "p"&
+     & // " -X-" // trim(f_r2c( map_opt%padding )) // "p" &
      ! placement (top centre) and font options
      & // " -F+cTC+f" // trim(f_r2c( map_opt%font_size_title )) // "p"&
      ! add text in double quotation marks to preserve spaces
@@ -427,7 +446,7 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
   endif
 
   ! top left corner text
-  if (module_opt%label_topleft) then
+  if (module_opt%label_left) then
      ! add Y offset relative to title based on font sizes and padding (title+padding)
      fstring = trim(fstring) // " -Y-" // trim(f_r2c( &
      & map_opt%font_size_title + &
@@ -435,17 +454,17 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
      ! placement (top left) and font options
      & // " -F+cTL+f" // trim(f_r2c( map_opt%font_size_label )) // "p"&
      ! add text in double quotation marks to preserve spaces
-     & // "+t" // char(34) // trim(map_opt%label_topleft) // char(34) // ""
+     & // "+t" // char(34) // trim(map_opt%label_left) // char(34) // ""
   endif
 
   ! top right text
-  if (module_opt%label_topright) then
+  if (module_opt%label_right) then
      ! note: no Y offset needed relative to top left text
      ! placement (top right) and font options
      fstring = trim(fstring) // " -F+cTR+f"&
      & // trim(f_r2c( map_opt%font_size_label )) // "p"&
      ! add text in double quotation marks to preserve spaces
-     & // "+t" // char(34) // trim(map_opt%label_topright) // char(34) // ""
+     & // "+t" // char(34) // trim(map_opt%label_right) // char(34) // ""
   endif
 
   ! writing/adding to outfile

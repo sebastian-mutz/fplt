@@ -93,8 +93,10 @@ module fplt_dat
 ! default map options
   data DAT_map_default%region          /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
   data DAT_map_default%fill            /200, 200, 200/
-  data DAT_map_default%projection      /"M"/  ! B15/50/40/40/
+  data DAT_map_default%projection      /"M"/
   data DAT_map_default%scale           /400.0_wp/
+  data DAT_map_default%centre          /15.0_wp, 30.0_wp/
+  data DAT_map_default%parallels       /40.0_wp, 60.0_wp/
   data DAT_map_default%resolution      /"l"/
   data DAT_map_default%an_major        /20.0_wp/
   data DAT_map_default%an_minor        /10.0_wp/
@@ -105,8 +107,8 @@ module fplt_dat
   data DAT_map_default%cbar_tick_major /10.0_wp/
   data DAT_map_default%cbar_tick_minor /2.0_wp/
   data DAT_map_default%title           /"The Plot Title Can Include Spaces"/
-  data DAT_map_default%label_topleft   /"variable name"/
-  data DAT_map_default%label_topright  /"units"/
+  data DAT_map_default%label_left      /"variable name"/
+  data DAT_map_default%label_right     /"units"/
   data DAT_map_default%font_size_title /25.0_wp/
   data DAT_map_default%font_size_label /20.0_wp/
   data DAT_map_default%padding         /10.0_wp/
@@ -129,8 +131,8 @@ module fplt_dat
   data DAT_mod_coast01%cmap           /.false./
   data DAT_mod_coast01%cbar           /.false./
   data DAT_mod_coast01%title          /.false./
-  data DAT_mod_coast01%label_topleft  /.false./
-  data DAT_mod_coast01%label_topright /.false./
+  data DAT_mod_coast01%label_left     /.false./
+  data DAT_mod_coast01%label_right    /.false./
   data DAT_mod_coast01%first          /.false./
   data DAT_mod_coast01%last           /.false./
 
@@ -149,8 +151,8 @@ module fplt_dat
   data DAT_mod_grdimg01%cmap           /.true./
   data DAT_mod_grdimg01%cbar           /.false./
   data DAT_mod_grdimg01%title          /.false./
-  data DAT_mod_grdimg01%label_topleft  /.false./
-  data DAT_mod_grdimg01%label_topright /.false./
+  data DAT_mod_grdimg01%label_left     /.false./
+  data DAT_mod_grdimg01%label_right    /.false./
   data DAT_mod_grdimg01%first          /.false./
   data DAT_mod_grdimg01%last           /.false./
 
@@ -169,8 +171,8 @@ module fplt_dat
   data DAT_mod_base01%cmap           /.false./
   data DAT_mod_base01%cbar           /.false./
   data DAT_mod_base01%title          /.false./
-  data DAT_mod_base01%label_topleft  /.false./
-  data DAT_mod_base01%label_topright /.false./
+  data DAT_mod_base01%label_left     /.false./
+  data DAT_mod_base01%label_right    /.false./
   data DAT_mod_base01%first          /.true./
   data DAT_mod_base01%last           /.false./
 
@@ -189,8 +191,8 @@ module fplt_dat
   data DAT_mod_text01%cmap           /.false./
   data DAT_mod_text01%cbar           /.false./
   data DAT_mod_text01%title          /.true./
-  data DAT_mod_text01%label_topleft  /.false./
-  data DAT_mod_text01%label_topright /.false./
+  data DAT_mod_text01%label_left     /.false./
+  data DAT_mod_text01%label_right    /.false./
   data DAT_mod_text01%first          /.false./
   data DAT_mod_text01%last           /.false./
 
@@ -209,8 +211,8 @@ module fplt_dat
   data DAT_mod_text02%cmap           /.false./
   data DAT_mod_text02%cbar           /.false./
   data DAT_mod_text02%title          /.false./
-  data DAT_mod_text02%label_topleft  /.true./
-  data DAT_mod_text02%label_topright /.false./
+  data DAT_mod_text02%label_left     /.true./
+  data DAT_mod_text02%label_right    /.false./
   data DAT_mod_text02%first          /.false./
   data DAT_mod_text02%last           /.false./
 
@@ -229,8 +231,8 @@ module fplt_dat
   data DAT_mod_text03%cmap           /.false./
   data DAT_mod_text03%cbar           /.false./
   data DAT_mod_text03%title          /.false./
-  data DAT_mod_text03%label_topleft  /.false./
-  data DAT_mod_text03%label_topright /.true./
+  data DAT_mod_text03%label_left     /.false./
+  data DAT_mod_text03%label_right    /.true./
   data DAT_mod_text03%first          /.false./
   data DAT_mod_text03%last           /.false./
 
@@ -249,8 +251,8 @@ module fplt_dat
   data DAT_mod_scale01%cmap           /.true./
   data DAT_mod_scale01%cbar           /.true./
   data DAT_mod_scale01%title          /.false./
-  data DAT_mod_scale01%label_topleft  /.false./
-  data DAT_mod_scale01%label_topright /.false./
+  data DAT_mod_scale01%label_left     /.false./
+  data DAT_mod_scale01%label_right    /.false./
   data DAT_mod_scale01%first          /.false./
   data DAT_mod_scale01%last           /.false./
 

@@ -24,13 +24,13 @@ program main
 
 ! set plot labels
   DAT_map_default%title = "Simulated Temperature (1979-2000)"
-  DAT_map_default%label_topleft = "2m air temperature"
-  DAT_map_default%label_topright= "deg C"
+  DAT_map_default%label_left = "2m air temperature"
+  DAT_map_default%label_right= "deg C"
 
 ! change colour map
   DAT_map_default%cmap="bluered01"
 
 ! plot map from text file using the default map template
-  call fplt_map(DAT_map_default, "./test/maps/Mutz_et_al_2018_pd_temp2.asc", "./test/maps/map01.pdf")
+  call fplt_map(DAT_map_default, "./test/maps/Mutz_et_al_2018_pd_temp2.asc", "./test/maps/map01.ps")
 
 end program main
