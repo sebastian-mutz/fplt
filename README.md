@@ -9,7 +9,7 @@
 
 ## <span style="color:#734f96">Description</span>
 
-![image info](./doc/logo/FPLT.png)
+![image info](./doc/logo/FPLT_small.png)
 
 FPLT is a scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
 
@@ -55,7 +55,7 @@ end program check_maps01
 
 The code above will generate the map below:
 
-![image info](./doc/map_europe.png)
+![image info](./doc/map.png)
 
 ## <span style="color:#734f96">Development</span>
 
