@@ -19,7 +19,7 @@ module fplt_utl
   private
 
 ! declare public
-  public :: f_r2c, f_i2c
+  public :: f_r2c, f_i2c, f_get_format
 
 
 contains
@@ -41,6 +41,7 @@ function f_r2c(r) result(c)
 
 end function f_r2c
 
+
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
 function f_i2c(i) result(c)
@@ -58,5 +59,54 @@ function f_i2c(i) result(c)
 
 end function f_i2c
 
+
+! ==================================================================== !
+! -------------------------------------------------------------------- !
+function f_get_format(filename) result(fmt)
+
+! ==== Description
+!! Determines file format by extension.
+!! in : filename - name of file
+!! out: fmt      - file format description
+
+! ==== Declarations
+  character(len=*), intent(in)  :: filename
+  character(len=64)             :: fmt
+  integer                       :: i, pos, length
+  character(len=10)             :: ext
+
+! ==== Instructions
+
+! initialize format
+  fmt = "unknown"
+
+! get the length of the filename
+  length = len(trim(filename))
+
+! find the last occurrence of '.'
+  pos = 0
+  do i = length, 1, -1
+     if (filename(i:i) .eq. ".") then
+        pos = i
+        exit
+     endif
+  enddo
+
+! if a dot is found and it's not the first character
+  if (pos .gt. 1 .and. pos .lt. length) then
+     ext = filename(pos+1:length)
+
+     ! compare extensions to known formats
+     select case (trim(ext))
+        case ("txt", "TXT", "asc", "ASC")
+           fmt = "text"
+        case ("grd", "GRD")
+           fmt = "grid"
+        case default
+           fmt = 'unknown'
+     end select
+  endif
+
+end function f_get_format
 
 end module fplt_utl

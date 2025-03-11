@@ -57,8 +57,8 @@ module fplt_dat
   data DAT_set_default%pen_grid           /0.1_wp/
   data DAT_set_default%pen_tick           /1.0_wp/
   data DAT_set_default%pen_frame          /0.5_wp/
-  data DAT_set_default%paper_width        /600.0_wp/
-  data DAT_set_default%paper_height       /500.0_wp/
+  data DAT_set_default%paper_width        /560.0_wp/
+  data DAT_set_default%paper_height       /480.0_wp/
 
 
 ! ---- colour maps
@@ -87,12 +87,13 @@ module fplt_dat
   data DAT_cmap_bluered01%z_max             /100.0_wp/
   data DAT_cmap_bluered01%z_step            /5.0_wp/
 
+
 ! ---- maps
 
 ! default map options
   data DAT_map_default%region          /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
   data DAT_map_default%fill            /200, 200, 200/
-  data DAT_map_default%projection      /"M"/
+  data DAT_map_default%projection      /"M"/  ! B15/50/40/40/
   data DAT_map_default%scale           /400.0_wp/
   data DAT_map_default%resolution      /"l"/
   data DAT_map_default%an_major        /20.0_wp/

@@ -70,10 +70,9 @@ subroutine fplt_map(map_opt, infile, outfile)
 
 ! gmt settings
   call plt_set(session, DAT_set_default)
-  write(std_o, *) "test"
 
 ! determine file format
-  call plt_get_format(infile, fstring)
+  fstring = f_get_format(infile)
   write(std_o, *) "> Input file format: ", trim(fstring)
 
 ! convert file format if necessary
@@ -190,44 +189,6 @@ end subroutine plt_init
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine plt_set(session, settings)
-
-! ==== Description
-!! Apply GMT settings.
-
-! ==== Declarations
-  type(TYP_settings)             , intent(in) :: settings
-  type(c_ptr)                    , intent(in) :: session
-  character(kind=c_char, len=256), target     :: args
-  integer(c_int)                              :: status
-  character(len=256)                          :: fstring
-
-! TODO: adjust paper size depending on plot size (both in pixels)
-
-! ==== Instructions
-
-! paper settings
-  fstring = "PS_MEDIA Custom_"&
-  & // trim(f_r2c( settings%paper_height )) // "x"&
-  & // trim(f_r2c( settings%paper_width )) // "p"
-  args = fstring // c_null_char
-  call plt_module(session, "gmtset", args)
-
-! font options
-  fstring = "FONT_ANNOT_PRIMARY "&
-  & // trim(f_r2c( settings%font_size_primary )) // "p,"&
-  & // char(34) // trim( settings%font ) // char(34) // ","&
-  & // trim(f_i2c( settings%col_font_primary(1) )) // "/"&
-  & // trim(f_i2c( settings%col_font_primary(2) )) // "/"&
-  & // trim(f_i2c( settings%col_font_primary(3) ))
-  args = fstring // c_null_char
-  call plt_module(session, "gmtset", args)
-
-end subroutine plt_set
-
-
-! ==================================================================== !
-! -------------------------------------------------------------------- !
 subroutine plt_destroy(session)
 
 ! ==== Description
@@ -249,6 +210,45 @@ subroutine plt_destroy(session)
   endif
 
 end subroutine plt_destroy
+
+
+! ==================================================================== !
+! -------------------------------------------------------------------- !
+subroutine plt_set(session, settings)
+
+! ==== Description
+!! Apply GMT settings based on general settings and map options.
+
+! ==== Declarations
+  type(TYP_settings)             , intent(in) :: settings
+  type(c_ptr)                    , intent(in) :: session
+  character(kind=c_char, len=256), target     :: args
+  integer(c_int)                              :: status
+  character(len=256)                          :: fstring
+
+! TODO: Option to adjust paper size depending on plot size (both in pixels).
+!       Would have to convert coordinates to paper dims based on projection.
+
+! ==== Instructions
+
+! paper settings
+  fstring = "PS_MEDIA Custom_"&
+  & // trim(f_r2c( settings%paper_height )) // "x"&
+  & // trim(f_r2c( settings%paper_width )) // "p"
+  args = fstring // c_null_char
+  call plt_module(session, "gmtset", args)
+
+! font options
+  fstring = "FONT_ANNOT_PRIMARY "&
+  & // trim(f_r2c( settings%font_size_primary )) // "p,"&
+  & // char(34) // trim( settings%font ) // char(34) // ","&
+  & // trim(f_i2c( settings%col_font_primary(1) )) // "/"&
+  & // trim(f_i2c( settings%col_font_primary(2) )) // "/"&
+  & // trim(f_i2c( settings%col_font_primary(3) ))
+  args = fstring // c_null_char
+  call plt_module(session, "gmtset", args)
+
+end subroutine plt_set
 
 
 ! ==================================================================== !
@@ -468,56 +468,5 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
   endif
 
 end subroutine plt_args_map
-
-
-! ==================================================================== !
-! -------------------------------------------------------------------- !
-subroutine plt_get_format(filename, fmt)
-
-! ==== Description
-!! Determines file format by extension.
-!! in : filename - name of file
-!! out: fmt      - file format description
-
-! ==== Declarations
-  character(len=*), intent(in)  :: filename
-  character(len=*), intent(out) :: fmt
-  integer                       :: i, position, len_filename
-  character(len=10)             :: ext
-
-! ==== Instructions
-
-! initialize format
-  fmt = "unknown"
-
-! get the length of the filename
-  len_filename = len(trim(filename))
-
-! find the last occurrence of '.'
-  position = 0
-  do i = len_filename, 1, -1
-     if (filename(i:i) .eq. ".") then
-        position = i
-        exit
-     endif
-  enddo
-
-! if a dot is found and it's not the first character
-  if (position .gt. 1 .and. position .lt. len_filename) then
-     ext = filename(position+1:len_filename)
-
-     ! compare extensions to known formats
-     select case (trim(ext))
-        case ("txt", "TXT", "asc", "ASC")
-           fmt = "text"
-        case ("grd", "GRD")
-           fmt = "grid"
-        case default
-           fmt = 'unknown'
-     end select
-  endif
-
-end subroutine plt_get_format
-
 
 end module fplt
