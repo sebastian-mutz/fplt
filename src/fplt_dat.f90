@@ -54,8 +54,6 @@ module fplt_dat
   data DAT_set_default%col_foreground     /255, 255, 255/
   data DAT_set_default%col_nan            /255, 255, 255/
   data DAT_set_default%font_size_primary  /18.0_wp/
-  data DAT_set_default%font_size_title    /25.0_wp/
-  data DAT_set_default%font_size_label    /20.0_wp/
   data DAT_set_default%pen_grid           /0.1_wp/
   data DAT_set_default%pen_tick           /1.0_wp/
   data DAT_set_default%pen_frame          /0.5_wp/
@@ -105,10 +103,13 @@ module fplt_dat
   data DAT_map_default%cmap            /"monochrome"/
   data DAT_map_default%cbar_tick_major /10.0_wp/
   data DAT_map_default%cbar_tick_minor /2.0_wp/
-  data DAT_map_default%cbar_size       /100.0_wp/
   data DAT_map_default%title           /"The Plot Title Can Include Spaces"/
   data DAT_map_default%label_topleft   /"variable name"/
   data DAT_map_default%label_topright  /"units"/
+  data DAT_map_default%font_size_title /25.0_wp/
+  data DAT_map_default%font_size_label /20.0_wp/
+  data DAT_map_default%padding         /10.0_wp/
+  data DAT_map_default%cbar_size       /100.0_wp/
 
 ! ---- gmt module options (args construction)
 

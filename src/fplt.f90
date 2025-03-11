@@ -200,37 +200,28 @@ subroutine plt_set(session, settings)
   type(c_ptr)                    , intent(in) :: session
   character(kind=c_char, len=256), target     :: args
   integer(c_int)                              :: status
-  character(len=256)                          :: fstring, fstring_partial
+  character(len=256)                          :: fstring
 
-! TODO: create functions in new utl module: append_real, append_int, append_char
 ! TODO: adjust paper size depending on plot size (both in pixels)
-
 
 ! ==== Instructions
 
 ! paper settings
-  write(fstring_partial, '(F7.2)') settings%paper_height
-  fstring = "PS_MEDIA Custom_" // trim(adjustl(fstring_partial))
-  write(fstring_partial, '(F7.2)') settings%paper_width
-  fstring = trim(fstring) // "x" // trim(adjustl(fstring_partial)) // "p"
+  fstring = "PS_MEDIA Custom_"&
+  & // trim(f_r2c( settings%paper_height )) // "x"&
+  & // trim(f_r2c( settings%paper_width )) // "p"
   args = fstring // c_null_char
   call plt_module(session, "gmtset", args)
 
 ! font options
-  write(fstring_partial, '(F7.2)') settings%font_size_primary
-  fstring = "FONT_ANNOT_PRIMARY " // trim(adjustl(fstring_partial)) // "p,"
-  fstring = trim(fstring) // trim(settings%font) // ","
-  write(fstring_partial, '(I3)') settings%col_font_primary(1)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') settings%col_font_primary(2)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') settings%col_font_primary(3)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  fstring = "FONT_ANNOT_PRIMARY "&
+  & // trim(f_r2c( settings%font_size_primary )) // "p,"&
+  & // char(34) // trim( settings%font ) // char(34) // ","&
+  & // trim(f_i2c( settings%col_font_primary(1) )) // "/"&
+  & // trim(f_i2c( settings%col_font_primary(2) )) // "/"&
+  & // trim(f_i2c( settings%col_font_primary(3) ))
   args = fstring // c_null_char
   call plt_module(session, "gmtset", args)
-
-!  write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
-
 
 end subroutine plt_set
 
@@ -272,25 +263,18 @@ subroutine plt_args_xyz2grd(map_opt, infile, outfile, fstring)
   type(TYP_map)     , intent(in)  :: map_opt
   character(len=*)  , intent(in)  :: infile, outfile
   character(len=256), intent(out) :: fstring
-  character(len=32)               :: fstring_partial
 
 ! ==== Instructions
 
-  fstring = ""
-
-! infile
-  fstring = trim(fstring) // trim(infile)
+! start with infile
+  fstring = trim(infile)
 
 ! region option
-  fstring = trim(fstring) // " -R"
-  write(fstring_partial, '(F7.2)') map_opt%region(1)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(F7.2)') map_opt%region(2)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(F7.2)') map_opt%region(3)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(F7.2)') map_opt%region(4)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  fstring = trim(fstring) // " -R"&
+  & // trim(f_r2c( map_opt%region(1) )) // "/"&
+  & // trim(f_r2c( map_opt%region(2) )) // "/"&
+  & // trim(f_r2c( map_opt%region(3) )) // "/"&
+  & // trim(f_r2c( map_opt%region(4) ))
 
 ! set grid spacing; make high res (2 degrees) as default
 ! TODO: worth making an option? not an attribute of map, so perhaps make
@@ -319,38 +303,30 @@ subroutine plt_args_cmap(cmap_opt, fstring)
 
 ! ==== Instructions
 
-  fstring = ""
-
 ! ---- RGB args
-  fstring = trim(fstring) // " -C"
+  fstring = " -C"
 ! loop through all rgb values and append to-be-used ones to arguments
   do i=1,size(cmap_opt%picker)-1
      if (cmap_opt%picker(i) .eq. 1) then
-        write(fstring_partial, '(I3)') cmap_opt%rgb(1,i)
-        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-        write(fstring_partial, '(I3)') cmap_opt%rgb(2,i)
-        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-        write(fstring_partial, '(I3)') cmap_opt%rgb(3,i)
-        fstring = trim(fstring) // trim(adjustl(fstring_partial)) // ","
+        fstring = trim(fstring)&
+        & // trim(f_i2c( cmap_opt%rgb(1,i) )) // "/"&
+        & // trim(f_i2c( cmap_opt%rgb(2,i) )) // "/"&
+        & // trim(f_i2c( cmap_opt%rgb(3,i) )) // ","
      endif
   enddo
 ! append string for last rgb value
   i=size(cmap_opt%picker)
-  write(fstring_partial, '(I3)') cmap_opt%rgb(1,i)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') cmap_opt%rgb(2,i)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(I3)') cmap_opt%rgb(3,i)
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  fstring = trim(fstring)&
+  & // trim(f_i2c( cmap_opt%rgb(1,i) )) // "/"&
+  & // trim(f_i2c( cmap_opt%rgb(2,i) )) // "/"&
+  & // trim(f_i2c( cmap_opt%rgb(3,i) ))
 
 ! ---- Z value args
-  fstring = trim(fstring) // " -T"
-  write(fstring_partial, '(F17.2)') cmap_opt%z_min
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(F17.2)') cmap_opt%z_max
-  fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-  write(fstring_partial, '(F17.2)') cmap_opt%z_step
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+! TODO: think about changing float length in f_r2c to enable larger numbers here
+  fstring = trim(fstring) // " -T"&
+  & // trim(f_r2c( cmap_opt%z_min )) // "/"&
+  & // trim(f_r2c( cmap_opt%z_max )) // "/"&
+  & // trim(f_r2c( cmap_opt%z_step ))
 
 ! ---- output
   fstring = trim(fstring) // " -Z > " // trim(cmap_opt%name) // ".cpt"
@@ -371,7 +347,6 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
   type(TYP_module)  , intent(in)  :: module_opt
   character(len=*)  , intent(in)  :: infile, outfile
   character(len=256), intent(out) :: fstring
-  character(len=32)               :: fstring_partial
 
 ! ==== Instructions
 
@@ -384,23 +359,18 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
 
   ! region option
   if (module_opt%region) then
-     call append_char(fstring, " -R")
-!     fstring = trim(fstring) // " -R"
-     write(fstring_partial, '(F7.2)') map_opt%region(1)
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-     write(fstring_partial, '(F7.2)') map_opt%region(2)
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-     write(fstring_partial, '(F7.2)') map_opt%region(3)
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-     write(fstring_partial, '(F7.2)') map_opt%region(4)
-     fstring = trim(fstring) // trim(adjustl(fstring_partial))
+     fstring = trim(fstring) // " -R" &
+     & // trim(f_r2c( map_opt%region(1) )) // "/"&
+     & // trim(f_r2c( map_opt%region(2) )) // "/"&
+     & // trim(f_r2c( map_opt%region(3) )) // "/"&
+     & // trim(f_r2c( map_opt%region(4) ))
   endif
 
   ! projection and scale
   if (module_opt%projection) then
-     fstring = trim(fstring) // " -J" // trim(map_opt%projection)
-     write(fstring_partial, '(F7.2)') map_opt%scale
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "p"
+     fstring = trim(fstring) // " -J"&
+     & // trim(map_opt%projection)&
+     & // trim(f_r2c( map_opt%scale )) // "p"
   endif
 
   ! resolution
@@ -410,33 +380,24 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
 
   ! fill
   if (module_opt%fill) then
-     fstring = trim(fstring) // " -G"
-     write(fstring_partial, '(I3)') map_opt%fill(1)
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-     write(fstring_partial, '(I3)') map_opt%fill(2)
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "/"
-     write(fstring_partial, '(I3)') map_opt%fill(3)
-     fstring = trim(fstring) // trim(adjustl(fstring_partial))
+     fstring = trim(fstring) // " -G"&
+     & // trim(f_i2c( map_opt%fill(1) )) // "/"&
+     & // trim(f_i2c( map_opt%fill(2) )) // "/"&
+     & // trim(f_i2c( map_opt%fill(3) ))
   endif
 
   ! annotations and grid
   if (module_opt%an_major .and. module_opt%an_minor .and. module_opt%grid) then
-     fstring = trim(fstring) // " -B"
-     write(fstring_partial, '(F7.2)') map_opt%an_major
-     fstring = trim(fstring) // "a" // trim(adjustl(fstring_partial))
-     write(fstring_partial, '(F7.2)') map_opt%an_minor
-     fstring = trim(fstring) // "f" // trim(adjustl(fstring_partial))
-     write(fstring_partial, '(F7.2)') map_opt%grid
-     fstring = trim(fstring) // "g" // trim(adjustl(fstring_partial))
-     ! specify sides for annotations
-     fstring = trim(fstring) // " -B" // trim(map_opt%an_ticks)
+     fstring = trim(fstring) // " -Ba" &
+     & // trim(f_r2c( map_opt%an_major )) // "f"&
+     & // trim(f_r2c( map_opt%an_minor )) // "g"&
+     & // trim(f_r2c( map_opt%grid )) // " -B"&
+     & // trim(map_opt%an_ticks)
   endif
 
   ! pen
   if (module_opt%pen) then
-     fstring = trim(fstring) // " -W"
-     write(fstring_partial, '(F3.1)') map_opt%pen
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "p"
+     fstring = trim(fstring) // " -W" // trim(f_r2c( map_opt%pen )) // "p"
   endif
 
   ! colour map
@@ -446,41 +407,45 @@ subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
 
   ! additional colour bar options
   if (module_opt%cbar) then
-     fstring = trim(fstring) // " -B"
-     write(fstring_partial, '(F7.2)') map_opt%cbar_tick_major
-     fstring = trim(fstring) // trim(adjustl(fstring_partial))
-     write(fstring_partial, '(F7.2)') map_opt%cbar_tick_minor
-     fstring = trim(fstring) // "f" // trim(adjustl(fstring_partial))
-     fstring = trim(fstring) // " -DJRM+v+w"
-     write(fstring_partial, '(F7.2)') map_opt%cbar_size
-     fstring = trim(fstring) // trim(adjustl(fstring_partial)) // "%"
+     fstring = trim(fstring) // " -B"&
+     & // trim(f_r2c( map_opt%cbar_tick_major )) // "f"&
+     & // trim(f_r2c( map_opt%cbar_tick_minor )) // " -DJRM+v+w"&
+     & // trim(f_r2c( map_opt%cbar_size )) // "%"
   endif
 
   ! title (top centre)
-  ! TODO: separate font options
-  ! NOTE: char(34) is ascii code for ", which is needed to put the title in double
-  ! quotations, so the text can include spaces.
   if (module_opt%title) then
-     fstring = trim(fstring) // " -Y2.2 -F+cTC+f24p+t" &
-     &// char(34) //  trim(map_opt%title) // char(34) // ""
+     ! add Y offset based on font sizes and padding (title+label+2*padding)
+     fstring = trim(fstring) // " -Y" // trim(f_r2c( &
+     & map_opt%font_size_title + &
+     & map_opt%font_size_label + &
+     & 2*map_opt%padding )) // "p"&
+     ! placement (top centre) and font options
+     & // " -F+cTC+f" // trim(f_r2c( map_opt%font_size_title )) // "p"&
+     ! add text in double quotation marks to preserve spaces
+     & // "+t" // char(34) // trim(map_opt%title) // char(34) // ""
   endif
 
   ! top left corner text
-  ! TODO: separate font options
-  ! NOTE: char(34) is ascii code for ", which is needed to put the title in double
-  ! quotations, so the text can include spaces.
   if (module_opt%label_topleft) then
-     fstring = trim(fstring) // " -Y-1.2 -F+cTL+f20p+t" &
-     &// char(34) // trim(map_opt%label_topleft) // char(34) // ""
+     ! add Y offset relative to title based on font sizes and padding (title+padding)
+     fstring = trim(fstring) // " -Y-" // trim(f_r2c( &
+     & map_opt%font_size_title + &
+     & map_opt%padding )) // "p"&
+     ! placement (top left) and font options
+     & // " -F+cTL+f" // trim(f_r2c( map_opt%font_size_label )) // "p"&
+     ! add text in double quotation marks to preserve spaces
+     & // "+t" // char(34) // trim(map_opt%label_topleft) // char(34) // ""
   endif
 
   ! top right text
-  ! TODO: separate font options
-  ! NOTE: char(34) is ascii code for ", which is needed to put the title in double
-  ! quotations, so the text can include spaces.
   if (module_opt%label_topright) then
-     fstring = trim(fstring) // " -F+cTR+f20p+t" &
-     &// char(34) // trim(map_opt%label_topright) // char(34) // ""
+     ! note: no Y offset needed relative to top left text
+     ! placement (top right) and font options
+     fstring = trim(fstring) // " -F+cTR+f"&
+     & // trim(f_r2c( map_opt%font_size_label )) // "p"&
+     ! add text in double quotation marks to preserve spaces
+     & // "+t" // char(34) // trim(map_opt%label_topright) // char(34) // ""
   endif
 
   ! writing/adding to outfile

@@ -19,64 +19,44 @@ module fplt_utl
   private
 
 ! declare public
-  public :: append_real, append_int, append_char
+  public :: f_r2c, f_i2c
 
 
 contains
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine append_real(fstring, r)
+function f_r2c(r) result(c)
 
 ! ==== Description
-!! Convert real to char and append to passed string.
+!! Convert real to char.
 
 ! ==== Declarations
-  character(*), intent(inout) :: fstring
-  real(wp)    , intent(in)    :: r
-  character(len=256)          :: fstring_partial
+  real(wp), intent(in) :: r
+  character(len=256)   :: c
 
 ! ==== Instructions
-  write(fstring_partial, '(F7.2)') r
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  write(c, '(F7.2)') r
+  c=adjustl(c)
 
-end subroutine append_real
-
+end function f_r2c
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine append_int(fstring, i)
+function f_i2c(i) result(c)
 
 ! ==== Description
-!! Convert integer to char and append to passed string.
+!! Convert integer to char.
 
 ! ==== Declarations
-  character(*), intent(inout) :: fstring
-  real(wp)    , intent(in)    :: i
-  character(len=256)          :: fstring_partial
+  integer(i4), intent(in) :: i
+  character(len=256)      :: c
 
 ! ==== Instructions
-  write(fstring_partial, '(I3)') i
-  fstring = trim(fstring) // trim(adjustl(fstring_partial))
+  write(c, '(I3)') i
+  c=adjustl(c)
 
-end subroutine append_int
-
-
-! ==================================================================== !
-! -------------------------------------------------------------------- !
-subroutine append_char(fstring, fstring_partial)
-
-! ==== Description
-!! Append char to passed string.
-
-! ==== Declarations
-  character(*), intent(inout) :: fstring
-  character(*), intent(in)    :: fstring_partial
-
-! ==== Instructions
-  fstring = trim(fstring) // fstring_partial
-
-end subroutine append_char
+end function f_i2c
 
 
 end module fplt_utl

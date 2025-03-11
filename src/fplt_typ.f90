@@ -53,8 +53,6 @@ module fplt_typ
      !! col_foreground     : foreground colour (rgb value)
      !! col_nan            : colour for NANs (rgb value)
      !! font_size_primary  : size of primary font (pixels)
-     !! font_size_title    : font size of title (pixels)
-     !! font_size_label    : font size for labels (pixels)
      !! pen_grid           : pen size for grid (pixels)
      !! pen_tick           : pen size for ticks (pixels)
      !! pen_frame          : pen size for frame (pixels)
@@ -64,7 +62,7 @@ module fplt_typ
      integer(i4)       :: col_font_primary(3), col_font_secondary(3)
      integer(i4)       :: col_lines_primary(3)
      integer(i4)       :: col_background(3), col_foreground(3), col_nan(3)
-     real(wp)          :: font_size_primary, font_size_title, font_size_label
+     real(wp)          :: font_size_primary
      real(wp)          :: pen_grid, pen_tick, pen_frame
      real(wp)          :: paper_width, paper_height
   end type TYP_settings
@@ -107,8 +105,11 @@ module fplt_typ
      !! cbar_size       : colour bar size (percentage of map length)
      !! pen             : pen width (point)
      !! title           : plot title (very top, larger)
-     !! label_topleft       : label above figure (right aligned)
+     !! label_topleft   : label above figure (right aligned)
      !! label_topright  : label below figure (centre)
+     !! font_size_title : font size of title (pixels)
+     !! font_size_label : font size for labels (pixels)
+     !! padding         : padding value used for labels
      real(wp)           :: region(4)
      integer(i4)        :: fill(3)
      character(len=16)  :: projection, resolution, cmap
@@ -117,6 +118,7 @@ module fplt_typ
      real(wp)           :: cbar_tick_major, cbar_tick_minor, cbar_size
      character(len=64)  :: an_ticks
      character(len=64)  :: title, label_topleft, label_topright
+     real(wp)           :: font_size_title, font_size_label, padding
   end type TYP_map
 
 ! module templates

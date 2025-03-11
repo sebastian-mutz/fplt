@@ -31,6 +31,6 @@ program check_maps01
   DAT_map_default%cmap="bluered01"
 
 ! plot map from text file using the default map template
-  call fplt_map(DAT_map_default, "./test/maps/Mutz_et_al_2018_pd_temp2.asc", "./test/maps/map01.pdf")
+  call fplt_map(DAT_map_default, "./test/maps/Mutz_et_al_2018_pd_temp2.asc", "./test/maps/map01.ps")
 
 end program check_maps01
