@@ -40,9 +40,12 @@ program check_maps01
   cmap_bluered01%z_step = 1
 
 ! set plot labels
-  map_default%title = "Simulated Temperature (1979-2000)"
-  map_default%label_topleft = "2m air temperature"
-  map_default%label_topright = "deg C"
+  map_default%title = "Lambert Conic Conformal Projection"
+  map_default%label_left = "2m air temperature"
+  map_default%label_right = "deg C"
+
+! change projection (L = Lambert conic conformal, default = Mercator)
+  map_default%projection = "L"
 
 ! change colour map
   map_default%cmap = "bluered01"
@@ -53,7 +56,7 @@ program check_maps01
 end program check_maps01
 ```
 
-The code above will generate the map below:
+The code above will generate the map below; not changing the projection will make fplt default to a Mercator projection (map at bottom):
 
 ![image info](./doc/map.png)
 
@@ -69,26 +72,39 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 
 #### <span style="color:#734f96">Plot Types</span> <br/>
 
-![50%](https://progress-bar.xyz/50?title=Maps)
+![80%](https://progress-bar.xyz/80?title=Maps)
 ![0%](https://progress-bar.xyz/0?title=Heatmaps)
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
 
+#### <span style="color:#734f96">Map Projections</span> <br/>
+
+| Map Projections           | Implemented |
+| ------------------------- | ----------- |
+| Mercator                  | ✓           |
+| Miller Cylindrical        | ✓           |
+| Cylindrical Equidistant   | ✓           |
+| Lambert Conic Conformal   | ✓           |
+| Albers Conic Equal-Area   | ✓           |
+| Equidistant Conic         | ✓           |
+| Transverse Mercator       | -           |
+| Orthographic              | -           |
+
 #### <span style="color:#734f96">Progress Details</span> <br/>
 
-| Feature                   | Implemented |
+| Features                  | Implemented |
 | ------------------------- | ----------- |
 | Bindings for GMT's C-API  | ✓           |
-| Maps (Cylindrical Proj.)  | ✓           |
-| Maps (Conic & Ortho Proj.)| -           |
+| Geographical maps         | ✓           |
 | Heat maps                 | -           |
-| XY scatter &  line plots  | -           |
+| XY scatter and line plots | -           |
 | Bar plots                 | -           |
-| GMT argument construction | 20%         |
+| GMT argument construction | 40%         |
 | GMT module templates      | 20%         |
+| GMT auto settings         | 50%         |
+| "Dark mode" plot setting  | -           |
 | Auto-generate colour maps | ✓           |
-| Auto label                | 80%         |
-| Auto page setup           | -           |
+| Auto label and positioning| 80%         |
 | Read and convert text     | ✓           |
 | Read and convert netcdf   | -           |
 
