@@ -26,7 +26,7 @@ module fplt
   public :: TYP_cmap, TYP_map, TYP_module
 
 ! declare public data
-  public :: DAT_map_default, DAT_mod_coast01, DAT_cmap_greys, DAT_cmap_bluered01
+  public :: DAT_map, DAT_mod_coast01, DAT_cmap
 
 ! declare public procedures
   public :: fplt_map
@@ -40,6 +40,8 @@ subroutine fplt_map(map_opt, infile, outfile)
 
 ! ==== Description
 !! Uses fortran-gmt interface for creating a map.
+! TODO: don't pass map_opt, pass map template name instead and search for
+!       template from list, as done for cmap
 
 ! ==== Declarations
   type(TYP_map)                  , intent(in) :: map_opt
@@ -50,12 +52,16 @@ subroutine fplt_map(map_opt, infile, outfile)
   character(kind=c_char, len=256), target     :: args
   integer(c_int)                              :: status
   character(len=256)                          :: fstring
+  type(TYP_cmap)                              :: cmap
+  type(TYP_settings)                          :: settings
   type(TYP_module)                            :: module_stack(7)
   integer(i4)                                 :: i
 
 ! ==== Instructions
 
 ! construct module stack for maps
+! TODO: consider: define module stack layer in map template rather than
+! subroutine (allows to create template to only plot coast, for example)
   module_stack(1) = DAT_mod_base01
   module_stack(2) = DAT_mod_grdimg01
   module_stack(3) = DAT_mod_coast01
@@ -68,8 +74,8 @@ subroutine fplt_map(map_opt, infile, outfile)
 ! initialise GMT session
   call plt_init(session, session_name)
 
-! gmt settings
-  call plt_set(session, DAT_set_default)
+
+! ---- Input file handling
 
 ! determine file format
   fstring = f_get_format(infile)
@@ -79,6 +85,7 @@ subroutine fplt_map(map_opt, infile, outfile)
 ! TODO: seperatre module if expanded
   select case (fstring)
      case ("text")
+
         ! update workfile
         workfile="temp.grd"
 
@@ -100,15 +107,58 @@ subroutine fplt_map(map_opt, infile, outfile)
         stop
   end select
 
+
+! ---- GMT settings
+
+! find theme/settings in dict
+  do i=1,size(DAT_set)
+
+     ! check if names match
+     if (map_opt%theme .eq. DAT_set(i)%name) then
+       settings = DAT_set(i)
+       exit
+
+     ! if end of dict is reached and no match found, stop
+     elseif (i .eq. size(DAT_set)) then
+        write(std_o, *) "> Error: specified theme not found"
+        stop
+     endif
+
+  enddo
+
+! gmt settings
+  call plt_set(session, settings)
+
+
+! ---- Create colour map
+
+! find colour map in dict
+  do i=1,size(DAT_cmap)
+
+     ! check if names match
+     if (map_opt%cmap .eq. DAT_cmap(i)%name) then
+       cmap = DAT_cmap(i)
+       exit
+
+     ! if end of dict is reached and no match found, stop
+     elseif (i .eq. size(DAT_cmap)) then
+        write(std_o, *) "> Error: specified colour map not found"
+        stop
+     endif
+
+  enddo
+
 ! get args for making colour map
-! TODO: search for cmap based on name
-  call plt_args_cmap(DAT_cmap_bluered01, fstring)
+  call plt_args_cmap(map_opt, cmap, fstring)
   args = trim(fstring) // c_null_char
   write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
 ! make colour map
   call plt_module(session, "makecpt", args)
-  write(std_o, *) "> Colour map created: ", trim(DAT_cmap_bluered01%name)
+  write(std_o, *) "> Colour map created: ", trim(cmap%name)
+
+
+! ---- Create map
 
 ! work through module stack
   do i=1,size(module_stack)
@@ -120,7 +170,11 @@ subroutine fplt_map(map_opt, infile, outfile)
 
      ! gmt module calls
      call plt_module(session, trim(module_stack(i)%gmt_module), args)
+
   enddo
+
+
+! ---- Finish
 
 ! destroy GMT session
   call plt_destroy(session)
@@ -238,6 +292,38 @@ subroutine plt_set(session, settings)
   args = fstring // c_null_char
   call plt_module(session, "gmtset", args)
 
+! page background colour
+  fstring = "PS_PAGE_COLOR "&
+  & // trim(f_i2c( settings%col_background(1) )) // "/"&
+  & // trim(f_i2c( settings%col_background(2) )) // "/"&
+  & // trim(f_i2c( settings%col_background(3) ))
+  args = fstring // c_null_char
+  call plt_module(session, "gmtset", args)
+
+! map frame colour
+  fstring = "MAP_FRAME_PEN "&
+  & // trim(f_i2c( settings%col_frame(1) )) // "/"&
+  & // trim(f_i2c( settings%col_frame(2) )) // "/"&
+  & // trim(f_i2c( settings%col_frame(3) ))
+  args = fstring // c_null_char
+  call plt_module(session, "gmtset", args)
+
+! map grid line colour
+  fstring = "MAP_GRID_PEN_PRIMARY "&
+  & // trim(f_i2c( settings%col_lines_primary(1) )) // "/"&
+  & // trim(f_i2c( settings%col_lines_primary(2) )) // "/"&
+  & // trim(f_i2c( settings%col_lines_primary(3) ))
+  args = fstring // c_null_char
+  call plt_module(session, "gmtset", args)
+
+! map annotation colour (make same as primary font)
+  fstring = "MAP_TICK_PEN_PRIMARY "&
+  & // trim(f_i2c( settings%col_font_primary(1) )) // "/"&
+  & // trim(f_i2c( settings%col_font_primary(2) )) // "/"&
+  & // trim(f_i2c( settings%col_font_primary(3) ))
+  args = fstring // c_null_char
+  call plt_module(session, "gmtset", args)
+
 ! font options
   fstring = "FONT_ANNOT_PRIMARY "&
   & // trim(f_r2c( settings%font_size_primary )) // "p,"&
@@ -289,13 +375,14 @@ end subroutine plt_args_xyz2grd
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine plt_args_cmap(cmap_opt, fstring)
+subroutine plt_args_cmap(map_opt, cmap_opt, fstring)
 
 ! ==== Description
 !! Crafts a fortran string for making a colour map
 !! as argument string to be used in the gmt module
 
 ! ==== Declarations
+  type(TYP_map)     , intent(in)  :: map_opt
   type(TYP_cmap)    , intent(in)  :: cmap_opt
   character(len=256), intent(out) :: fstring
   character(len=32)               :: fstring_partial
@@ -324,9 +411,9 @@ subroutine plt_args_cmap(cmap_opt, fstring)
 ! ---- Z value args
 ! TODO: think about changing float length in f_r2c to enable larger numbers here
   fstring = trim(fstring) // " -T"&
-  & // trim(f_r2c( cmap_opt%z_min )) // "/"&
-  & // trim(f_r2c( cmap_opt%z_max )) // "/"&
-  & // trim(f_r2c( cmap_opt%z_step ))
+  & // trim(f_r2c( map_opt%z_min )) // "/"&
+  & // trim(f_r2c( map_opt%z_max )) // "/"&
+  & // trim(f_r2c( map_opt%z_step ))
 
 ! ---- output
   fstring = trim(fstring) // " -Z > " // trim(cmap_opt%name) // ".cpt"

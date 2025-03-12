@@ -19,13 +19,13 @@ module fplt_dat
   private
 
 ! settings
-  public :: DAT_set_default
+  public :: DAT_set
 
 ! declare public maps
-  public :: DAT_map_default
+  public :: DAT_map
 
 ! declare public colour maps
-  public :: DAT_cmap_greys, DAT_cmap_bluered01
+  public :: DAT_cmap
 
 ! declase public module option lists
   public :: DAT_mod_base01, DAT_mod_grdimg01, DAT_mod_coast01
@@ -34,85 +34,102 @@ module fplt_dat
 
 ! ==== Declarations
 
-  type(TYP_map)      :: DAT_map_default
-  type(TYP_settings) :: DAT_set_default
+! TODO: store map and settings templates in dictionaries (like cmaps) and identify by map template name
+! TODO: think about doing this for module templates (or perhaps separate by gmt module type)
+  type(TYP_map)      :: DAT_map
+  type(TYP_settings) :: DAT_set(2)
   type(TYP_module)   :: DAT_mod_base01, DAT_mod_grdimg01, DAT_mod_coast01
   type(TYP_module)   :: DAT_mod_text01, DAT_mod_text02, DAT_mod_text03
   type(TYP_module)   :: DAT_mod_scale01
-  type(TYP_cmap)     :: DAT_cmap_greys, DAT_cmap_bluered01
+  type(TYP_cmap)     :: DAT_cmap(2)     ! colour map collection
   integer            :: i
 
 ! ==== Data (presents)
 
 ! ---- gmt settings
 
-  data DAT_set_default%font               /"Helvetica"/
-  data DAT_set_default%col_font_primary   /50, 50, 50/
-  data DAT_set_default%col_font_secondary /100, 100, 100/
-  data DAT_set_default%col_lines_primary  /100, 100, 100/
-  data DAT_set_default%col_background     /255, 255, 255/
-  data DAT_set_default%col_foreground     /255, 255, 255/
-  data DAT_set_default%col_nan            /255, 255, 255/
-  data DAT_set_default%font_size_primary  /18.0_wp/
-  data DAT_set_default%pen_grid           /0.1_wp/
-  data DAT_set_default%pen_tick           /1.0_wp/
-  data DAT_set_default%pen_frame          /0.5_wp/
-  data DAT_set_default%paper_width        /560.0_wp/
-  data DAT_set_default%paper_height       /480.0_wp/
+  data DAT_set(1)%name               /"light"/
+  data DAT_set(1)%font               /"Helvetica"/
+  data DAT_set(1)%col_font_primary   /50, 50, 50/
+  data DAT_set(1)%col_font_secondary /100, 100, 100/
+  data DAT_set(1)%col_lines_primary  /100, 100, 100/
+  data DAT_set(1)%col_background     /255, 255, 255/
+  data DAT_set(1)%col_frame          /50, 50, 50/
+  data DAT_set(1)%col_nan            /255, 255, 255/
+  data DAT_set(1)%font_size_primary  /18.0_wp/
+  data DAT_set(1)%pen_grid           /0.1_wp/
+  data DAT_set(1)%pen_tick           /1.0_wp/
+  data DAT_set(1)%pen_frame          /0.5_wp/
+  data DAT_set(1)%paper_width        /560.0_wp/
+  data DAT_set(1)%paper_height       /480.0_wp/
+
+  data DAT_set(2)%name               /"dark"/
+  data DAT_set(2)%font               /"Helvetica"/
+  data DAT_set(2)%col_font_primary   /200, 200, 200/
+  data DAT_set(2)%col_font_secondary /150, 150, 150/
+  data DAT_set(2)%col_lines_primary  /255, 255, 255/
+  data DAT_set(2)%col_background     /0, 0, 0/
+  data DAT_set(2)%col_frame          /220, 220, 220/
+  data DAT_set(2)%col_nan            /0, 0, 0/
+  data DAT_set(2)%font_size_primary  /18.0_wp/
+  data DAT_set(2)%pen_grid           /0.1_wp/
+  data DAT_set(2)%pen_tick           /1.0_wp/
+  data DAT_set(2)%pen_frame          /0.5_wp/
+  data DAT_set(2)%paper_width        /560.0_wp/
+  data DAT_set(2)%paper_height       /480.0_wp/
 
 
 ! ---- colour maps
 
 ! monochrome scales
-  data DAT_cmap_greys%name /"monochrome"/
-  data (DAT_cmap_greys%rgb(i,1), i=1,3) /0, 0, 0/
-  data (DAT_cmap_greys%rgb(i,2), i=1,3) /0, 0, 0/
-  data (DAT_cmap_greys%rgb(i,3), i=1,3) /0, 0, 0/
-  data (DAT_cmap_greys%rgb(i,4), i=1,3) /0, 0, 0/
-  data (DAT_cmap_greys%rgb(i,5), i=1,3) /255, 255, 255/
-  data DAT_cmap_greys%picker            /1, 0, 0, 0, 1/
-  data DAT_cmap_greys%z_min             /0.0_wp/
-  data DAT_cmap_greys%z_max             /100.0_wp/
-  data DAT_cmap_greys%z_step            /5.0_wp/
+  data DAT_cmap(1)%name /"monochrome"/
+  data (DAT_cmap(1)%rgb(i,1), i=1,3) /0, 0, 0/
+  data (DAT_cmap(1)%rgb(i,2), i=1,3) /0, 0, 0/
+  data (DAT_cmap(1)%rgb(i,3), i=1,3) /0, 0, 0/
+  data (DAT_cmap(1)%rgb(i,4), i=1,3) /0, 0, 0/
+  data (DAT_cmap(1)%rgb(i,5), i=1,3) /255, 255, 255/
+  data DAT_cmap(1)%picker            /1, 0, 0, 0, 1/
 
 ! 2 colour scale
-  data DAT_cmap_bluered01%name /"bluered01"/
-  data (DAT_cmap_bluered01%rgb(i,1), i=1,3) /0, 20, 150/
-  data (DAT_cmap_bluered01%rgb(i,2), i=1,3) /0, 0, 0/
-  data (DAT_cmap_bluered01%rgb(i,3), i=1,3) /255, 255, 255/
-  data (DAT_cmap_bluered01%rgb(i,4), i=1,3) /0, 0, 0/
-  data (DAT_cmap_bluered01%rgb(i,5), i=1,3) /150, 20, 0/
-  data DAT_cmap_bluered01%picker            /1, 0, 1, 0, 1/
-  data DAT_cmap_bluered01%z_min             /0.0_wp/
-  data DAT_cmap_bluered01%z_max             /100.0_wp/
-  data DAT_cmap_bluered01%z_step            /5.0_wp/
+  data DAT_cmap(2)%name /"bluered01"/
+  data (DAT_cmap(2)%rgb(i,1), i=1,3) /0, 20, 180/
+  data (DAT_cmap(2)%rgb(i,2), i=1,3) /0, 0, 0/
+  data (DAT_cmap(2)%rgb(i,3), i=1,3) /220, 220, 220/
+  data (DAT_cmap(2)%rgb(i,4), i=1,3) /0, 0, 0/
+  data (DAT_cmap(2)%rgb(i,5), i=1,3) /180, 20, 0/
+  data DAT_cmap(2)%picker            /1, 0, 1, 0, 1/
 
 
 ! ---- maps
 
 ! default map options
-  data DAT_map_default%region          /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
-  data DAT_map_default%fill            /200, 200, 200/
-  data DAT_map_default%projection      /"M"/
-  data DAT_map_default%scale           /400.0_wp/
-  data DAT_map_default%centre          /15.0_wp, 30.0_wp/
-  data DAT_map_default%parallels       /40.0_wp, 60.0_wp/
-  data DAT_map_default%resolution      /"l"/
-  data DAT_map_default%an_major        /20.0_wp/
-  data DAT_map_default%an_minor        /10.0_wp/
-  data DAT_map_default%an_ticks        /"WneS"/
-  data DAT_map_default%grid            /5.0_wp/
-  data DAT_map_default%pen             /0.5_wp/
-  data DAT_map_default%cmap            /"monochrome"/
-  data DAT_map_default%cbar_tick_major /10.0_wp/
-  data DAT_map_default%cbar_tick_minor /2.0_wp/
-  data DAT_map_default%title           /"The Plot Title Can Include Spaces"/
-  data DAT_map_default%label_left      /"variable name"/
-  data DAT_map_default%label_right     /"units"/
-  data DAT_map_default%font_size_title /25.0_wp/
-  data DAT_map_default%font_size_label /20.0_wp/
-  data DAT_map_default%padding         /10.0_wp/
-  data DAT_map_default%cbar_size       /100.0_wp/
+  data DAT_map%name            /"default"/
+  data DAT_map%theme           /"light"/
+  data DAT_map%region          /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
+  data DAT_map%fill            /200, 200, 200/
+  data DAT_map%projection      /"M"/
+  data DAT_map%scale           /400.0_wp/
+  data DAT_map%centre          /15.0_wp, 30.0_wp/
+  data DAT_map%parallels       /40.0_wp, 60.0_wp/
+  data DAT_map%resolution      /"l"/
+  data DAT_map%an_major        /20.0_wp/
+  data DAT_map%an_minor        /10.0_wp/
+  data DAT_map%an_ticks        /"WneS"/
+  data DAT_map%grid            /5.0_wp/
+  data DAT_map%pen             /0.5_wp/
+  data DAT_map%cmap            /"monochrome"/
+  data DAT_map%cbar_tick_major /10.0_wp/
+  data DAT_map%cbar_tick_minor /2.0_wp/
+  data DAT_map%z_min           /0.0_wp/
+  data DAT_map%z_max           /100.0_wp/
+  data DAT_map%z_step          /5.0_wp/
+  data DAT_map%title           /"The Plot Title Can Include Spaces"/
+  data DAT_map%label_left      /"variable name"/
+  data DAT_map%label_right     /"units"/
+  data DAT_map%font_size_title /25.0_wp/
+  data DAT_map%font_size_label /20.0_wp/
+  data DAT_map%padding         /10.0_wp/
+  data DAT_map%cbar_size       /100.0_wp/
 
 ! ---- gmt module options (args construction)
 

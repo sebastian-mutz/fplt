@@ -45,12 +45,13 @@ module fplt_typ
   type :: TYP_settings
      !! Derived type for gmt settings.
      !!
+     !! name               : name of settings template (theme)
      !! font               : name of font to be used
      !! col_font_primary   : primary font colour (rgb value)
      !! col_font_secondary : secondary font colour (rgb value)
      !! col_lines_primary  : primary annotation line colour (rgb value)
      !! col_background     : background colour (rgb value)
-     !! col_foreground     : foreground colour (rgb value)
+     !! col_frame          : map frame colour (rgb value)
      !! col_nan            : colour for NANs (rgb value)
      !! font_size_primary  : size of primary font (pixels)
      !! pen_grid           : pen size for grid (pixels)
@@ -58,10 +59,10 @@ module fplt_typ
      !! pen_frame          : pen size for frame (pixels)
      !! paper_width        : width of paper to plot on (pixels)
      !! paper_height       : height of paper to plot on (pixels)
-     character(len=64) :: font
+     character(len=64) :: name, font
      integer(i4)       :: col_font_primary(3), col_font_secondary(3)
      integer(i4)       :: col_lines_primary(3)
-     integer(i4)       :: col_background(3), col_foreground(3), col_nan(3)
+     integer(i4)       :: col_background(3), col_frame(3), col_nan(3)
      real(wp)          :: font_size_primary
      real(wp)          :: pen_grid, pen_tick, pen_frame
      real(wp)          :: paper_width, paper_height
@@ -76,20 +77,16 @@ module fplt_typ
      !!                dimensions=(3,5), where 3 is for rgb, 5 = up to 5 colours on scale
      !! picker       : which of the 5 rgb values are to be used for creating a colour map
      !!                0 = do not use, 1 = use; last colour must always be used.
-     !! z_min, z_max : range bounds (min and max value)
-     !! z_step       : step size (used for plotting)
-     !!
-     !! TODO: change to max 5 colours to interpolate between and add attribute
-     !!       that informs cpt construction (e.g., "use only first 2 colours")
      character(len=16) :: name
      integer(i4)       :: rgb(3,5), picker(5)
-     real(wp)          :: z_min, z_max, z_step
   end type TYP_cmap
 
 ! map
   type :: TYP_map
      !! Derived type for map options.
      !!
+     !! name            : name of map template
+     !! theme           : map theme (e.g., "default", "dark", or "light")
      !! region          : regional bounds: lon_min, lon_max, lat_min, lat_max
      !! fill            : RGB values for fill
      !! projection      : projection
@@ -105,6 +102,8 @@ module fplt_typ
      !! cbar_tick_major : colour bar major ticks
      !! cbar_tick_minor : colour bar minor ticks
      !! cbar_size       : colour bar size (percentage of map length)
+     !! z_min, z_max    : range bounds (min and max value)
+     !! z_step          : step size (used for plotting)
      !! pen             : pen width (point)
      !! title           : plot title (very top, larger)
      !! label_left      : label above figure (right aligned)
@@ -112,12 +111,14 @@ module fplt_typ
      !! font_size_title : font size of title (pixels)
      !! font_size_label : font size for labels (pixels)
      !! padding         : padding value used for labels
+     character(len=64)  :: name, theme
      real(wp)           :: region(4)
      integer(i4)        :: fill(3)
      character(len=16)  :: projection, resolution, cmap
      real(wp)           :: scale, centre(2), parallels(2)
      real(wp)           :: an_major, an_minor, grid, pen
      real(wp)           :: cbar_tick_major, cbar_tick_minor, cbar_size
+     real(wp)           :: z_min, z_max, z_step
      character(len=64)  :: an_ticks
      character(len=64)  :: title, label_left, label_right
      real(wp)           :: font_size_title, font_size_label, padding
