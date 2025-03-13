@@ -102,7 +102,7 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | GMT argument construction | 40%         |
 | GMT module templates      | 20%         |
 | GMT auto settings         | 50%         |
-| "Dark mode" plot setting  | -           |
+| Themes for plot setting   | ✓           |
 | Auto-generate colour maps | ✓           |
 | Auto label and positioning| 80%         |
 | Read and convert text     | ✓           |
