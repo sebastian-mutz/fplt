@@ -26,7 +26,7 @@ module fplt
   public :: TYP_cmap, TYP_map, TYP_module
 
 ! declare public data
-  public :: DAT_map, DAT_mod_coast01, DAT_cmap
+  public :: DAT_map, DAT_mod, DAT_cmap
 
 ! declare public procedures
   public :: fplt_map
@@ -40,35 +40,35 @@ subroutine fplt_map(map_opt, infile, outfile)
 
 ! ==== Description
 !! Uses fortran-gmt interface for creating a map.
-! TODO: don't pass map_opt, pass map template name instead and search for
-!       template from list, as done for cmap
+!!
+!! map_opt        : map options
+!! infile/outfile : name of input and output files
+!! module_stack   : names of module templates to work through in order
+!! w_file         : working file (original or converted infile)
+!! w_cmap         : colour map being worked with (looked up)
+!! w_set          : settings being worked with (looked up)
+!! w_mod          : module template being worked with (looked up)
 
 ! ==== Declarations
   type(TYP_map)                  , intent(in) :: map_opt
   character(len=*)               , intent(in) :: infile, outfile
-  character(len=256)                          :: workfile
   type(c_ptr)                                 :: session
+  integer(c_int)                              :: status
   character(kind=c_char, len=20)              :: session_name
   character(kind=c_char, len=256), target     :: args
-  integer(c_int)                              :: status
+  character(len=32)                           :: module_stack(7)
+  character(len=256)                          :: w_file
+  type(TYP_cmap)                              :: w_cmap
+  type(TYP_settings)                          :: w_set
+  type(TYP_module)                            :: w_mod
   character(len=256)                          :: fstring
-  type(TYP_cmap)                              :: cmap
-  type(TYP_settings)                          :: settings
-  type(TYP_module)                            :: module_stack(7)
-  integer(i4)                                 :: i
+  integer(i4)                                 :: i, j
 
 ! ==== Instructions
 
 ! construct module stack for maps
-! TODO: consider: define module stack layer in map template rather than
-! subroutine (allows to create template to only plot coast, for example)
-  module_stack(1) = DAT_mod_base01
-  module_stack(2) = DAT_mod_grdimg01
-  module_stack(3) = DAT_mod_coast01
-  module_stack(4) = DAT_mod_scale01
-  module_stack(5) = DAT_mod_text01
-  module_stack(6) = DAT_mod_text02
-  module_stack(7) = DAT_mod_text03
+  data module_stack /"basemap01", "grdimage01", "pscoast01", "scale01"&
+                  &, "title01", "label01", "label02"/
   write(std_o, *) "> Fortran-GMT module stack created"
 
 ! initialise GMT session
@@ -85,77 +85,66 @@ subroutine fplt_map(map_opt, infile, outfile)
 ! TODO: seperatre module if expanded
   select case (fstring)
      case ("text")
-
         ! update workfile
-        workfile="temp.grd"
-
+        w_file="temp.grd"
         ! construct arguments
-        call plt_args_xyz2grd(map_opt, infile, workfile, fstring)
+        call plt_args_xyz2grd(map_opt, infile, w_file, fstring)
         args = trim(fstring) // c_null_char
         write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
-
         ! gmt module calls
         call plt_module(session, "xyz2grd", args)
-        write(std_o, *) "> Text file converted to grid file: ", trim(workfile)
-
+        write(std_o, *) "> Text file converted to grid file: ", trim(w_file)
      case ("grid")
         ! use infile as working file
-        workfile=infile
-
+        w_file=infile
      case ("unknown")
         write(std_o, *) "> Unknown file format. Stopping."
         stop
   end select
 
 
-! ---- GMT settings
+! ---- Apply settings
 
 ! find theme/settings in dict
   do i=1,size(DAT_set)
-
      ! check if names match
      if (map_opt%theme .eq. DAT_set(i)%name) then
-       settings = DAT_set(i)
+       w_set = DAT_set(i)
        exit
-
      ! if end of dict is reached and no match found, stop
      elseif (i .eq. size(DAT_set)) then
         write(std_o, *) "> Error: specified theme not found"
         stop
      endif
-
   enddo
 
 ! gmt settings
-  call plt_set(session, settings)
+  call plt_set(session, w_set)
 
 
 ! ---- Create colour map
 
 ! find colour map in dict
   do i=1,size(DAT_cmap)
-
      ! check if names match
      if (map_opt%cmap .eq. DAT_cmap(i)%name) then
-       cmap = DAT_cmap(i)
+       w_cmap = DAT_cmap(i)
        exit
-
      ! if end of dict is reached and no match found, stop
      elseif (i .eq. size(DAT_cmap)) then
         write(std_o, *) "> Error: specified colour map not found"
         stop
      endif
-
   enddo
 
 ! get args for making colour map
-  call plt_args_cmap(map_opt, cmap, fstring)
+  call plt_args_cmap(map_opt, w_cmap, fstring)
   args = trim(fstring) // c_null_char
   write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
 ! make colour map
   call plt_module(session, "makecpt", args)
-  write(std_o, *) "> Colour map created: ", trim(cmap%name)
+  write(std_o, *) "> Colour map created: ", trim(w_cmap%name)
 
 
 ! ---- Create map
@@ -163,14 +152,26 @@ subroutine fplt_map(map_opt, infile, outfile)
 ! work through module stack
   do i=1,size(module_stack)
 
+     ! find colour map in dict
+     do j=1,size(DAT_mod)
+        ! check if names match
+        if (module_stack(i) .eq. DAT_mod(j)%name) then
+          w_mod = DAT_mod(j)
+          exit
+        ! if end of dict is reached and no match found, stop
+        elseif (j .eq. size(DAT_mod)) then
+           write(std_o, *) "> Error: specified module template not found"
+           stop
+        endif
+     enddo
+
      ! prepare the arguments
-     call plt_args_map(map_opt, workfile, outfile, module_stack(i), fstring)
+     call plt_args_map(map_opt, w_file, outfile, w_mod, fstring)
      args = trim(fstring) // c_null_char
      write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
      ! gmt module calls
-     call plt_module(session, trim(module_stack(i)%gmt_module), args)
-
+     call plt_module(session, trim(w_mod%gmt_module), args)
   enddo
 
 

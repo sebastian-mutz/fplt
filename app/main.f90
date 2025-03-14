@@ -25,8 +25,6 @@ program main
 ! change colour map
   DAT_map%cmap="bluered01"
 
-! TODO: move z values to map derives type. change values of actual cmap in plt_map
-
 ! modify preset colour map
   DAT_map%z_min = -25
   DAT_map%z_max = 25
