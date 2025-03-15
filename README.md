@@ -3,9 +3,6 @@
 [![GitHub](https://img.shields.io/github/license/sebastian-mutz/fplt)](https://github.com/sebastian-mutz/fplt/blob/main/LICENCE)
 ![20%](https://progress-bar.xyz/20?title=Alpha)
 
-@note
-FPLT is in a pre-alpha state, and only suitable for developers at this point.
-@endnote
 
 > [!IMPORTANT]
 > FPLT is in a pre-alpha state, and only suitable for developers at this point.
@@ -13,7 +10,7 @@ FPLT is in a pre-alpha state, and only suitable for developers at this point.
 
 ## <span style="color:#734f96">Description</span>
 
-![logo](./assets/logo/FPLT_small.png)
+![logo](doc/media/logo/FPLT_small.png)
 
 FPLT is a scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
 
@@ -48,6 +45,9 @@ program check_maps01
   map_default%label_left = "2m air temperature"
   map_default%label_right = "deg C"
 
+! change theme
+  map_default%theme = "dark"
+
 ! change projection (L = Lambert conic conformal, default = Mercator)
   map_default%projection = "L"
 
@@ -60,9 +60,9 @@ program check_maps01
 end program check_maps01
 ```
 
-The code above will generate the map below; not changing the projection will make fplt default to a Mercator projection (map at bottom):
+The code above will generate the map below; not changing the projection and theme will make FPLT default to a Mercator projection and the light theme (map at bottom):
 
-![map](./assets/map.png)
+![map](doc/media/map.png)
 
 ## <span style="color:#734f96">Development</span>
 

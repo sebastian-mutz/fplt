@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="FPLT.svg"
+   inkscape:export-filename="model.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.5093849"
+     inkscape:cx="306.41621"
+     inkscape:cy="91.759233"
+     inkscape:window-width="1720"
+     inkscape:window-height="1356"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#e5e5e5;fill-opacity:1;stroke:#808080;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect881"
+       width="42.674236"
+       height="42.674236"
+       x="0.50345963"
+       y="0.50344336"
+       ry="7.9365754"
+       inkscape:export-filename="FPLT.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
+       x="12.696589"
+       y="39.042873"
+       id="text605"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan603"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.5833px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#808080;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
+         x="12.696589"
+         y="39.042873">P L T</tspan></text>
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.207517;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect891"
+       width="0.86279982"
+       height="37.43301"
+       x="5.6595864"
+       y="5.3249578"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0913853;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect952"
+       width="0.47615117"
+       height="13.154372"
+       x="16.456022"
+       y="-13.845164"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       transform="rotate(90)" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0899261;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect958"
+       width="0.47615117"
+       height="12.737656"
+       x="5.8726873"
+       y="-13.845164"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       transform="rotate(90)" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.158298;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1014"
+       width="0.70531482"
+       height="26.645498"
+       x="36.018265"
+       y="-24.475719"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       transform="rotate(45)" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.104966;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1672"
+       width="1.1852075"
+       height="6.9720063"
+       x="33.05476"
+       y="20.317974"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.127903;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1674"
+       width="1.1852075"
+       height="10.352056"
+       x="36.229717"
+       y="16.937925"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.145814;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1676"
+       width="1.1852075"
+       height="13.454298"
+       x="39.404675"
+       y="13.835683"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.0772593;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1680"
+       width="1.1852075"
+       height="3.7771614"
+       x="29.879803"
+       y="23.512819"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <circle
+       style="fill:#808080;fill-opacity:1;stroke:#e6e6e6;stroke-width:0.359904"
+       id="path1739"
+       cx="6.1054635"
+       cy="6.0811014"
+       r="0.89975727" />
+    <circle
+       style="fill:#808080;fill-opacity:1;stroke:#e6e6e6;stroke-width:0.359904"
+       id="circle1741"
+       cx="6.1054635"
+       cy="16.68428"
+       r="0.89975727" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.156044;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1833"
+       width="0.43811217"
+       height="41.684158"
+       x="27.058386"
+       y="-42.583645"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       transform="rotate(90)" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32.4556px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#734f96;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
+       x="9.0524549"
+       y="27.993616"
+       id="text1841"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1839"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:32.4556px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#734f96;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
+         x="9.0524549"
+         y="27.993616">F</tspan></text>
+    <circle
+       style="fill:#808080;fill-opacity:1;stroke:#e6e6e6;stroke-width:0.359904"
+       id="circle2206"
+       cx="6.1054635"
+       cy="27.194853"
+       r="0.89975727" />
+    <rect
+       style="fill:#e5e5e5;fill-opacity:1;stroke:#808080;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect872"
+       width="42.674236"
+       height="42.674236"
+       x="48.60363"
+       y="0.50344336"
+       ry="7.9365754"
+       inkscape:export-filename="FPLT.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.259904;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect888"
+       width="6.2419839"
+       height="8.1163549"
+       x="64.459419"
+       y="26.592854"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.411545;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1242"
+       width="6.2419839"
+       height="20.350246"
+       x="72.396927"
+       y="14.358964"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.3333px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#734f96;fill-opacity:1;stroke:#808080;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1"
+       x="49.951374"
+       y="34.718391"
+       id="text902"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan900"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.3333px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#734f96;fill-opacity:1;stroke-width:0.5;stroke-dasharray:none;stroke:#808080;stroke-opacity:1"
+         x="49.951374"
+         y="34.718391">F</tspan></text>
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.495897;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1239"
+       width="6.2419839"
+       height="29.547358"
+       x="80.334435"
+       y="5.1618514"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
+       x="64.684982"
+       y="41.756195"
+       id="text1229"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1227"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#808080;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
+         x="64.684982"
+         y="41.756195">P</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
+       x="72.783485"
+       y="41.756195"
+       id="text1233"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1231"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#808080;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
+         x="72.783485"
+         y="41.756195">L</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
+       x="80.606125"
+       y="41.756195"
+       id="text1237"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1235"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#808080;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
+         x="80.606125"
+         y="41.756195">T</tspan></text>
+    <rect
+       style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.10266;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1392"
+       width="0.47615117"
+       height="16.60047"
+       x="38.441818"
+       y="-66.139053"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       transform="rotate(90)" />
+    <rect
+       style="fill:#333333;fill-opacity:1;stroke:#999999;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1462"
+       width="42.674236"
+       height="42.674236"
+       x="96.150955"
+       y="0.50344336"
+       ry="7.9365754"
+       inkscape:export-filename="FPLT_dark.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke-width:0.259904;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1464"
+       width="6.2419839"
+       height="8.1163549"
+       x="112.00674"
+       y="26.592854"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <rect
+       style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke-width:0.411545;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1466"
+       width="6.2419839"
+       height="20.350246"
+       x="119.94425"
+       y="14.358964"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.3333px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#734f96;fill-opacity:1;stroke:#999999;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1"
+       x="97.498695"
+       y="34.718391"
+       id="text1470"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1468"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:42.3333px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#734f96;fill-opacity:1;stroke-width:0.5;stroke-dasharray:none;stroke:#999999;stroke-opacity:1"
+         x="97.498695"
+         y="34.718391">F</tspan></text>
+    <rect
+       style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke-width:0.495897;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1472"
+       width="6.2419839"
+       height="29.547358"
+       x="127.88176"
+       y="5.1618514"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
+       x="112.23231"
+       y="41.756195"
+       id="text1476"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1474"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#999999;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
+         x="112.23231"
+         y="41.756195">P</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
+       x="120.33081"
+       y="41.756195"
+       id="text1480"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1478"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#999999;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
+         x="120.33081"
+         y="41.756195">L</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
+       x="128.15344"
+       y="41.756195"
+       id="text1484"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan1482"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#999999;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
+         x="128.15344"
+         y="41.756195">T</tspan></text>
+    <rect
+       style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke-width:0.10266;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect1486"
+       width="0.47615117"
+       height="16.60047"
+       x="38.441818"
+       y="-113.68638"
+       inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       transform="rotate(90)" />
+  </g>
+</svg>
