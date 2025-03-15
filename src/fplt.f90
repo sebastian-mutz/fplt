@@ -12,12 +12,13 @@ module fplt
 ! |--------------------------------------------------------------------|
 
 ! FORD
-!! Abstraction layer and contains core procedures.
+!! Abstraction layer with core procedures.
 
 ! load modules
   use, intrinsic :: iso_c_binding
   use            :: fplt_typ
   use            :: fplt_utl
+  use            :: fplt_arg
   use            :: fplt_gmt
   use            :: fplt_dat
 
@@ -67,21 +68,20 @@ subroutine fplt_map(map_opt, infile, outfile)
   character(len=256)                          :: fstring
   integer(i4)                                 :: i, j
 
-! ==== Instructions
-
 ! construct module stack for maps
   data module_stack /"basemap01", "grdimage01", "pscoast01", "scale01"&
                   &, "title01", "label01", "label02"/
-  write(std_o, *) "> Fortran-GMT module stack created"
+
+! ==== Instructions
 
 ! initialise GMT session
-  call plt_init(session, session_name)
+  call fplt_init(session, session_name)
 
 
 ! ---- Input file handling
 
 ! determine file format
-  fstring = f_get_format(infile)
+  fstring = f_utl_get_format(infile)
   write(std_o, *) "> Input file format: ", trim(fstring)
 
 ! convert file format if necessary
@@ -91,11 +91,11 @@ subroutine fplt_map(map_opt, infile, outfile)
         ! update workfile
         w_file="temp.grd"
         ! construct arguments
-        call plt_args_xyz2grd(map_opt, infile, w_file, fstring)
+        fstring = f_arg_xyz2grd(map_opt, infile, w_file)
         args = trim(fstring) // c_null_char
         write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
         ! gmt module calls
-        call plt_module(session, "xyz2grd", args)
+        call fplt_module(session, "xyz2grd", args)
         write(std_o, *) "> Text file converted to grid file: ", trim(w_file)
      case ("grid")
         ! use infile as working file
@@ -122,7 +122,7 @@ subroutine fplt_map(map_opt, infile, outfile)
   enddo
 
 ! gmt settings
-  call plt_set(session, w_set)
+  call fplt_set(session, w_set)
 
 
 ! ---- Create colour map
@@ -141,12 +141,12 @@ subroutine fplt_map(map_opt, infile, outfile)
   enddo
 
 ! get args for making colour map
-  call plt_args_cmap(map_opt, w_cmap, fstring)
+  fstring = f_arg_cmap(map_opt, w_cmap)
   args = trim(fstring) // c_null_char
   write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
 ! make colour map
-  call plt_module(session, "makecpt", args)
+  call fplt_module(session, "makecpt", args)
   write(std_o, *) "> Colour map created: ", trim(w_cmap%name)
 
 
@@ -169,19 +169,19 @@ subroutine fplt_map(map_opt, infile, outfile)
      enddo
 
      ! prepare the arguments
-     call plt_args_map(map_opt, w_file, outfile, w_mod, fstring)
+     fstring = f_arg_map(map_opt, w_file, outfile, w_mod)
      args = trim(fstring) // c_null_char
      write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
 
      ! gmt module calls
-     call plt_module(session, trim(w_mod%gmt_module), args)
+     call fplt_module(session, trim(w_mod%gmt_module), args)
   enddo
 
 
 ! ---- Finish
 
 ! destroy GMT session
-  call plt_destroy(session)
+  call fplt_destroy(session)
 
 ! TODO: clean up temporary files (separate subroutine)
 
@@ -190,7 +190,7 @@ end subroutine fplt_map
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine plt_module(session, module_name, args)
+subroutine fplt_module(session, module_name, args)
 
 ! ==== Description
 !! Single GMT  module call.
@@ -213,12 +213,12 @@ subroutine plt_module(session, module_name, args)
      stop
   end if
 
-end subroutine plt_module
+end subroutine fplt_module
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine plt_init(session, session_name)
+subroutine fplt_init(session, session_name)
 
 ! ==== Description
 !! Create GMT session.
@@ -242,12 +242,12 @@ subroutine plt_init(session, session_name)
      stop
   endif
 
-end subroutine plt_init
+end subroutine fplt_init
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine plt_destroy(session)
+subroutine fplt_destroy(session)
 
 ! ==== Description
 !! Destroy GMT session.
@@ -267,12 +267,12 @@ subroutine plt_destroy(session)
      stop
   endif
 
-end subroutine plt_destroy
+end subroutine fplt_destroy
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-subroutine plt_set(session, settings)
+subroutine fplt_set(session, settings)
 
 ! ==== Description
 !! Apply GMT settings based on general settings and map options.
@@ -281,302 +281,22 @@ subroutine plt_set(session, settings)
   type(TYP_settings)             , intent(in) :: settings
   type(c_ptr)                    , intent(in) :: session
   character(kind=c_char, len=256), target     :: args
-  integer(c_int)                              :: status
-  character(len=256)                          :: fstring
+  character(len=256)                          :: stack(6), fstring
+  integer(i4)                                 :: i
+
+  data stack/"size", "page", "frame", "grid", "tick", "font"/
 
 ! TODO: Option to adjust paper size depending on plot size (both in pixels).
 !       Would have to convert coordinates to paper dims based on projection.
 
 ! ==== Instructions
 
-! paper settings
-  fstring = "PS_MEDIA Custom_"&
-  & // trim(f_r2c( settings%paper_height )) // "x"&
-  & // trim(f_r2c( settings%paper_width )) // "p"
-  args = fstring // c_null_char
-  call plt_module(session, "gmtset", args)
-
-! page background colour
-  fstring = "PS_PAGE_COLOR "&
-  & // trim(f_i2c( settings%col_background(1) )) // "/"&
-  & // trim(f_i2c( settings%col_background(2) )) // "/"&
-  & // trim(f_i2c( settings%col_background(3) ))
-  args = fstring // c_null_char
-  call plt_module(session, "gmtset", args)
-
-! map frame colour
-  fstring = "MAP_FRAME_PEN "&
-  & // trim(f_i2c( settings%col_frame(1) )) // "/"&
-  & // trim(f_i2c( settings%col_frame(2) )) // "/"&
-  & // trim(f_i2c( settings%col_frame(3) ))
-  args = fstring // c_null_char
-  call plt_module(session, "gmtset", args)
-
-! map grid line colour
-  fstring = "MAP_GRID_PEN_PRIMARY "&
-  & // trim(f_i2c( settings%col_lines_primary(1) )) // "/"&
-  & // trim(f_i2c( settings%col_lines_primary(2) )) // "/"&
-  & // trim(f_i2c( settings%col_lines_primary(3) ))
-  args = fstring // c_null_char
-  call plt_module(session, "gmtset", args)
-
-! map annotation colour (make same as primary font)
-  fstring = "MAP_TICK_PEN_PRIMARY "&
-  & // trim(f_i2c( settings%col_font_primary(1) )) // "/"&
-  & // trim(f_i2c( settings%col_font_primary(2) )) // "/"&
-  & // trim(f_i2c( settings%col_font_primary(3) ))
-  args = fstring // c_null_char
-  call plt_module(session, "gmtset", args)
-
-! font options
-  fstring = "FONT_ANNOT_PRIMARY "&
-  & // trim(f_r2c( settings%font_size_primary )) // "p,"&
-  & // char(34) // trim( settings%font ) // char(34) // ","&
-  & // trim(f_i2c( settings%col_font_primary(1) )) // "/"&
-  & // trim(f_i2c( settings%col_font_primary(2) )) // "/"&
-  & // trim(f_i2c( settings%col_font_primary(3) ))
-  args = fstring // c_null_char
-  call plt_module(session, "gmtset", args)
-
-end subroutine plt_set
-
-
-! ==================================================================== !
-! -------------------------------------------------------------------- !
-subroutine plt_args_xyz2grd(map_opt, infile, outfile, fstring)
-
-! ==== Description
-!! Crafts a fortran string for making a colour map
-!! as argument string to be used in the gmt module
-
-! ==== Declarations
-  type(TYP_map)     , intent(in)  :: map_opt
-  character(len=*)  , intent(in)  :: infile, outfile
-  character(len=256), intent(out) :: fstring
-
-! ==== Instructions
-
-! start with infile
-  fstring = trim(infile)
-
-! region option
-  fstring = trim(fstring) // " -R"&
-  & // trim(f_r2c( map_opt%region(1) )) // "/"&
-  & // trim(f_r2c( map_opt%region(2) )) // "/"&
-  & // trim(f_r2c( map_opt%region(3) )) // "/"&
-  & // trim(f_r2c( map_opt%region(4) ))
-
-! set grid spacing; make high res (2 degrees) as default
-! TODO: worth making an option? not an attribute of map, so perhaps make
-! derived type for files. Alternatively determine automatically
-  fstring = trim(fstring) // " -I2d"
-
-! grid output
-  fstring = trim(fstring) // " -G" // trim(outfile)
-
-end subroutine plt_args_xyz2grd
-
-
-! ==================================================================== !
-! -------------------------------------------------------------------- !
-subroutine plt_args_cmap(map_opt, cmap_opt, fstring)
-
-! ==== Description
-!! Crafts a fortran string for making a colour map
-!! as argument string to be used in the gmt module
-
-! ==== Declarations
-  type(TYP_map)     , intent(in)  :: map_opt
-  type(TYP_cmap)    , intent(in)  :: cmap_opt
-  character(len=256), intent(out) :: fstring
-  character(len=32)               :: fstring_partial
-  integer(i4)                     :: i
-
-! ==== Instructions
-
-! ---- RGB args
-  fstring = " -C"
-! loop through all rgb values and append to-be-used ones to arguments
-  do i=1,size(cmap_opt%picker)-1
-     if (cmap_opt%picker(i) .eq. 1) then
-        fstring = trim(fstring)&
-        & // trim(f_i2c( cmap_opt%rgb(1,i) )) // "/"&
-        & // trim(f_i2c( cmap_opt%rgb(2,i) )) // "/"&
-        & // trim(f_i2c( cmap_opt%rgb(3,i) )) // ","
-     endif
+  do i=1,size(stack)
+     fstring = f_arg_settings(stack(i), settings)
+     args = fstring // c_null_char
+     call fplt_module(session, "gmtset", args)
   enddo
-! append string for last rgb value
-  i=size(cmap_opt%picker)
-  fstring = trim(fstring)&
-  & // trim(f_i2c( cmap_opt%rgb(1,i) )) // "/"&
-  & // trim(f_i2c( cmap_opt%rgb(2,i) )) // "/"&
-  & // trim(f_i2c( cmap_opt%rgb(3,i) ))
 
-! ---- Z value args
-! TODO: think about changing float length in f_r2c to enable larger numbers here
-  fstring = trim(fstring) // " -T"&
-  & // trim(f_r2c( map_opt%z_min )) // "/"&
-  & // trim(f_r2c( map_opt%z_max )) // "/"&
-  & // trim(f_r2c( map_opt%z_step ))
-
-! ---- output
-  fstring = trim(fstring) // " -Z > " // trim(cmap_opt%name) // ".cpt"
-
-end subroutine plt_args_cmap
-
-
-! ==================================================================== !
-! -------------------------------------------------------------------- !
-subroutine plt_args_map(map_opt, infile, outfile, module_opt, fstring)
-
-! ==== Description
-!! Crafts a fortran string from map options that serves
-!! as argument string to be used in the gmt module
-
-! ==== Declarations
-  type(TYP_map)     , intent(in)  :: map_opt
-  type(TYP_module)  , intent(in)  :: module_opt
-  character(len=*)  , intent(in)  :: infile, outfile
-  character(len=256), intent(out) :: fstring
-
-! ==== Instructions
-
-  fstring = ""
-
-  ! infile
-  if (module_opt%infile) then
-     fstring = trim(fstring) // trim(infile)
-  endif
-
-  ! region option
-  if (module_opt%region) then
-     fstring = trim(fstring) // " -R" &
-     & // trim(f_r2c( map_opt%region(1) )) // "/"&
-     & // trim(f_r2c( map_opt%region(2) )) // "/"&
-     & // trim(f_r2c( map_opt%region(3) )) // "/"&
-     & // trim(f_r2c( map_opt%region(4) ))
-  endif
-
-  ! projection and scale
-  if (module_opt%projection) then
-     select case (map_opt%projection)
-        ! M - Mercator projection
-        ! J - Miller Cylindrical projection
-        ! Q - Cylindrical equidistant projection
-        case ("M", "J", "Q")
-           fstring = trim(fstring) // " -J"&
-           & // trim(map_opt%projection)&
-           & // trim(f_r2c( map_opt%scale )) // "p"
-        ! L - Lambert conic conformal projection
-        ! B - Albers conic equal-area
-        ! D - Equidistant conic projection
-        case ("L", "B", "D")
-           fstring = trim(fstring) // " -J"&
-           & // trim(map_opt%projection)&
-           & // trim(f_r2c( map_opt%centre(1) )) // "/"&
-           & // trim(f_r2c( map_opt%centre(2) )) // "/"&
-           & // trim(f_r2c( map_opt%parallels(1) )) // "/"&
-           & // trim(f_r2c( map_opt%parallels(2) )) // "/"&
-           & // trim(f_r2c( map_opt%scale )) // "p"
-     end select
-  endif
-
-  ! resolution
-  if (module_opt%resolution) then
-     fstring = trim(fstring) // " -D" // trim(map_opt%resolution)
-  endif
-
-  ! fill
-  if (module_opt%fill) then
-     fstring = trim(fstring) // " -G"&
-     & // trim(f_i2c( map_opt%fill(1) )) // "/"&
-     & // trim(f_i2c( map_opt%fill(2) )) // "/"&
-     & // trim(f_i2c( map_opt%fill(3) ))
-  endif
-
-  ! annotations and grid
-  if (module_opt%an_major .and. module_opt%an_minor .and. module_opt%grid) then
-     fstring = trim(fstring) // " -Ba" &
-     & // trim(f_r2c( map_opt%an_major )) // "f"&
-     & // trim(f_r2c( map_opt%an_minor )) // "g"&
-     & // trim(f_r2c( map_opt%grid )) // " -B"&
-     & // trim(map_opt%an_ticks)
-  endif
-
-  ! pen
-  if (module_opt%pen) then
-     fstring = trim(fstring) // " -W" // trim(f_r2c( map_opt%pen )) // "p"
-  endif
-
-  ! colour map
-  if (module_opt%cmap) then
-     fstring = trim(fstring) // " -C" // trim(map_opt%cmap) // ".cpt"
-  endif
-
-  ! additional colour bar options
-  if (module_opt%cbar) then
-     fstring = trim(fstring) // " -B"&
-     & // trim(f_r2c( map_opt%cbar_tick_major )) // "f"&
-     & // trim(f_r2c( map_opt%cbar_tick_minor )) // " -DJRM+v+w"&
-     & // trim(f_r2c( map_opt%cbar_size )) // "%"&
-     & // " -X" // trim(f_r2c( map_opt%padding )) // "p"
-  endif
-
-  ! title (top centre)
-  if (module_opt%title) then
-     ! add Y offset based on font sizes and padding (title+label+2*padding)
-     fstring = trim(fstring) // " -Y" // trim(f_r2c( &
-     & map_opt%font_size_title + &
-     & map_opt%font_size_label + &
-     & 2*map_opt%padding )) // "p"&
-     & // " -X-" // trim(f_r2c( map_opt%padding )) // "p" &
-     ! placement (top centre) and font options
-     & // " -F+cTC+f" // trim(f_r2c( map_opt%font_size_title )) // "p"&
-     ! add text in double quotation marks to preserve spaces
-     & // "+t" // char(34) // trim(map_opt%title) // char(34) // ""
-  endif
-
-  ! top left corner text
-  if (module_opt%label_left) then
-     ! add Y offset relative to title based on font sizes and padding (title+padding)
-     fstring = trim(fstring) // " -Y-" // trim(f_r2c( &
-     & map_opt%font_size_title + &
-     & map_opt%padding )) // "p"&
-     ! placement (top left) and font options
-     & // " -F+cTL+f" // trim(f_r2c( map_opt%font_size_label )) // "p"&
-     ! add text in double quotation marks to preserve spaces
-     & // "+t" // char(34) // trim(map_opt%label_left) // char(34) // ""
-  endif
-
-  ! top right text
-  if (module_opt%label_right) then
-     ! note: no Y offset needed relative to top left text
-     ! placement (top right) and font options
-     fstring = trim(fstring) // " -F+cTR+f"&
-     & // trim(f_r2c( map_opt%font_size_label )) // "p"&
-     ! add text in double quotation marks to preserve spaces
-     & // "+t" // char(34) // trim(map_opt%label_right) // char(34) // ""
-  endif
-
-  ! writing/adding to outfile
-  if (module_opt%first) then
-     if (module_opt%last) then
-        ! single layer plot
-        fstring = trim(fstring) // " > " // trim(outfile)
-     else
-        ! first layer in a stack
-        fstring = trim(fstring) // " -K > " // trim(outfile)
-     endif
-  else
-     if (module_opt%last) then
-        ! last layer in a stack
-        fstring = trim(fstring) // " -O >> " // trim(outfile)
-     else
-        ! sandwiched layer in stack
-        fstring = trim(fstring) // " -O -K >> " // trim(outfile)
-     endif
-  endif
-
-end subroutine plt_args_map
+end subroutine fplt_set
 
 end module fplt

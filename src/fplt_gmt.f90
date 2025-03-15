@@ -28,8 +28,8 @@ module fplt_gmt
 
 ! c bindings; use GMT C API
   interface
-     ! create GMT session
      function gmt_create_session(name, pad, mode, opt) bind(c, name="GMT_Create_Session")
+     !! Create GMT session.
         import :: c_ptr, c_char, c_int
         type(c_ptr)                          :: gmt_create_session
         character(c_char), intent(in)        :: name(*)
@@ -37,15 +37,15 @@ module fplt_gmt
         type(c_ptr)      , intent(in), value :: opt
      end function gmt_create_session
 
-     ! destroy GMT session
      function gmt_destroy_session(session) bind(c, name="GMT_Destroy_Session")
+     !! Destroy GMT session.
         import :: c_ptr, c_int
         integer(c_int)                 :: gmt_destroy_session
         type(c_ptr), intent(in), value :: session
      end function gmt_destroy_session
 
-     ! GMT modules
      function gmt_call_module(session, gmod, mode, args) bind(c, name="GMT_Call_Module")
+     !! GMT modules.
         import :: c_ptr, c_char, c_int
         integer(c_int)                       :: gmt_call_module
         type(c_ptr)      , intent(in), value :: session

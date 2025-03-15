@@ -22,14 +22,14 @@ module fplt_utl
   private
 
 ! declare public
-  public :: f_r2c, f_i2c, f_get_format
+  public :: f_utl_r2c, f_utl_i2c, f_utl_get_format
 
 
 contains
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-function f_r2c(r) result(c)
+function f_utl_r2c(r) result(c)
 
 ! ==== Description
 !! Convert real to char.
@@ -42,12 +42,12 @@ function f_r2c(r) result(c)
   write(c, '(F7.2)') r
   c=adjustl(c)
 
-end function f_r2c
+end function f_utl_r2c
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-function f_i2c(i) result(c)
+function f_utl_i2c(i) result(c)
 
 ! ==== Description
 !! Convert integer to char.
@@ -60,12 +60,12 @@ function f_i2c(i) result(c)
   write(c, '(I3)') i
   c=adjustl(c)
 
-end function f_i2c
+end function f_utl_i2c
 
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-function f_get_format(filename) result(fmt)
+function f_utl_get_format(filename) result(fmt)
 
 ! ==== Description
 !! Determines file format by extension.
@@ -110,6 +110,6 @@ function f_get_format(filename) result(fmt)
      end select
   endif
 
-end function f_get_format
+end function f_utl_get_format
 
 end module fplt_utl
