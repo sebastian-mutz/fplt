@@ -9,7 +9,7 @@
 
 ## <span style="color:#734f96">Description</span>
 
-![image info](./doc/logo/FPLT_small.png)
+![image info](./assets/logo/FPLT_small.png)
 
 FPLT is a scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
 
@@ -58,7 +58,7 @@ end program check_maps01
 
 The code above will generate the map below; not changing the projection will make fplt default to a Mercator projection (map at bottom):
 
-![image info](./doc/map.png)
+![image info](./assets/map.png)
 
 ## <span style="color:#734f96">Development</span>
 
@@ -111,4 +111,6 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 
 ## <span style="color:#734f96">Installation</span>
 
-FPLT can be installed/compiled with the [fortran package manager (fpm)](https://github.com/fortran-lang/fpm).
+FPLT can be installed/compiled with the [fortran package manager (fpm)](https://github.com/fortran-lang/fpm). You will need to make sure you have the [Generic Mapping Tools (GMT) 6](https://github.com/GenericMappingTools).
+
+

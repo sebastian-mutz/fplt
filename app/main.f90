@@ -17,6 +17,8 @@ program main
 ! basic options
   implicit none
 
+! TODO: based on opts, load dat_* and pass to working types (cp_template function) using identifiers, then simply modify those
+
 ! set plot labels
   DAT_map%title = "Simulated Temperature (1979-2000)"
   DAT_map%label_left = "2m air temperature"

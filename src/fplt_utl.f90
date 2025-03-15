@@ -11,6 +11,9 @@ module fplt_utl
 ! | author  : Sebastian G. Mutz (sebastian@sebastianmutz.com)          |
 ! |--------------------------------------------------------------------|
 
+! FORD
+!! Utilities.
+
 ! load modules
   use :: fplt_typ
 

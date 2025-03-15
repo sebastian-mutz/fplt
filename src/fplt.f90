@@ -11,6 +11,9 @@ module fplt
 ! | author  : Sebastian G. Mutz (sebastian@sebastianmutz.com)          |
 ! |--------------------------------------------------------------------|
 
+! FORD
+!! Abstraction layer and contains core procedures.
+
 ! load modules
   use, intrinsic :: iso_c_binding
   use            :: fplt_typ

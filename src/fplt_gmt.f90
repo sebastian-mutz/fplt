@@ -11,6 +11,9 @@ module fplt_gmt
 ! | author  : Sebastian G. Mutz (sebastian@sebastianmutz.com)          |
 ! |--------------------------------------------------------------------|
 
+! FORD
+!! C-bindings for GMT C API.
+
 ! load modules
   use, intrinsic :: iso_c_binding
 
