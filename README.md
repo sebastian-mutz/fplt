@@ -1,7 +1,7 @@
 # <span style="color:#734f96">FPLT - Fortran Plotting Library</span>
 
 [![GitHub](https://img.shields.io/github/license/sebastian-mutz/fplt)](https://github.com/sebastian-mutz/fplt/blob/main/LICENCE)
-![25%](https://progress-bar.xyz/20?title=Alpha)
+![25%](https://progress-bar.xyz/25?title=Alpha)
 
 
 > [!IMPORTANT]
