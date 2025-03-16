@@ -23,7 +23,7 @@ module fplt_arg
   private
 
 ! declare public procedures
-  public :: f_arg_xyz2grd, f_arg_settings, f_arg_cmap, f_arg_map
+  public :: f_arg_xyz2grd, f_arg_settings, f_arg_cmap, f_arg_map,f_arg_crop
 
 
 contains
@@ -63,6 +63,40 @@ function f_arg_xyz2grd(map_opt, infile, outfile) result(fstring)
   fstring = trim(fstring) // " -G" // trim(outfile)
 
 end function f_arg_xyz2grd
+
+
+! ==================================================================== !
+! -------------------------------------------------------------------- !
+function f_arg_crop(outfile) result(fstring)
+
+! ==== Description
+!! Crafts a fortran argument string for cropping an image.
+
+! ==== Declarations
+  character(len=*)  , intent(in) :: outfile
+  character(len=256)             :: fstring
+
+! ==== Instructions
+
+! start with outfile
+  fstring = trim(outfile)
+
+! automated cropping
+  fstring = trim(fstring) // " -A -Tg"
+
+! TODO: implement format option: make part of map derived type or guess by outfile extension
+!     b - Select BMP raster format.
+!     e - Select EPS vector graphics format.
+!     E - Same as e but with PageSize command.
+!     f - Select PDF vector graphics format.
+!     F - Same, but for multi-page PDF.
+!     j - Select JPEG raster format [Default].
+!     g - Select PNG raster format.
+!     G - Select transparent PNG raster format (untouched regions are transparent).
+!     m - Select PPM raster format.
+!     t - Select TIFF raster format.
+
+end function f_arg_crop
 
 
 ! ==================================================================== !
@@ -214,16 +248,22 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
   ! projection and scale
   if (module_opt%projection) then
      select case (map_opt%projection)
-        ! M - Mercator projection
-        ! J - Miller Cylindrical projection
-        ! Q - Cylindrical equidistant projection
+        ! M - Mercator
+        ! J - Miller Cylindrical
+        ! Q - Cylindrical equidistant
         case ("M", "J", "Q")
            fstring = trim(fstring) // " -J"&
            & // trim(map_opt%projection)&
            & // trim(f_utl_r2c( map_opt%scale )) // "p"
-        ! L - Lambert conic conformal projection
+        ! T - Transverse Mercator
+        case ("T")
+           fstring = trim(fstring) // " -J"&
+           & // trim(map_opt%projection)&
+           & // trim(f_utl_r2c( map_opt%centre(1) )) // "/"&
+           & // trim(f_utl_r2c( map_opt%scale )) // "p"
+        ! L - Lambert conic conformal
         ! B - Albers conic equal-area
-        ! D - Equidistant conic projection
+        ! D - Equidistant conic
         case ("L", "B", "D")
            fstring = trim(fstring) // " -J"&
            & // trim(map_opt%projection)&
@@ -231,6 +271,13 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
            & // trim(f_utl_r2c( map_opt%centre(2) )) // "/"&
            & // trim(f_utl_r2c( map_opt%parallels(1) )) // "/"&
            & // trim(f_utl_r2c( map_opt%parallels(2) )) // "/"&
+           & // trim(f_utl_r2c( map_opt%scale )) // "p"
+        ! G - Orthographic
+        case ("G")
+           fstring = trim(fstring) // " -J"&
+           & // trim(map_opt%projection)&
+           & // trim(f_utl_r2c( map_opt%centre(1) )) // "/"&
+           & // trim(f_utl_r2c( map_opt%centre(2) )) // "/"&
            & // trim(f_utl_r2c( map_opt%scale )) // "p"
      end select
   endif

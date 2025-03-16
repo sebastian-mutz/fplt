@@ -38,7 +38,8 @@ program main
 ! change projection
   DAT_map%projection = "L"
 
-! plot map from text file using the default map template
+! plot map from text file using the default map cp_template
+! TODO: make in & outfile part of map options?
   call fplt_map(DAT_map, "./test/maps/Mutz_et_al_2018_pd_temp2.asc", "./test/maps/map01.ps")
 
 end program main

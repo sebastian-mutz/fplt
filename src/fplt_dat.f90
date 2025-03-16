@@ -61,7 +61,7 @@ module fplt_dat
   data DAT_set(1)%pen_tick           /1.0_wp/
   data DAT_set(1)%pen_frame          /0.5_wp/
   data DAT_set(1)%paper_width        /560.0_wp/
-  data DAT_set(1)%paper_height       /480.0_wp/
+  data DAT_set(1)%paper_height       /560.0_wp/
 
 ! dark theme
   data DAT_set(2)%name               /"dark"/
@@ -77,7 +77,7 @@ module fplt_dat
   data DAT_set(2)%pen_tick           /1.0_wp/
   data DAT_set(2)%pen_frame          /0.5_wp/
   data DAT_set(2)%paper_width        /560.0_wp/
-  data DAT_set(2)%paper_height       /480.0_wp/
+  data DAT_set(2)%paper_height       /560.0_wp/
 
 
 ! ---- colour maps
@@ -252,7 +252,7 @@ module fplt_dat
   data DAT_mod(6)%label_left     /.false./
   data DAT_mod(6)%label_right    /.true./
   data DAT_mod(6)%first          /.false./
-  data DAT_mod(6)%last           /.false./
+  data DAT_mod(6)%last           /.true./
 
 ! gmt argument selection - scale
   data DAT_mod(7)%name           /"scale01"/

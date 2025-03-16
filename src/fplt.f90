@@ -180,6 +180,12 @@ subroutine fplt_map(map_opt, infile, outfile)
 
 ! ---- Finish
 
+! crop image
+! TODO: separate into different subroutine
+  fstring = f_arg_crop(outfile)
+  args = trim(fstring) // c_null_char
+  call fplt_module(session, "psconvert", args)
+
 ! destroy GMT session
   call fplt_destroy(session)
 

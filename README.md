@@ -76,7 +76,7 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 
 #### <span style="color:#734f96">Plot Types</span> <br/>
 
-![80%](https://progress-bar.xyz/80?title=Maps)
+![100%](https://progress-bar.xyz/100?title=Maps)
 ![0%](https://progress-bar.xyz/0?title=Heatmaps)
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
@@ -91,8 +91,8 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | Lambert Conic Conformal   | ✓           |
 | Albers Conic Equal-Area   | ✓           |
 | Equidistant Conic         | ✓           |
-| Transverse Mercator       | -           |
-| Orthographic              | -           |
+| Transverse Mercator       | ✓           |
+| Orthographic              | ✓           |
 
 #### <span style="color:#734f96">Progress Details</span> <br/>
 
@@ -107,8 +107,10 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | GMT module templates      | 20%         |
 | GMT auto settings         | 50%         |
 | Themes for plot setting   | ✓           |
-| Auto-generate colour maps | ✓           |
-| Auto label and positioning| 80%         |
+| Auto generate colour maps | ✓           |
+| Auto label and positioning| ✓           |
+| Auto crop                 | ✓           |
+| Output file format options| -           |
 | Read and convert text     | ✓           |
 | Read and convert netcdf   | -           |
 
