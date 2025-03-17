@@ -81,7 +81,7 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
 
-#### <span style="color:#734f96">Map Projections Covered</span> <br/>
+#### <span style="color:#734f96">Map Projections</span> <br/>
 
 | Map Projections           | Arg     | Covered |
 | ------------------------- | ------- | ------- |
@@ -94,7 +94,7 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | Transverse Mercator       | *T*     | ✓       |
 | Orthographic              | *G*     | ✓       |
 
-#### <span style="color:#734f96">Colour Map</span> <br/>
+#### <span style="color:#734f96">Colour Maps</span> <br/>
 
 | Colour Maps        | Arg             | Covered |
 | ------------------ | --------------- | ------- |
@@ -102,12 +102,12 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | blue-white-red     | *bluered01*     | ✓       |
 | purple-white-green | *purplegreen01* | -       |
 
-#### <span style="color:#734f96">Output File Formats Covered</span> <br/>
+#### <span style="color:#734f96">Output File Formats</span> <br/>
 
 | Format  | Covered |
 | ------- | ------- |
 | PS      | ✓       |
-| PDF     | -       |
+| PDF     | ✓       |
 | PNG     | -       |
 | TIF     | -       |
 | JPG     | -       |
