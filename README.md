@@ -60,7 +60,7 @@ program check_maps01
 end program check_maps01
 ```
 
-The code above will generate the map below; not changing the projection and theme will make FPLT default to a Mercator projection and the light theme (map at bottom):
+The code above will generate the Lambert conic conformal projection map below (bottom left); not changing the projection will make FPLT default to a Mercator projection (top left). The Miller cylindrical and orthographic projection can be applied by setting the projection to *J* and *G*, respectively.
 
 ![map](doc/media/map.png)
 
@@ -81,18 +81,36 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
 
-#### <span style="color:#734f96">Map Projections</span> <br/>
+#### <span style="color:#734f96">Map Projections Covered</span> <br/>
 
-| Map Projections           | Implemented |
-| ------------------------- | ----------- |
-| Mercator                  | ✓           |
-| Miller Cylindrical        | ✓           |
-| Cylindrical Equidistant   | ✓           |
-| Lambert Conic Conformal   | ✓           |
-| Albers Conic Equal-Area   | ✓           |
-| Equidistant Conic         | ✓           |
-| Transverse Mercator       | ✓           |
-| Orthographic              | ✓           |
+| Map Projections           | Arg     | Covered |
+| ------------------------- | ------- | ------- |
+| Mercator                  | *M*     | ✓       |
+| Miller Cylindrical        | *J*     | ✓       |
+| Cylindrical Equidistant   | *Q*     | ✓       |
+| Lambert Conic Conformal   | *L*     | ✓       |
+| Albers Conic Equal-Area   | *B*     | ✓       |
+| Equidistant Conic         | *D*     | ✓       |
+| Transverse Mercator       | *T*     | ✓       |
+| Orthographic              | *G*     | ✓       |
+
+#### <span style="color:#734f96">Colour Map</span> <br/>
+
+| Colour Maps        | Arg             | Covered |
+| ------------------ | --------------- | ------- |
+| black to white     | *monochrome*    | ✓       |
+| blue-white-red     | *bluered01*     | ✓       |
+| purple-white-green | *purplegreen01* | -       |
+
+#### <span style="color:#734f96">Output File Formats Covered</span> <br/>
+
+| Format  | Covered |
+| ------- | ------- |
+| PS      | ✓       |
+| PDF     | -       |
+| PNG     | -       |
+| TIF     | -       |
+| JPG     | -       |
 
 #### <span style="color:#734f96">Progress Details</span> <br/>
 

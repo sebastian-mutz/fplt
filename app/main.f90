@@ -24,12 +24,13 @@ program main
   DAT_map%label_left = "2m air temperature"
   DAT_map%label_right= "deg C"
 
+
 ! change colour map
   DAT_map%cmap="bluered01"
 
 ! modify preset colour map
-  DAT_map%z_min = -25
-  DAT_map%z_max = 25
+  DAT_map%z_min = -30
+  DAT_map%z_max = 30
   DAT_map%z_step = 1
 
 ! change theme
