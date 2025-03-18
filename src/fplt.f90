@@ -44,29 +44,22 @@ subroutine fplt_map(map_opt, infile, outfile)
 
 ! ==== Description
 !! Uses fortran-gmt interface for creating a map.
-!!
-!! map_opt        : map options
-!! infile/outfile : name of input and output files
-!! module_stack   : names of module templates to work through in order
-!! w_file         : working file (original or converted infile)
-!! w_cmap         : colour map being worked with (looked up)
-!! w_set          : settings being worked with (looked up)
-!! w_mod          : module template being worked with (looked up)
 
 ! ==== Declarations
-  type(TYP_map)                  , intent(in) :: map_opt
-  character(len=*)               , intent(in) :: infile, outfile
-  type(c_ptr)                                 :: session
-  integer(c_int)                              :: status
-  character(kind=c_char, len=20)              :: session_name
-  character(kind=c_char, len=256), target     :: args
-  character(len=32)                           :: module_stack(7)
-  character(len=256)                          :: w_file
-  type(TYP_cmap)                              :: w_cmap
-  type(TYP_settings)                          :: w_set
-  type(TYP_module)                            :: w_mod
-  character(len=256)                          :: fstring
-  integer(i4)                                 :: i, j
+  type(TYP_map)   , intent(in)            :: map_opt         !! map options
+  character(len=*), intent(in)            :: infile          !! name of input file
+  character(len=*), intent(in)            :: outfile         !! name of output file
+  type(c_ptr)                             :: session         !! gmt session c pointer
+  integer(c_int)                          :: status          !! gmt session return status
+  character(kind=c_char, len=20)          :: session_name    !! gmt session name
+  character(kind=c_char, len=256), target :: args            !! gmt argument string
+  character(len=32)                       :: module_stack(7) !! names of module templates to work through
+  character(len=256)                      :: w_file          !! working file
+  type(TYP_cmap)                          :: w_cmap          !! colour map worked with (looked up)
+  type(TYP_settings)                      :: w_set           !! settings worked with (looked up)
+  type(TYP_module)                        :: w_mod           !! module template worked with (looked up)
+  character(len=256)                      :: fstring         !! fortran string
+  integer(i4)                             :: i, j
 
 ! construct module stack for maps
   data module_stack /"basemap01", "grdimage01", "pscoast01", "scale01"&

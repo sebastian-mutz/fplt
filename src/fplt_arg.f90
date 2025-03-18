@@ -15,15 +15,15 @@ module fplt_arg
 !! Module for argument construction.
 
 ! load modules
-  use            :: fplt_typ
-  use            :: fplt_utl
+  use :: fplt_typ
+  use :: fplt_utl
 
 ! basic options
   implicit none
   private
 
 ! declare public procedures
-  public :: f_arg_xyz2grd, f_arg_settings, f_arg_cmap, f_arg_map,f_arg_crop
+  public :: f_arg_xyz2grd, f_arg_settings, f_arg_cmap, f_arg_map, f_arg_crop
 
 
 contains
