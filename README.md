@@ -3,20 +3,20 @@
 [![GitHub](https://img.shields.io/github/license/sebastian-mutz/fplt)](https://github.com/sebastian-mutz/fplt/blob/main/LICENCE)
 ![25%](https://progress-bar.xyz/25?title=Alpha)
 
-<!--
 > [!IMPORTANT]
 > FPLT is in a pre-alpha state, and only suitable for developers at this point.
 >
- -->
 
+<!--
 @warning
 FPLT is in a pre-alpha state, and only suitable for developers at this point.
 @endwarning
+ -->
 
 <br>
 ## <span style="color:#734f96">Description</span>
 
-![logo](assets/logo/FPLT_small.png)
+![logo](media/logo/FPLT_small.png)
 
 FPLT is a scientific plotting library for producing high-quality ("publication-ready") figures quickly by leveraging the GMT(Generic Mapping Tools) C-API and modern Fortran's derived types. FPLT includes procedures for producing geographical maps, xy-plots, heat maps, animated figures, and more.
 
@@ -72,7 +72,7 @@ end program main
 
 The code above will generate the Lambert conic conformal projection map below (bottom left); not changing the projection will make FPLT default to a Mercator projection (top left). The Miller cylindrical and orthographic projection can be applied by setting the projection to *J* and *G*, respectively.
 
-<img src="https://github.com/sebastian-mutz/fplt/blob/main/assets/map.png?raw=true" width="800">
+<img src="media/map.png" width="850">
 
 <br>
 ## <span style="color:#734f96">Development</span>
@@ -96,38 +96,35 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
 
 <br>
-#### <span style="color:#734f96">Map Projections</span> <br/>
+#### <span style="color:#734f96">Supported Map Projections</span> <br/>
 
-| Map Projections           | Arg     | Covered |
-| ------------------------- | ------- | ------- |
-| Mercator                  | *M*     | ✓       |
-| Miller Cylindrical        | *J*     | ✓       |
-| Cylindrical Equidistant   | *Q*     | ✓       |
-| Lambert Conic Conformal   | *L*     | ✓       |
-| Albers Conic Equal-Area   | *B*     | ✓       |
-| Equidistant Conic         | *D*     | ✓       |
-| Transverse Mercator       | *T*     | ✓       |
-| Orthographic              | *G*     | ✓       |
-
-<br>
-#### <span style="color:#734f96">Colour Maps</span> <br/>
-
-| Colour Maps        | Arg             | Covered |
-| ------------------ | --------------- | ------- |
-| black to white     | *monochrome*    | ✓       |
-| blue-white-red     | *bluered01*     | ✓       |
-| purple-white-green | *purplegreen01* | -       |
+| Map Projections           | Arg     |
+| ------------------------- | ------- |
+| Mercator                  | *M*     |
+| Miller Cylindrical        | *J*     |
+| Cylindrical Equidistant   | *Q*     |
+| Lambert Conic Conformal   | *L*     |
+| Albers Conic Equal-Area   | *B*     |
+| Equidistant Conic         | *D*     |
+| Transverse Mercator       | *T*     |
+| Orthographic              | *G*     |
 
 <br>
-#### <span style="color:#734f96">Output File Formats</span> <br/>
+#### <span style="color:#734f96">Supported File Formats</span> <br/>
 
-| Format  | Covered |
+| Input   | Covered |
 | ------- | ------- |
-| PS      | ✓       |
-| PDF     | ✓       |
-| PNG     | -       |
-| TIF     | -       |
-| JPG     | -       |
+| grd     | ✓       |
+| text    | ✓       |
+| netcdf  | -       |
+
+| Output  | Covered |
+| ------- | ------- |
+| ps      | ✓       |
+| pdf     | ✓       |
+| png     | ✓       |
+| tif     | ✓       |
+| jpg     | ✓       |
 
 <br>
 #### <span style="color:#734f96">Progress Details</span> <br/>
@@ -136,6 +133,7 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | ------------------------- | ----------- |
 | Bindings for GMT's C-API  | ✓           |
 | Geographical maps         | ✓           |
+| Common map projections    | ✓           |
 | Heat maps                 | -           |
 | XY scatter and line plots | -           |
 | Bar plots                 | -           |
@@ -146,7 +144,7 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | Auto generate colour maps | ✓           |
 | Auto label and positioning| ✓           |
 | Auto crop                 | ✓           |
-| Output file format options| -           |
+| Output file format options| ✓           |
 | Read and convert text     | ✓           |
 | Read and convert netcdf   | -           |
 
