@@ -11,36 +11,40 @@ program main
 ! | author  : Sebastian G. Mutz (sebastian@sebastianmutz.com)          |
 ! |--------------------------------------------------------------------|
 
-! load modules
-  use :: fplt
+! load modules and import map template to modify
+  use :: fplt, my_map => DAT_map
 
 ! basic options
   implicit none
 
 ! TODO: based on opts, load dat_* and pass to working types (cp_template function) using identifiers, then simply modify those
 
-! set plot labels
-  DAT_map%title = "Simulated Temperature (1979-2000)"
-  DAT_map%label_left = "2m air temperature"
-  DAT_map%label_right= "deg C"
+! set output file format
+  my_map%infile  = "./test/maps/Mutz_et_al_2018_pd_temp2.asc"
+  my_map%outfile = "map01" ! default
+  my_map%format  = "png"   ! default
 
+! set plot labels
+  my_map%title = "Simulated Temperature (1979-2000)"
+  my_map%label_left = "2m air temperature"
+  my_map%label_right= "deg C"
 
 ! change colour map
-  DAT_map%cmap="bluered01"
+  my_map%cmap="bluered01"
 
 ! modify preset colour map
-  DAT_map%z_min = -30
-  DAT_map%z_max = 30
-  DAT_map%z_step = 1
+  my_map%z_min  = -30
+  my_map%z_max  = 30
+  my_map%z_step = 1
 
 ! change theme
-  DAT_map%theme = "dark"
+  my_map%theme = "dark"
 
 ! change projection
-  DAT_map%projection = "L"
+  my_map%projection = "L"
 
 ! plot map from text file using the default map cp_template
 ! TODO: make in & outfile part of map options?
-  call fplt_map(DAT_map, "./test/maps/Mutz_et_al_2018_pd_temp2.asc", "./test/maps/map01.ps")
+  call fplt_map(my_map)
 
 end program main

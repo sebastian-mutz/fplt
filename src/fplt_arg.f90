@@ -23,7 +23,7 @@ module fplt_arg
   private
 
 ! declare public procedures
-  public :: f_arg_xyz2grd, f_arg_settings, f_arg_cmap, f_arg_map, f_arg_crop
+  public :: f_arg_xyz2grd, f_arg_settings, f_arg_cmap, f_arg_map, f_arg_finish
 
 
 contains
@@ -31,7 +31,7 @@ contains
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-function f_arg_xyz2grd(map_opt, infile, outfile) result(fstring)
+function f_arg_xyz2grd(map_opt, outfile) result(fstring)
 
 ! ==== Description
 !! Crafts a fortran argument string for converting an xyz text file
@@ -39,13 +39,13 @@ function f_arg_xyz2grd(map_opt, infile, outfile) result(fstring)
 
 ! ==== Declarations
   type(TYP_map)     , intent(in) :: map_opt
-  character(len=*)  , intent(in) :: infile, outfile
+  character(len=*)  , intent(in) :: outfile
   character(len=256)             :: fstring
 
 ! ==== Instructions
 
 ! start with infile
-  fstring = trim(infile)
+  fstring = trim(map_opt%infile)
 
 ! region option
   fstring = trim(fstring) // " -R"&
@@ -67,13 +67,14 @@ end function f_arg_xyz2grd
 
 ! ==================================================================== !
 ! -------------------------------------------------------------------- !
-function f_arg_crop(outfile) result(fstring)
+function f_arg_finish(outfile, format) result(fstring)
 
 ! ==== Description
 !! Crafts a fortran argument string for cropping an image.
 
 ! ==== Declarations
   character(len=*)  , intent(in) :: outfile
+  character(len=16) , intent(in) :: format
   character(len=256)             :: fstring
 
 ! ==== Instructions
@@ -81,22 +82,30 @@ function f_arg_crop(outfile) result(fstring)
 ! start with outfile
   fstring = trim(outfile)
 
-! automated cropping
-  fstring = trim(fstring) // " -A -Tg"
+! automated cropping (A)
+  fstring = trim(fstring) // " -A -T"
 
-! TODO: implement format option: make part of map derived type or guess by outfile extension
-!     b - Select BMP raster format.
-!     e - Select EPS vector graphics format.
-!     E - Same as e but with PageSize command.
-!     f - Select PDF vector graphics format.
-!     F - Same, but for multi-page PDF.
-!     j - Select JPEG raster format [Default].
-!     g - Select PNG raster format.
-!     G - Select transparent PNG raster format (untouched regions are transparent).
-!     m - Select PPM raster format.
-!     t - Select TIFF raster format.
+! format option
+  select case (format)
+     case ("bmp", "BMP")
+        fstring = trim(fstring) // "b"
+     case ("eps", "EPS")
+        fstring = trim(fstring) // "e"
+     case ("pdf", "PDF")
+        fstring = trim(fstring) // "f"
+     case ("jpg", "jpeg", "JPG", "JPEG")
+        fstring = trim(fstring) // "j"
+     case ("png", "PNG")
+        fstring = trim(fstring) // "g"
+     case ("pnga", "PNGA") ! png with transparent untouched regions
+        fstring = trim(fstring) // "G"
+     case ("ppm", "PPM")
+        fstring = trim(fstring) // "m"
+     case ("tif", "tiff", "TIF", "TIFF")
+        fstring = trim(fstring) // "t"
+  end select
 
-end function f_arg_crop
+end function f_arg_finish
 
 
 ! ==================================================================== !
@@ -114,53 +123,51 @@ function f_arg_settings(param, settings) result(fstring)
 
 ! ==== Instructions
 
-select case (param)
+  select case (param)
 
-  ! paper settings
-   case ("size")
-      fstring = "PS_MEDIA Custom_"&
-      & // trim(f_utl_r2c( settings%paper_height )) // "x"&
-      & // trim(f_utl_r2c( settings%paper_width )) // "p"
+     ! paper settings
+     case ("size")
+        fstring = "PS_MEDIA Custom_"&
+        & // trim(f_utl_r2c( settings%paper_height )) // "x"&
+        & // trim(f_utl_r2c( settings%paper_width )) // "p"
 
-  ! page background colour
-   case ("page")
-      fstring = "PS_PAGE_COLOR "&
-      & // trim(f_utl_i2c( settings%col_background(1) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_background(2) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_background(3) ))
+    ! page background colour
+     case ("page")
+        fstring = "PS_PAGE_COLOR "&
+        & // trim(f_utl_i2c( settings%col_background(1) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_background(2) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_background(3) ))
 
-   ! map frame colour
-   case ("frame")
-      fstring = "MAP_FRAME_PEN "&
-      & // trim(f_utl_i2c( settings%col_frame(1) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_frame(2) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_frame(3) ))
+     ! map frame colour
+     case ("frame")
+        fstring = "MAP_FRAME_PEN "&
+        & // trim(f_utl_i2c( settings%col_frame(1) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_frame(2) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_frame(3) ))
 
-   ! map grid line colour
-   case ("grid")
-      fstring = "MAP_GRID_PEN_PRIMARY "&
-      & // trim(f_utl_i2c( settings%col_lines_primary(1) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_lines_primary(2) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_lines_primary(3) ))
+     ! map grid line colour
+     case ("grid")
+        fstring = "MAP_GRID_PEN_PRIMARY "&
+        & // trim(f_utl_i2c( settings%col_lines_primary(1) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_lines_primary(2) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_lines_primary(3) ))
 
-   case ("tick")
+    ! map annotation colour (make same as primary font)
+     case ("tick")
+        fstring = "MAP_TICK_PEN_PRIMARY "&
+        & // trim(f_utl_i2c( settings%col_font_primary(1) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_font_primary(2) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_font_primary(3) ))
 
-      ! map annotation colour (make same as primary font)
-      fstring = "MAP_TICK_PEN_PRIMARY "&
-      & // trim(f_utl_i2c( settings%col_font_primary(1) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_font_primary(2) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_font_primary(3) ))
-
-   ! font options
-   case ("font")
-      fstring = "FONT_ANNOT_PRIMARY "&
-      & // trim(f_utl_r2c( settings%font_size_primary )) // "p,"&
-      & // char(34) // trim( settings%font ) // char(34) // ","&
-      & // trim(f_utl_i2c( settings%col_font_primary(1) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_font_primary(2) )) // "/"&
-      & // trim(f_utl_i2c( settings%col_font_primary(3) ))
-
-end select
+     ! font options
+     case ("font")
+        fstring = "FONT_ANNOT_PRIMARY "&
+        & // trim(f_utl_r2c( settings%font_size_primary )) // "p,"&
+        & // char(34) // trim( settings%font ) // char(34) // ","&
+        & // trim(f_utl_i2c( settings%col_font_primary(1) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_font_primary(2) )) // "/"&
+        & // trim(f_utl_i2c( settings%col_font_primary(3) ))
+  end select
 
 end function f_arg_settings
 
@@ -223,8 +230,8 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
 
 ! ==== Declarations
   type(TYP_map)     , intent(in) :: map_opt
-  type(TYP_module)  , intent(in) :: module_opt
   character(len=*)  , intent(in) :: infile, outfile
+  type(TYP_module)  , intent(in) :: module_opt
   character(len=256)             :: fstring
 
 ! ==== Instructions

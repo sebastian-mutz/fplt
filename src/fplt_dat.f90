@@ -131,6 +131,9 @@ module fplt_dat
   data DAT_map%font_size_label /20.0_wp/
   data DAT_map%padding         /10.0_wp/
   data DAT_map%cbar_size       /100.0_wp/
+  data DAT_map%infile          /"data.asc"/
+  data DAT_map%outfile         /"map01"/
+  data DAT_map%format          /"png"/
 
 ! ---- gmt module options (args construction)
 

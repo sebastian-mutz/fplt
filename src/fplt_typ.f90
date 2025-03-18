@@ -101,6 +101,9 @@ module fplt_typ
      real(wp)           :: font_size_title !! font size of title (pixels)
      real(wp)           :: font_size_label !! font size for labels (pixels)
      real(wp)           :: padding         !! padding value used for labels
+     character(len=256) :: infile          !! input file name
+     character(len=256) :: outfile         !! output file name
+     character(len=16)  :: format          !! output format (e.g., "png")
   end type TYP_map
 
 ! module templates
