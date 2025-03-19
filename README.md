@@ -7,11 +7,12 @@
 > FPLT is in a pre-alpha state, and only suitable for developers at this point.
 >
 
-<!--
+ <!--
 @warning
 FPLT is in a pre-alpha state, and only suitable for developers at this point.
 @endwarning
  -->
+
 <br>
 
 ## <span style="color:#734f96">Description</span>
@@ -86,7 +87,6 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 <br>
 
 ### <span style="color:#734f96">Implemented and Planned Features</span>
-<br>
 
 #### <span style="color:#734f96">Plot Types</span> <br/>
 

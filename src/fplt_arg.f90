@@ -253,6 +253,7 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
   endif
 
   ! projection and scale
+  ! TODO: move scale outside case selection
   if (module_opt%projection) then
      select case (map_opt%projection)
         ! M - Mercator
