@@ -44,7 +44,6 @@ program main
   my_map%projection = "L"
 
 ! plot map from text file using the default map cp_template
-! TODO: make in & outfile part of map options?
   call fplt_map(my_map)
 
 end program main

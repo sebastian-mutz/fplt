@@ -283,10 +283,8 @@ subroutine fplt_set(session, settings)
   character(len=256)                          :: stack(6), fstring
   integer(i4)                                 :: i
 
+! module stack
   data stack/"size", "page", "frame", "grid", "tick", "font"/
-
-! TODO: Option to adjust paper size depending on plot size (both in pixels).
-!       Would have to convert coordinates to paper dims based on projection.
 
 ! ==== Instructions
 

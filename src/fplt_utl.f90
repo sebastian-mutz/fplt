@@ -105,16 +105,6 @@ function f_utl_get_format(filename) result(fmt)
            fmt = "text"
         case ("grd", "GRD")
            fmt = "grid"
-!         case ("png", "PNG")
-!            fmt = "png"
-!         case ("tiff", "tif", "TIFF", "TIF")
-!            fmt = "tiff"
-!         case ("jpg", "jpeg", "JPG", "JPEG")
-!            fmt = "jpg"
-!         case ("ps", "PS")
-!            fmt = "ps"
-!         case ("pdf", "PDF")
-!            fmt = "pdf"
         case default
            fmt = 'unknown'
      end select
