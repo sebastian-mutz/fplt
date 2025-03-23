@@ -13,8 +13,6 @@ FPLT is in a pre-alpha state, and only suitable for developers at this point.
 @endwarning
  -->
 
-<br>
-
 ## <span style="color:#734f96">Description</span>
 
 ![logo](doc/media/logo/FPLT_small.png)
@@ -28,7 +26,6 @@ The aim is to create a library that lets you:
  - visualise your data directly from your Fortran programme though familiar Fortran-native constructs,
  - produce professional figures quickly through the use of templates and automatic argument construction,
  - modify or create new templates easily from your programme.
-<br>
 
 ## <span style="color:#734f96">Example</span>
 
@@ -74,17 +71,23 @@ end program main
 The code above will generate the Lambert conic conformal projection map below (bottom left); not changing the projection will make FPLT default to a Mercator projection (top left). The Miller cylindrical and orthographic projection can be applied by setting the projection to *J* and *G*, respectively.
 
 <img src="doc/media/map.png" width="850">
-<br>
 
 ## <span style="color:#734f96">Development</span>
 
 FPLT is mostly developed “as needed” for my research. As such, it will cover a lot of different plot styles, but its features will never be exhaustive. However, you are very welcome to contribute and add new features (through suggestions, coding, etc.) at any stage.
-<br>
 
 ### <span style="color:#734f96">Alpha</span>
 
-I will consider the library to be in "alpha" once FPLT is able to reproduce ~80% of all the plots I've created in the past ~15 years.
-<br>
+I will consider the library to be in "alpha" once FPLT covers all features needed to reproduce ~80% of all the plots I've created in the past ~15 years.
+
+### <span style="color:#734f96">Beta</span>
+
+This stage is reached once:
+
+- FPLT is able to reproduce all of the above mentioned plots without issues.
+- FPLT fully works with GFortran, LFortran, and Flang compilers.
+- FPLT has proper documentation.
+
 
 ### <span style="color:#734f96">Implemented and Planned Features</span>
 
@@ -94,7 +97,6 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 ![0%](https://progress-bar.xyz/0?title=Heatmaps)
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
-<br>
 
 #### <span style="color:#734f96">Supported Map Projections</span> <br/>
 
@@ -108,7 +110,6 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | Equidistant Conic         | *D*     |
 | Transverse Mercator       | *T*     |
 | Orthographic              | *G*     |
-<br>
 
 #### <span style="color:#734f96">Supported File Formats</span> <br/>
 
@@ -147,7 +148,6 @@ I will consider the library to be in "alpha" once FPLT is able to reproduce ~80%
 | Output file format options| ✓           |
 | Read and convert text     | ✓           |
 | Read and convert netcdf   | -           |
-<br>
 
 ## <span style="color:#734f96">Installation</span>
 
