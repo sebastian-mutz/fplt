@@ -21,6 +21,7 @@ program main
 
 ! set output file format
   my_map%infile  = "./test/maps/Mutz_et_al_2018_pd_temp2.asc"
+!  my_map%infile  = "./test/heatmaps/Mutz_et_al_2021_rcp26_rcp85.asc"
   my_map%outfile = "map01" ! default
   my_map%format  = "png"   ! default
 

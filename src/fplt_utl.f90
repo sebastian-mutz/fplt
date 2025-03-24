@@ -100,6 +100,7 @@ function f_utl_get_format(filename) result(fmt)
      ext = filename(pos+1:length)
 
      ! compare extensions to known formats
+     ! TODO: add outfile formats if needed
      select case (trim(ext))
         case ("txt", "TXT", "asc", "ASC")
            fmt = "text"
