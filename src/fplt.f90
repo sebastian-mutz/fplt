@@ -33,7 +33,7 @@ module fplt
   public :: DAT_map, DAT_mod, DAT_cmap
 
 ! declare public procedures
-  public :: fplt_map
+  public :: fplt_map, fplt_heatmap
 
 
 contains
@@ -46,7 +46,7 @@ subroutine fplt_map(map_opt)
 !! Uses fortran-gmt interface for creating a map.
 
 ! ==== Declarations
-  type(TYP_map)   , intent(in)            :: map_opt         !! map options
+  type(TYP_map),    intent(in)            :: map_opt         !! map options
   type(c_ptr)                             :: session         !! gmt session c pointer
   character(kind=c_char, len=20)          :: session_name    !! gmt session name
   character(kind=c_char, len=256), target :: args            !! gmt argument string
@@ -107,6 +107,84 @@ subroutine fplt_map(map_opt)
   call fplt_clean()
 
 end subroutine fplt_map
+
+
+! ==================================================================== !
+! -------------------------------------------------------------------- !
+subroutine fplt_heatmap(map_opt)
+
+! ==== Description
+!! Uses fortran-gmt interface for creating a heatmap.
+
+! ==== Declarations
+  type(TYP_map), intent(in)               :: map_opt         !! map options
+  type(c_ptr)                             :: session         !! gmt session c pointer
+  character(kind=c_char, len=20)          :: session_name    !! gmt session name
+  character(kind=c_char, len=256), target :: args            !! gmt argument string
+  character(len=32)                       :: module_stack(6) !! moduletemplates to work through
+  character(len=256)                      :: w_infile        !! name of input file
+  character(len=256)                      :: w_outfile       !! name of output file
+  character(len=256)                      :: fstring         !! fortran string
+  integer(i4)                             :: i, j, k
+
+! construct module stack for maps
+  data module_stack /"basemap01", "grdimage01", "scale01"&
+                  &, "title01", "label01", "label02"/
+
+! ==== Instructions
+
+! ---- Preparations
+
+! initialise GMT session
+  call fplt_init(session, session_name)
+! apply gmt settings
+  call fplt_set(session, map_opt)
+! file handling (get updated infile/outfile and convert if needed)
+  call fplt_file_handling(session, map_opt, w_infile, w_outfile)
+! create colour map
+  call fplt_make_cmap(session, map_opt)
+
+! ---- Create heatmap
+
+! TODO:
+! region bounds:
+! -Rx_first/x_last/y_first/y_last
+! need to extract x and y from grid size (size(array))
+! need to adjust to centre: 1-24 becomes 0.5 - 24.5
+! make size part of heatmap derived type or get from file?
+
+! ! work through module stack
+!   do i = 1, size(module_stack)
+!      ! find colour map in dict
+!      do j = 1, size(DAT_mod)
+!         ! check if names match
+!         if (module_stack(i) .eq. DAT_mod(j)%name) then
+!           k = j
+!           exit
+!         ! if end of dict is reached and no match found, stop
+!         elseif (j .eq. size(DAT_mod)) then
+!            write(std_o, *) "> Error: specified module template not found"
+!            stop
+!         endif
+!      enddo
+!      ! prepare the arguments
+!      fstring = f_arg_map(map_opt, w_infile, w_outfile, DAT_mod(k))
+!      args = trim(fstring) // c_null_char
+!      write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
+!      ! gmt module calls
+!      call fplt_module(session, trim(DAT_mod(k)%gmt_module), args)
+!   enddo
+
+! ---- Finish
+
+! crop and convert image
+  call fplt_finish(session, map_opt, w_outfile)
+! destroy GMT session
+  call fplt_destroy(session)
+! clean up
+  call fplt_clean()
+
+end subroutine fplt_heatmap
 
 
 ! ==================================================================== !
