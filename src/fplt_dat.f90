@@ -107,7 +107,6 @@ module fplt_dat
 ! default map options
   data DAT_map%name            /"default"/
   data DAT_map%theme           /"light"/
-  data DAT_map%region          /-30.0_wp, 60.0_wp, 30.0_wp, 72.0_wp/
   data DAT_map%fill            /200, 200, 200/
   data DAT_map%projection      /"M"/
   data DAT_map%scale           /400.0_wp/
@@ -122,6 +121,10 @@ module fplt_dat
   data DAT_map%cmap            /"monochrome"/
   data DAT_map%cbar_tick_major /10.0_wp/
   data DAT_map%cbar_tick_minor /2.0_wp/
+  data DAT_map%x_min           /-30.0_wp/
+  data DAT_map%x_max           /60.0_wp/
+  data DAT_map%y_min           /30.0_wp/
+  data DAT_map%y_max           /72.0_wp/
   data DAT_map%z_min           /0.0_wp/
   data DAT_map%z_max           /100.0_wp/
   data DAT_map%z_step          /5.0_wp/

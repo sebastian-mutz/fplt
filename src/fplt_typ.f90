@@ -76,7 +76,6 @@ module fplt_typ
      !! Derived type for map options.
      character(len=64)  :: name            !! name of map template
      character(len=64)  :: theme           !! map theme (e.g., "dark")
-     real(wp)           :: region(4)       !! regional bounds: lon_min, lon_max, lat_min, lat_max
      integer(i4)        :: fill(3)         !! RGB values for fill
      character(len=16)  :: projection      !! map projection
      character(len=16)  :: resolution      !! map resolution
@@ -91,6 +90,10 @@ module fplt_typ
      real(wp)           :: cbar_tick_major !! colour bar major ticks
      real(wp)           :: cbar_tick_minor !! colour bar minor ticks
      real(wp)           :: cbar_size       !! colour bar size (percentage of map length)
+     real(wp)           :: x_min           !! lower bound for x values (longitures)
+     real(wp)           :: x_max           !! upper bound for x values (longitudes)
+     real(wp)           :: y_min           !! lower bound for y values (latitudes)
+     real(wp)           :: y_max           !! upper bound for y values (latitudes)
      real(wp)           :: z_min           !! lower bound of z value range
      real(wp)           :: z_max           !! upper bound of z value range
      real(wp)           :: z_step          !! z value step size (used in colour map and bar)
@@ -122,6 +125,10 @@ module fplt_typ
      real(wp)           :: cbar_tick_major !! colour bar major ticks
      real(wp)           :: cbar_tick_minor !! colour bar minor ticks
      real(wp)           :: cbar_size       !! colour bar size (percentage of map length)
+     real(wp)           :: x_min           !! lower bound for x values
+     real(wp)           :: x_max           !! upper bound for x values
+     real(wp)           :: y_min           !! lower bound for y values
+     real(wp)           :: y_max           !! upper bound for y values
      real(wp)           :: z_min           !! lower bound of z value range
      real(wp)           :: z_max           !! upper bound of z value range
      real(wp)           :: z_step          !! z value step size (used in colour map and bar)
@@ -144,7 +151,7 @@ module fplt_typ
      character(len=32) :: name             !! name given to module template
      character(len=32) :: gmt_module       !! name of gmt module to be used with template (e.g., pscoast)
      logical           :: infile           !! input file
-     logical           :: region           !! regional bounds: lon_min, lon_max, lat_min, lat_max
+     logical           :: region           !! regional bounds: x_min, x_max, y_min, y_max
      logical           :: fill             !! RGB values for fill
      logical           :: projection       !! projection and scale
      logical           :: resolution       !! resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)

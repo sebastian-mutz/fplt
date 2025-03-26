@@ -49,10 +49,10 @@ function f_arg_xyz2grd(map_opt, outfile) result(fstring)
 
 ! region option
   fstring = trim(fstring) // " -R"&
-  & // trim(f_utl_r2c( map_opt%region(1) )) // "/"&
-  & // trim(f_utl_r2c( map_opt%region(2) )) // "/"&
-  & // trim(f_utl_r2c( map_opt%region(3) )) // "/"&
-  & // trim(f_utl_r2c( map_opt%region(4) ))
+  & // trim(f_utl_r2c( map_opt%x_min )) // "/"&
+  & // trim(f_utl_r2c( map_opt%x_max )) // "/"&
+  & // trim(f_utl_r2c( map_opt%y_min )) // "/"&
+  & // trim(f_utl_r2c( map_opt%y_max ))
 
 ! set grid spacing; make high res (2 degrees) as default
 ! TODO: worth making an option? not an attribute of map, so perhaps make
@@ -246,10 +246,10 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
   ! region option
   if (module_opt%region) then
      fstring = trim(fstring) // " -R" &
-     & // trim(f_utl_r2c( map_opt%region(1) )) // "/"&
-     & // trim(f_utl_r2c( map_opt%region(2) )) // "/"&
-     & // trim(f_utl_r2c( map_opt%region(3) )) // "/"&
-     & // trim(f_utl_r2c( map_opt%region(4) ))
+     & // trim(f_utl_r2c( map_opt%x_min )) // "/"&
+     & // trim(f_utl_r2c( map_opt%x_max )) // "/"&
+     & // trim(f_utl_r2c( map_opt%y_min )) // "/"&
+     & // trim(f_utl_r2c( map_opt%y_max ))
   endif
 
   ! projection and scale
