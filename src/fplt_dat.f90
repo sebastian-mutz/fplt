@@ -25,7 +25,7 @@ module fplt_dat
   public :: DAT_set
 
 ! declare public maps
-  public :: DAT_map
+  public :: DAT_map, DAT_heatmap
 
 ! declare public colour maps
   public :: DAT_cmap
@@ -36,8 +36,7 @@ module fplt_dat
 ! ==== Declarations
 
 ! TODO: store map and settings templates in dictionaries (like cmaps) and identify by map template name, but pass to working map that can be modified from main
-  type(TYP_map)      :: DAT_map
-  type(TYP_heatmap)  :: DAT_heatmap
+  type(TYP_map)      :: DAT_map, DAT_heatmap
   type(TYP_settings) :: DAT_set(2)
   type(TYP_module)   :: DAT_mod(8)
   type(TYP_cmap)     :: DAT_cmap(2)     ! colour map collection
@@ -121,13 +120,13 @@ module fplt_dat
   data DAT_map%cmap            /"monochrome"/
   data DAT_map%cbar_tick_major /10.0_wp/
   data DAT_map%cbar_tick_minor /2.0_wp/
-  data DAT_map%x_min           /-30.0_wp/
-  data DAT_map%x_max           /60.0_wp/
-  data DAT_map%y_min           /30.0_wp/
-  data DAT_map%y_max           /72.0_wp/
-  data DAT_map%z_min           /0.0_wp/
-  data DAT_map%z_max           /100.0_wp/
-  data DAT_map%z_step          /5.0_wp/
+  data DAT_map%xmin            /-30.0_wp/
+  data DAT_map%xmax            /60.0_wp/
+  data DAT_map%ymin            /30.0_wp/
+  data DAT_map%ymax            /72.0_wp/
+  data DAT_map%zmin            /0.0_wp/
+  data DAT_map%zmax            /100.0_wp/
+  data DAT_map%zstep           /5.0_wp/
   data DAT_map%title           /"The Plot Title Can Include Spaces"/
   data DAT_map%label_left      /"variable name"/
   data DAT_map%label_right     /"units"/
@@ -144,19 +143,25 @@ module fplt_dat
 ! default heatmap options
   data DAT_heatmap%name            /"default"/
   data DAT_heatmap%theme           /"light"/
-  data DAT_heatmap%region          /0.0_wp, 10.0_wp, 0.0_wp, 10.0_wp/
+  data DAT_heatmap%theme           /"light"/
+  data DAT_heatmap%fill            /200, 200, 200/
+  data DAT_heatmap%projection      /"X"/
   data DAT_heatmap%scale           /400.0_wp/
-  data DAT_heatmap%an_major        /20.0_wp/
-  data DAT_heatmap%an_minor        /10.0_wp/
+  data DAT_heatmap%an_major        /10.0_wp/
+  data DAT_heatmap%an_minor        /5.0_wp/
   data DAT_heatmap%an_ticks        /"WneS"/
   data DAT_heatmap%grid            /5.0_wp/
-  data DAT_heatmap%pen             /0.5_wp/
+  data DAT_heatmap%pen             /1.0_wp/
   data DAT_heatmap%cmap            /"monochrome"/
-  data DAT_heatmap%cbar_tick_major /10.0_wp/
-  data DAT_heatmap%cbar_tick_minor /2.0_wp/
-  data DAT_heatmap%z_min           /0.0_wp/
-  data DAT_heatmap%z_max           /100.0_wp/
-  data DAT_heatmap%z_step          /5.0_wp/
+  data DAT_heatmap%cbar_tick_major /5.0_wp/
+  data DAT_heatmap%cbar_tick_minor /1.0_wp/
+  data DAT_heatmap%xmin            /0.0_wp/
+  data DAT_heatmap%xmax            /10.0_wp/
+  data DAT_heatmap%ymin            /0.0_wp/
+  data DAT_heatmap%ymax            /10.0_wp/
+  data DAT_heatmap%zmin            /0.0_wp/
+  data DAT_heatmap%zmax            /100.0_wp/
+  data DAT_heatmap%zstep           /5.0_wp/
   data DAT_heatmap%title           /"The Plot Title Can Include Spaces"/
   data DAT_heatmap%label_left      /"variable name"/
   data DAT_heatmap%label_right     /"units"/

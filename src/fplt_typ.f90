@@ -25,7 +25,7 @@ module fplt_typ
 ! declare public
   public :: dp, sp, wp, i4, i8
   public :: std_i, std_o, std_e, std_rw
-  public :: TYP_settings, TYP_cmap, TYP_map, TYP_heatmap, TYP_module
+  public :: TYP_settings, TYP_cmap, TYP_map, TYP_module
 
 ! ==== Declarations
 
@@ -90,13 +90,13 @@ module fplt_typ
      real(wp)           :: cbar_tick_major !! colour bar major ticks
      real(wp)           :: cbar_tick_minor !! colour bar minor ticks
      real(wp)           :: cbar_size       !! colour bar size (percentage of map length)
-     real(wp)           :: x_min           !! lower bound for x values (longitures)
-     real(wp)           :: x_max           !! upper bound for x values (longitudes)
-     real(wp)           :: y_min           !! lower bound for y values (latitudes)
-     real(wp)           :: y_max           !! upper bound for y values (latitudes)
-     real(wp)           :: z_min           !! lower bound of z value range
-     real(wp)           :: z_max           !! upper bound of z value range
-     real(wp)           :: z_step          !! z value step size (used in colour map and bar)
+     real(wp)           :: xmin            !! lower bound for x values (longitures)
+     real(wp)           :: xmax            !! upper bound for x values (longitudes)
+     real(wp)           :: ymin            !! lower bound for y values (latitudes)
+     real(wp)           :: ymax            !! upper bound for y values (latitudes)
+     real(wp)           :: zmin            !! lower bound of z value range
+     real(wp)           :: zmax            !! upper bound of z value range
+     real(wp)           :: zstep           !! z value step size (used in colour map and bar)
      character(len=64)  :: an_ticks        !! which sides have major annotation ticks (coordinates); e.g., WNes = coordinates annotated on west and north side
      character(len=64)  :: title           !! plot title (very top, larger)
      character(len=64)  :: label_left      !! label above figure (left aligned)
@@ -109,41 +109,6 @@ module fplt_typ
      character(len=16)  :: format          !! output format (e.g., "png")
   end type TYP_map
 
-! map
-  type :: TYP_heatmap
-     !! Derived type for heatmap options.
-     ! TODO: evaluate using region vs. x_min, etc.; make consistent with map?
-     character(len=64)  :: name            !! name of map template
-     character(len=64)  :: theme           !! map theme (e.g., "dark")
-     real(wp)           :: region(4)       !! regional bounds: x_min, x_max, y_min, y_max
-     real(wp)           :: scale           !! map scale (width in pixels)
-     character(len=16)  :: cmap            !! colour map
-     real(wp)           :: an_major        !! major annotations/labels
-     real(wp)           :: an_minor        !! minor annotations/labels
-     real(wp)           :: grid            !! grid spacing drawn
-     real(wp)           :: pen             !! pen width (point)
-     real(wp)           :: cbar_tick_major !! colour bar major ticks
-     real(wp)           :: cbar_tick_minor !! colour bar minor ticks
-     real(wp)           :: cbar_size       !! colour bar size (percentage of map length)
-     real(wp)           :: x_min           !! lower bound for x values
-     real(wp)           :: x_max           !! upper bound for x values
-     real(wp)           :: y_min           !! lower bound for y values
-     real(wp)           :: y_max           !! upper bound for y values
-     real(wp)           :: z_min           !! lower bound of z value range
-     real(wp)           :: z_max           !! upper bound of z value range
-     real(wp)           :: z_step          !! z value step size (used in colour map and bar)
-     character(len=64)  :: an_ticks        !! which sides have major annotation ticks (coordinates); e.g., WNes = coordinates annotated on west and north side
-     character(len=64)  :: title           !! plot title (very top, larger)
-     character(len=64)  :: label_left      !! label above figure (left aligned)
-     character(len=64)  :: label_right     !! label above figure (right aligned)
-     real(wp)           :: font_size_title !! font size of title (pixels)
-     real(wp)           :: font_size_label !! font size for labels (pixels)
-     real(wp)           :: padding         !! padding value used for labels
-     character(len=256) :: infile          !! input file name
-     character(len=256) :: outfile         !! output file name
-     character(len=16)  :: format          !! output format (e.g., "png")
-  end type TYP_heatmap
-
 ! module templates
   type :: TYP_module
      !! Derived type for gmt modules. Includes a list of which arguments are included and which aren't.
@@ -151,7 +116,7 @@ module fplt_typ
      character(len=32) :: name             !! name given to module template
      character(len=32) :: gmt_module       !! name of gmt module to be used with template (e.g., pscoast)
      logical           :: infile           !! input file
-     logical           :: region           !! regional bounds: x_min, x_max, y_min, y_max
+     logical           :: region           !! regional bounds: xmin, xmax, ymin, ymax
      logical           :: fill             !! RGB values for fill
      logical           :: projection       !! projection and scale
      logical           :: resolution       !! resolution ((f)ull, (h)igh, (i)ntermediate, (l)ow, (c)rude)

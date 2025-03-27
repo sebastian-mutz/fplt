@@ -33,9 +33,9 @@ program maps
   my_map%cmap="bluered01"
 
 ! modify preset colour map
-  my_map%z_min  = -30
-  my_map%z_max  = 30
-  my_map%z_step = 1
+  my_map%zmin  = -30
+  my_map%zmax  = 30
+  my_map%zstep = 1
 
 ! change theme
   my_map%theme = "dark"

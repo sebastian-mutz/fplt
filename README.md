@@ -1,7 +1,7 @@
 # <span style="color:#734f96">FPLT - Fortran Plotting Library</span>
 
 [![GitHub](https://img.shields.io/github/license/sebastian-mutz/fplt)](https://github.com/sebastian-mutz/fplt/blob/main/LICENCE)
-![25%](https://progress-bar.xyz/25?title=Alpha)
+![30%](https://progress-bar.xyz/30?title=Alpha)
 
 > [!IMPORTANT]
 > FPLT is in a pre-alpha state, and only suitable for developers at this point.
@@ -94,7 +94,7 @@ This stage is reached once:
 #### <span style="color:#734f96">Plot Types</span> <br/>
 
 ![100%](https://progress-bar.xyz/100?title=Maps)
-![0%](https://progress-bar.xyz/0?title=Heatmaps)
+![20%](https://progress-bar.xyz/20?title=Heatmaps)
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
 
@@ -135,7 +135,7 @@ This stage is reached once:
 | Bindings for GMT's C-API  | ✓           |
 | Geographical maps         | ✓           |
 | Common map projections    | ✓           |
-| Heat maps                 | -           |
+| Heat maps                 | 20%         |
 | XY scatter and line plots | -           |
 | Bar plots                 | -           |
 | GMT argument construction | 40%         |

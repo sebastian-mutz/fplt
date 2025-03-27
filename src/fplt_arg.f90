@@ -49,15 +49,16 @@ function f_arg_xyz2grd(map_opt, outfile) result(fstring)
 
 ! region option
   fstring = trim(fstring) // " -R"&
-  & // trim(f_utl_r2c( map_opt%x_min )) // "/"&
-  & // trim(f_utl_r2c( map_opt%x_max )) // "/"&
-  & // trim(f_utl_r2c( map_opt%y_min )) // "/"&
-  & // trim(f_utl_r2c( map_opt%y_max ))
+  & // trim(f_utl_r2c( map_opt%xmin )) // "/"&
+  & // trim(f_utl_r2c( map_opt%xmax )) // "/"&
+  & // trim(f_utl_r2c( map_opt%ymin )) // "/"&
+  & // trim(f_utl_r2c( map_opt%ymax ))
 
-! set grid spacing; make high res (2 degrees) as default
+! set grid spacing; make high res (1 degrees) as default
 ! TODO: worth making an option? not an attribute of map, so perhaps make
 ! derived type for files. Alternatively determine automatically
-  fstring = trim(fstring) // " -I2d"
+! NOTE: this MUST be 1 for all heatmaps
+  fstring = trim(fstring) // " -I1d"
 
 ! grid output
   fstring = trim(fstring) // " -G" // trim(outfile)
@@ -210,9 +211,9 @@ function f_arg_cmap(map_opt, cmap_opt) result(fstring)
 ! ---- Z value args
 ! TODO: think about changing float length in f_utl_r2c to enable larger numbers here
   fstring = trim(fstring) // " -T"&
-  & // trim(f_utl_r2c( map_opt%z_min )) // "/"&
-  & // trim(f_utl_r2c( map_opt%z_max )) // "/"&
-  & // trim(f_utl_r2c( map_opt%z_step ))
+  & // trim(f_utl_r2c( map_opt%zmin )) // "/"&
+  & // trim(f_utl_r2c( map_opt%zmax )) // "/"&
+  & // trim(f_utl_r2c( map_opt%zstep ))
 
 ! ---- output
   fstring = trim(fstring) // " -Z > " // trim(cmap_opt%name) // ".cpt"
@@ -227,6 +228,7 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
 ! ==== Description
 !! Crafts a fortran string from map options that serves
 !! as argument string to be used in the gmt module
+! TODO: generalise for all plots and also generalise map_opt to plt_opt?
 
 ! ==== Declarations
   type(TYP_map)     , intent(in) :: map_opt
@@ -246,14 +248,13 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
   ! region option
   if (module_opt%region) then
      fstring = trim(fstring) // " -R" &
-     & // trim(f_utl_r2c( map_opt%x_min )) // "/"&
-     & // trim(f_utl_r2c( map_opt%x_max )) // "/"&
-     & // trim(f_utl_r2c( map_opt%y_min )) // "/"&
-     & // trim(f_utl_r2c( map_opt%y_max ))
+     & // trim(f_utl_r2c( map_opt%xmin )) // "/"&
+     & // trim(f_utl_r2c( map_opt%xmax )) // "/"&
+     & // trim(f_utl_r2c( map_opt%ymin )) // "/"&
+     & // trim(f_utl_r2c( map_opt%ymax ))
   endif
 
   ! projection and scale
-  ! TODO: move scale outside case selection
   if (module_opt%projection) then
      select case (map_opt%projection)
         ! M - Mercator
@@ -280,13 +281,14 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
            & // trim(f_utl_r2c( map_opt%parallels(1) )) // "/"&
            & // trim(f_utl_r2c( map_opt%parallels(2) )) // "/"&
            & // trim(f_utl_r2c( map_opt%scale )) // "p"
-        ! G - Orthographic
-        case ("G")
+        ! X - XY plot (generic heat map)
+        case ("X")
            fstring = trim(fstring) // " -J"&
            & // trim(map_opt%projection)&
-           & // trim(f_utl_r2c( map_opt%centre(1) )) // "/"&
-           & // trim(f_utl_r2c( map_opt%centre(2) )) // "/"&
-           & // trim(f_utl_r2c( map_opt%scale )) // "p"
+           & // trim(f_utl_r2c( map_opt%scale )) // "p/"&
+           & // trim(f_utl_r2c( map_opt%scale * &
+           & (map_opt%ymax-map_opt%ymin) / (map_opt%xmax-map_opt%xmin) )) &
+           & // "p"
      end select
   endif
 
