@@ -59,6 +59,7 @@ function f_arg_xyz2grd(map_opt, outfile) result(fstring)
 ! derived type for files. Alternatively determine automatically
 ! NOTE: this MUST be 1 for all heatmaps
   fstring = trim(fstring) // " -I1d"
+!  fstring = trim(fstring) // " -I0.95/0.95"
 
 ! grid output
   fstring = trim(fstring) // " -G" // trim(outfile)

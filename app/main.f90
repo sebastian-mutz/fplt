@@ -53,7 +53,7 @@ program main
 ! ===== heatmap
 
 ! set output file format
-  my_heatmap%infile  = "./test/heatmaps/Mutz_et_al_2021_rcp26_rcp85.asc"
+  my_heatmap%infile  = "./test/heatmaps/xyz_data.asc"
 
 ! set plot labels
   my_heatmap%title = "Fix the Heatmap!"
@@ -64,8 +64,12 @@ program main
   my_heatmap%cmap="bluered01"
 
 ! modify preset colour map
- my_heatmap%xmax  = 24
- my_heatmap%ymax  = 10
+!  my_heatmap%xmin  = 0.5
+!  my_heatmap%xmax  = 24.5
+!  my_heatmap%ymin  = 0.5
+!  my_heatmap%ymax  = 10.5
+  my_heatmap%xmax  = 24.5
+  my_heatmap%ymax  = 10.5
 
 ! modify preset colour map
  my_heatmap%zmin  = -10

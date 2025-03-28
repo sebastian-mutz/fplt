@@ -94,7 +94,7 @@ This stage is reached once:
 #### <span style="color:#734f96">Plot Types</span> <br/>
 
 ![100%](https://progress-bar.xyz/100?title=Maps)
-![20%](https://progress-bar.xyz/20?title=Heatmaps)
+![50%](https://progress-bar.xyz/50?title=Heatmaps)
 ![0%](https://progress-bar.xyz/0?title=XYPlots)
 ![0%](https://progress-bar.xyz/0?title=BarPlots)
 
@@ -135,11 +135,11 @@ This stage is reached once:
 | Bindings for GMT's C-API  | ✓           |
 | Geographical maps         | ✓           |
 | Common map projections    | ✓           |
-| Heat maps                 | 20%         |
+| Heat maps                 | 50%         |
 | XY scatter and line plots | -           |
 | Bar plots                 | -           |
 | GMT argument construction | 40%         |
-| GMT module templates      | 20%         |
+| GMT module templates      | 30%         |
 | GMT auto settings         | 50%         |
 | Themes for plot setting   | ✓           |
 | Auto generate colour maps | ✓           |
