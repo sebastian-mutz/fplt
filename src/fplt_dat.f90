@@ -39,7 +39,7 @@ module fplt_dat
   type(TYP_map)      :: DAT_map, DAT_heatmap
   type(TYP_settings) :: DAT_set(2)
   type(TYP_module)   :: DAT_mod(8)
-  type(TYP_cmap)     :: DAT_cmap(2)     ! colour map collection
+  type(TYP_cmap)     :: DAT_cmap(3)     ! colour map collection
   integer            :: i
 
 ! ==== Data (presents)
@@ -82,7 +82,7 @@ module fplt_dat
 
 ! ---- colour maps
 
-! monochrome scales
+! monochrome scale - black to white
   data DAT_cmap(1)%name /"monochrome"/
   data (DAT_cmap(1)%rgb(i,1), i=1,3) /0, 0, 0/
   data (DAT_cmap(1)%rgb(i,2), i=1,3) /0, 0, 0/
@@ -91,7 +91,7 @@ module fplt_dat
   data (DAT_cmap(1)%rgb(i,5), i=1,3) /255, 255, 255/
   data DAT_cmap(1)%picker            /1, 0, 0, 0, 1/
 
-! 2 colour scale
+! 2 colour scale - blue-white-red
   data DAT_cmap(2)%name /"bluered01"/
   data (DAT_cmap(2)%rgb(i,1), i=1,3) /0, 20, 180/
   data (DAT_cmap(2)%rgb(i,2), i=1,3) /0, 0, 0/
@@ -100,6 +100,14 @@ module fplt_dat
   data (DAT_cmap(2)%rgb(i,5), i=1,3) /180, 20, 0/
   data DAT_cmap(2)%picker            /1, 0, 1, 0, 1/
 
+! 5 colour scale using darkened colours in tails - green-white-purple
+  data DAT_cmap(3)%name /"greenpurple01"/
+  data (DAT_cmap(3)%rgb(i,1), i=1,3) /10, 80, 10/
+  data (DAT_cmap(3)%rgb(i,2), i=1,3) /50, 150, 50/
+  data (DAT_cmap(3)%rgb(i,3), i=1,3) /220, 220, 220/
+  data (DAT_cmap(3)%rgb(i,4), i=1,3) /150, 50, 150/
+  data (DAT_cmap(3)%rgb(i,5), i=1,3) /80, 10, 80/
+  data DAT_cmap(3)%picker            /1, 1, 1, 1, 1/
 
 ! ---- maps
 
@@ -148,7 +156,7 @@ module fplt_dat
   data DAT_heatmap%projection      /"X"/
   data DAT_heatmap%scale           /400.0_wp/
   data DAT_heatmap%an_major        /10.0_wp/
-  data DAT_heatmap%an_minor        /5.0_wp/
+  data DAT_heatmap%an_minor        /1.0_wp/
   data DAT_heatmap%an_ticks        /"WneS"/
   data DAT_heatmap%grid            /5.0_wp/
   data DAT_heatmap%pen             /1.0_wp/
@@ -160,7 +168,7 @@ module fplt_dat
   data DAT_heatmap%ymin            /0.0_wp/
   data DAT_heatmap%ymax            /10.0_wp/
   data DAT_heatmap%zmin            /0.0_wp/
-  data DAT_heatmap%zmax            /100.0_wp/
+  data DAT_heatmap%zmax            /1.0_wp/
   data DAT_heatmap%zstep           /5.0_wp/
   data DAT_heatmap%title           /"The Plot Title Can Include Spaces"/
   data DAT_heatmap%label_left      /"variable name"/
@@ -194,6 +202,9 @@ module fplt_dat
   data DAT_mod(1)%label_right    /.false./
   data DAT_mod(1)%first          /.false./
   data DAT_mod(1)%last           /.false./
+  data DAT_mod(1)%offset         /.false./
+  data DAT_mod(1)%xoffset        /0.0_wp/
+  data DAT_mod(1)%yoffset        /0.0_wp/
 
 ! gmt argument selection - grid image
   data DAT_mod(2)%name           /"grdimage01"/
@@ -214,6 +225,9 @@ module fplt_dat
   data DAT_mod(2)%label_right    /.false./
   data DAT_mod(2)%first          /.false./
   data DAT_mod(2)%last           /.false./
+  data DAT_mod(2)%offset         /.false./
+  data DAT_mod(2)%xoffset        /0.0_wp/
+  data DAT_mod(2)%yoffset        /0.0_wp/
 
 ! gmt argument selection - bottom basemap
   data DAT_mod(3)%name           /"basemap01"/
@@ -234,6 +248,9 @@ module fplt_dat
   data DAT_mod(3)%label_right    /.false./
   data DAT_mod(3)%first          /.true./
   data DAT_mod(3)%last           /.false./
+  data DAT_mod(3)%offset         /.false./
+  data DAT_mod(3)%xoffset        /0.0_wp/
+  data DAT_mod(3)%yoffset        /0.0_wp/
 
 ! gmt argument selection - title text
   data DAT_mod(4)%name           /"title01"/
@@ -254,6 +271,9 @@ module fplt_dat
   data DAT_mod(4)%label_right    /.false./
   data DAT_mod(4)%first          /.false./
   data DAT_mod(4)%last           /.false./
+  data DAT_mod(4)%offset         /.false./
+  data DAT_mod(4)%xoffset        /0.0_wp/
+  data DAT_mod(4)%yoffset        /0.0_wp/
 
 ! gmt argument selection- label text 1
   data DAT_mod(5)%name           /"label01"/
@@ -274,6 +294,9 @@ module fplt_dat
   data DAT_mod(5)%label_right    /.false./
   data DAT_mod(5)%first          /.false./
   data DAT_mod(5)%last           /.false./
+  data DAT_mod(5)%offset         /.false./
+  data DAT_mod(5)%xoffset        /0.0_wp/
+  data DAT_mod(5)%yoffset        /0.0_wp/
 
 ! gmt argument selection - label text 2
   data DAT_mod(6)%name           /"label02"/
@@ -294,6 +317,9 @@ module fplt_dat
   data DAT_mod(6)%label_right    /.true./
   data DAT_mod(6)%first          /.false./
   data DAT_mod(6)%last           /.true./
+  data DAT_mod(6)%offset         /.false./
+  data DAT_mod(6)%xoffset        /0.0_wp/
+  data DAT_mod(6)%yoffset        /0.0_wp/
 
 ! gmt argument selection - scale
   data DAT_mod(7)%name           /"scale01"/
@@ -314,6 +340,9 @@ module fplt_dat
   data DAT_mod(7)%label_right    /.false./
   data DAT_mod(7)%first          /.false./
   data DAT_mod(7)%last           /.false./
+  data DAT_mod(7)%offset         /.false./
+  data DAT_mod(7)%xoffset        /0.0_wp/
+  data DAT_mod(7)%yoffset        /0.0_wp/
 
 ! gmt argument selection - coast
   data DAT_mod(8)%name           /"psxy01"/
@@ -334,5 +363,8 @@ module fplt_dat
   data DAT_mod(8)%label_right    /.false./
   data DAT_mod(8)%first          /.false./
   data DAT_mod(8)%last           /.false./
+  data DAT_mod(8)%offset         /.false./
+  data DAT_mod(8)%xoffset        /0.0_wp/
+  data DAT_mod(8)%yoffset        /0.0_wp/
 
 end module fplt_dat

@@ -59,7 +59,6 @@ function f_arg_xyz2grd(map_opt, outfile) result(fstring)
 ! derived type for files. Alternatively determine automatically
 ! NOTE: this MUST be 1 for all heatmaps
   fstring = trim(fstring) // " -I1d"
-!  fstring = trim(fstring) // " -I0.95/0.95"
 
 ! grid output
   fstring = trim(fstring) // " -G" // trim(outfile)
@@ -323,6 +322,12 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
   ! colour map
   if (module_opt%cmap) then
      fstring = trim(fstring) // " -C" // trim(map_opt%cmap) // ".cpt"
+  endif
+
+  if (module_opt%offset) then
+     fstring = trim(fstring)&
+     & // " -X" // trim( f_utl_r2c( module_opt%xoffset )) // "p" &
+     & // " -Y" // trim( f_utl_r2c( module_opt%yoffset )) // "p"
   endif
 
   ! additional colour bar options

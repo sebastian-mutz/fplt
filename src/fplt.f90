@@ -51,10 +51,12 @@ subroutine fplt_map(map_opt)
   character(kind=c_char, len=20)          :: session_name !! gmt session name
   character(kind=c_char, len=256), target :: args         !! gmt argument string
   character(len=32), allocatable          :: stack(:)     !! module templates to work through
+  type(TYP_module)                        :: w_mod_opt    !! working copy of module template
+  type(TYP_map)                           :: w_map_opt    !! working copy of map options
   character(len=256)                      :: w_infile     !! name of input file
   character(len=256)                      :: w_outfile    !! name of output file
   character(len=256)                      :: fstring      !! fortran string
-  integer(i4)                             :: i, j, k
+  integer(i4)                             :: i, j
 
 ! ==== Instructions
 
@@ -62,7 +64,7 @@ subroutine fplt_map(map_opt)
 
 ! construct module stacks
   if (map_opt%projection .eq. "X") then
-     ! xy maps
+     ! heatmaps
      allocate(stack(6))
      stack = [character(len=32) :: "basemap01", "grdimage01", "scale01"&
              &, "title01", "label01", "label02"]
@@ -89,7 +91,8 @@ subroutine fplt_map(map_opt)
      do j = 1, size(DAT_mod)
         ! check if names match
         if (stack(i) .eq. DAT_mod(j)%name) then
-          k = j
+          ! make working copy of module template
+          w_mod_opt = DAT_mod(j)
           exit
         ! if end of dict is reached and no match found, stop
         elseif (j .eq. size(DAT_mod)) then
@@ -97,12 +100,26 @@ subroutine fplt_map(map_opt)
            stop
         endif
      enddo
-     ! prepare the arguments
-     fstring = f_arg_map(map_opt, w_infile, w_outfile, DAT_mod(k))
+     ! check if coordinate offset is needed (only for heatmap and gridimage gmt module)
+     if (map_opt%projection .eq. "X" .and.&
+        & w_mod_opt%gmt_module .eq. "grdimage") then
+        ! adjust heatmap plot region to centre boxes between discrete bounds
+        w_map_opt = map_opt
+        w_map_opt%xmin = w_map_opt%xmin + 0.5_wp
+        w_map_opt%xmax = w_map_opt%xmax + 0.5_wp
+        w_map_opt%ymin = w_map_opt%ymin + 0.5_wp
+        w_map_opt%ymax = w_map_opt%ymax + 0.5_wp
+        ! prepare the arguments
+        fstring = f_arg_map(w_map_opt, w_infile, w_outfile, w_mod_opt)
+     else
+        ! prepare the arguments
+        fstring = f_arg_map(map_opt, w_infile, w_outfile, w_mod_opt)
+     endif
+     ! construct c arg string
      args = trim(fstring) // c_null_char
      write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
      ! gmt module calls
-     call fplt_module(session, trim(DAT_mod(k)%gmt_module), args)
+     call fplt_module(session, trim(w_mod_opt%gmt_module), args)
   enddo
 
 ! ---- Finish
@@ -301,7 +318,7 @@ subroutine fplt_file_handling(session, map_opt, w_infile, w_outfile)
      call fplt_module(session, "xyz2grd", args)
      ! update infile
      write(std_o, *) "> Text file converted to grid file: ", trim(w_infile)
-  elseif (fstring .eq. "grd") then
+  elseif (fstring .eq. "grid") then
      w_infile = map_opt%infile
   else
      write(std_o, *) "> Unknown file format. Stopping."

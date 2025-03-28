@@ -131,6 +131,9 @@ module fplt_typ
      logical           :: label_right      !! label above figure (right aligned)
      logical           :: first            !! module is the bottom layer in stack
      logical           :: last             !! module is the top layer in stack
+     logical           :: offset           !! offset position of module plot layer
+     real(wp)          :: xoffset          !! x offset (pixels)
+     real(wp)          :: yoffset          !! y offset (pixels)
   end type TYP_module
 
 end module fplt_typ

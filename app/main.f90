@@ -33,7 +33,7 @@ program main
   my_map%label_right= "deg C"
 
 ! change colour map
-  my_map%cmap="bluered01"
+  my_map%cmap="greenpurple01"
 
 ! modify preset colour map
   my_map%zmin  = -30
@@ -54,22 +54,22 @@ program main
 
 ! set output file format
   my_heatmap%infile  = "./test/heatmaps/xyz_data.asc"
+!  my_heatmap%infile  = "./test/heatmaps/xyz_data.grd"
 
 ! set plot labels
-  my_heatmap%title = "Fix the Heatmap!"
-  my_heatmap%label_left = "2m air temperature"
-  my_heatmap%label_right= "deg C"
+  my_heatmap%title = "New Heatmap!"
 
 ! change colour map
   my_heatmap%cmap="bluered01"
 
 ! modify preset colour map
-!  my_heatmap%xmin  = 0.5
+  my_heatmap%xmin  = 0.0
+  my_heatmap%xmax  = 24.0
+  my_heatmap%ymin  = 0.0
+  my_heatmap%ymax  = 10.0
+
 !  my_heatmap%xmax  = 24.5
-!  my_heatmap%ymin  = 0.5
 !  my_heatmap%ymax  = 10.5
-  my_heatmap%xmax  = 24.5
-  my_heatmap%ymax  = 10.5
 
 ! modify preset colour map
  my_heatmap%zmin  = -10
