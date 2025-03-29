@@ -38,7 +38,7 @@ module fplt_dat
 ! TODO: store map and settings templates in dictionaries (like cmaps) and identify by map template name, but pass to working map that can be modified from main
   type(TYP_map)      :: DAT_map, DAT_heatmap
   type(TYP_settings) :: DAT_set(2)
-  type(TYP_module)   :: DAT_mod(8)
+  type(TYP_module)   :: DAT_mod(9)
   type(TYP_cmap)     :: DAT_cmap(3)     ! colour map collection
   integer            :: i
 
@@ -366,5 +366,28 @@ module fplt_dat
   data DAT_mod(8)%offset         /.false./
   data DAT_mod(8)%xoffset        /0.0_wp/
   data DAT_mod(8)%yoffset        /0.0_wp/
+
+! x axis labels
+  data DAT_mod(9)%name           /"xlabel"/
+  data DAT_mod(9)%gmt_module     /"pstext"/
+  data DAT_mod(9)%infile         /.false./
+  data DAT_mod(9)%region         /.true./
+  data DAT_mod(9)%fill           /.false./
+  data DAT_mod(9)%projection     /.true./
+  data DAT_mod(9)%resolution     /.true./
+  data DAT_mod(9)%an_major       /.true./
+  data DAT_mod(9)%an_minor       /.true./
+  data DAT_mod(9)%grid           /.true./
+  data DAT_mod(9)%pen            /.true./
+  data DAT_mod(9)%cmap           /.false./
+  data DAT_mod(9)%cbar           /.false./
+  data DAT_mod(9)%title          /.true./
+  data DAT_mod(9)%label_left     /.false./
+  data DAT_mod(9)%label_right    /.false./
+  data DAT_mod(9)%first          /.false./
+  data DAT_mod(9)%last           /.false./
+  data DAT_mod(9)%offset         /.false./
+  data DAT_mod(9)%xoffset        /0.0_wp/
+  data DAT_mod(9)%yoffset        /0.0_wp/
 
 end module fplt_dat
