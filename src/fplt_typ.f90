@@ -107,6 +107,8 @@ module fplt_typ
      character(len=256) :: infile          !! input file name
      character(len=256) :: outfile         !! output file name
      character(len=16)  :: format          !! output format (e.g., "png")
+     character(len=256) :: xlabel_file     !! file to read x axis labels from
+     character(len=256) :: ylabel_file     !! file to read y axis labels from
   end type TYP_map
 
 ! module templates
