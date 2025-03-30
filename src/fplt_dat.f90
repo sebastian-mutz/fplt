@@ -145,8 +145,6 @@ module fplt_dat
   data DAT_map%infile          /"data.asc"/
   data DAT_map%outfile         /"map01"/
   data DAT_map%format          /"png"/
-  data DAT_map%xlabel_file     /"xlabel.asc"/
-  data DAT_map%ylabel_file     /"ylabel.asc"/
 
 ! ---- heatmaps
 
@@ -182,8 +180,6 @@ module fplt_dat
   data DAT_heatmap%infile          /"data.asc"/
   data DAT_heatmap%outfile         /"heatmap01"/
   data DAT_heatmap%format          /"png"/
-  data DAT_heatmap%xlabel_file     /"xlabel.asc"/
-  data DAT_heatmap%ylabel_file     /"ylabel.asc"/
 
 ! ---- gmt module options (args construction)
 
