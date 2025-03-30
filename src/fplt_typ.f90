@@ -107,6 +107,8 @@ module fplt_typ
      character(len=256) :: infile          !! input file name
      character(len=256) :: outfile         !! output file name
      character(len=16)  :: format          !! output format (e.g., "png")
+     character(len=64)  :: xlabels(64)     !! x labels
+     character(len=64)  :: ylabels(64)     !! y labels
   end type TYP_map
 
 ! module templates

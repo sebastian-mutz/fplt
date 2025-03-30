@@ -19,7 +19,6 @@ program main
 
 ! TODO: based on opts, load dat_* and pass to working types (cp_template function) using identifiers, then simply modify those
 
-
 ! ===== map
 
 ! set output file format
@@ -78,6 +77,11 @@ program main
 
 ! change theme
   my_heatmap%theme = "dark"
+
+! set xlabels (overwrite first 24 of initialised values)
+! NOTE: labels used with region (x/y min/max) to generate gridded dataset to be plotted
+  my_heatmap%xlabels(1:24) = ["A","B","A","A","C","E","A","B","A","A","C","E","A","B"&
+           &,"A","A","C","E","A","B","A","A","C","E"]
 
 ! plot map from text file using the default map cp_template
   call fplt_map(my_heatmap)
