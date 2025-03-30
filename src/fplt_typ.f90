@@ -90,7 +90,7 @@ module fplt_typ
      real(wp)           :: cbar_tick_major !! colour bar major ticks
      real(wp)           :: cbar_tick_minor !! colour bar minor ticks
      real(wp)           :: cbar_size       !! colour bar size (percentage of map length)
-     real(wp)           :: xmin            !! lower bound for x values (longitures)
+     real(wp)           :: xmin            !! lower bound for x values (longitudes)
      real(wp)           :: xmax            !! upper bound for x values (longitudes)
      real(wp)           :: ymin            !! lower bound for y values (latitudes)
      real(wp)           :: ymax            !! upper bound for y values (latitudes)
