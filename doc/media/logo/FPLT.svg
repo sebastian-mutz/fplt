@@ -27,8 +27,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.4980456"
-     inkscape:cx="341.77864"
-     inkscape:cy="112.47988"
+     inkscape:cx="276.36008"
+     inkscape:cy="315.41096"
      inkscape:window-width="1720"
      inkscape:window-height="1356"
      inkscape:window-x="0"
@@ -419,15 +419,15 @@
        y="51.793922"
        ry="7.9365754"
        inkscape:export-filename="FPLT_small.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
+       inkscape:export-xdpi="55.831551"
+       inkscape:export-ydpi="55.831551" />
     <rect
        style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke-width:0.266692;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect377"
        width="6.2419839"
        height="8.5458202"
        x="111.47757"
-       y="76.686966"
+       y="76.157799"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
@@ -437,7 +437,7 @@
        width="6.2419839"
        height="18.785763"
        x="119.41508"
-       y="66.447021"
+       y="65.917854"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
@@ -447,16 +447,16 @@
        width="6.2419839"
        height="28.780455"
        x="127.35259"
-       y="56.452332"
+       y="55.923164"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <rect
-       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#999999;stroke-width:0.505007;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#734f96;stroke-width:0.505007;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect385-9"
        width="7.9668765"
        height="24.008551"
-       x="56.729794"
+       x="56.200626"
        y="-125.40116"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -466,7 +466,7 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
        x="111.70314"
-       y="93.046677"
+       y="92.517509"
        id="text389"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -475,12 +475,12 @@
          id="tspan387"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#999999;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
          x="111.70314"
-         y="93.046677">P</tspan></text>
+         y="92.517509">P</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
        x="119.80164"
-       y="93.046677"
+       y="92.517509"
        id="text393"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -489,12 +489,12 @@
          id="tspan391"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#999999;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
          x="119.80164"
-         y="93.046677">L</tspan></text>
+         y="92.517509">L</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#999999;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
        x="127.62429"
-       y="93.046677"
+       y="92.517509"
        id="text397"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -503,35 +503,35 @@
          id="tspan395"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#999999;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
          x="127.62429"
-         y="93.046677">T</tspan></text>
+         y="92.517509">T</tspan></text>
     <rect
        style="fill:#999999;fill-opacity:1;fill-rule:evenodd;stroke-width:0.100285;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect399"
        width="0.47615117"
        height="15.841274"
-       x="89.7323"
+       x="89.203133"
        y="-112.92719"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"
        transform="rotate(90)" />
     <rect
-       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#999999;stroke-width:0.415241;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#734f96;stroke-width:0.415241;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1047"
        width="8.0602226"
        height="16.043957"
-       x="66.689896"
+       x="66.160728"
        y="-117.39338"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"
        transform="rotate(90)" />
     <rect
-       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#999999;stroke-width:0.299845;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#734f96;stroke-width:0.299845;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1076"
        width="8.1800337"
        height="8.2431955"
-       x="76.882324"
+       x="76.353157"
        y="-109.53707"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -554,7 +554,7 @@
        width="6.2419839"
        height="8.5458202"
        x="64.359032"
-       y="76.686966"
+       y="76.157799"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
@@ -564,7 +564,7 @@
        width="6.2419839"
        height="18.785763"
        x="72.296539"
-       y="66.447021"
+       y="65.917854"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
@@ -574,16 +574,16 @@
        width="6.2419839"
        height="28.780455"
        x="80.234055"
-       y="56.452332"
+       y="55.923164"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <rect
-       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:0.505007;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#734f96;stroke-width:0.505007;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1147"
        width="7.9668765"
        height="24.008551"
-       x="56.729794"
+       x="56.200626"
        y="-78.282623"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -593,7 +593,7 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
        x="64.584602"
-       y="93.046677"
+       y="92.517509"
        id="text1151"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -602,12 +602,12 @@
          id="tspan1149"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#808080;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
          x="64.584602"
-         y="93.046677">P</tspan></text>
+         y="92.517509">P</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
        x="72.683105"
-       y="93.046677"
+       y="92.517509"
        id="text1155"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -616,12 +616,12 @@
          id="tspan1153"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#808080;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
          x="72.683105"
-         y="93.046677">L</tspan></text>
+         y="92.517509">L</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;line-height:1.25;font-family:Cousine;-inkscape-font-specification:Cousine;fill:#808080;fill-opacity:1;stroke:none;stroke-width:0.265;stroke-dasharray:none"
        x="80.505753"
-       y="93.046677"
+       y="92.517509"
        id="text1159"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
@@ -630,35 +630,35 @@
          id="tspan1157"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.81944px;font-family:'IBM Plex Serif';-inkscape-font-specification:'IBM Plex Serif';fill:#808080;fill-opacity:1;stroke-width:0.265;stroke-dasharray:none"
          x="80.505753"
-         y="93.046677">T</tspan></text>
+         y="92.517509">T</tspan></text>
     <rect
        style="fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke-width:0.100285;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect1161"
        width="0.47615117"
        height="15.841274"
-       x="89.7323"
+       x="89.203133"
        y="-65.808655"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"
        transform="rotate(90)" />
     <rect
-       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:0.415241;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#734f96;stroke-width:0.415241;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1163"
        width="8.0602226"
        height="16.043957"
-       x="66.689896"
+       x="66.160728"
        y="-70.274841"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"
        transform="rotate(90)" />
     <rect
-       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#808080;stroke-width:0.299845;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#734f96;fill-opacity:1;fill-rule:evenodd;stroke:#734f96;stroke-width:0.299845;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1165"
        width="8.1800337"
        height="8.2431955"
-       x="76.882324"
+       x="76.353157"
        y="-62.41853"
        inkscape:export-filename="/home/sebastian/Academia/Community/groups/CSD/img/logo/CSD_darkGrey.png"
        inkscape:export-xdpi="96"
