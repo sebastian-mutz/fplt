@@ -228,7 +228,7 @@ function f_arg_map(map_opt, infile, outfile, module_opt) result(fstring)
 ! ==== Description
 !! Crafts a fortran string from map options that serves
 !! as argument string to be used in the gmt module
-! TODO: generalise for all plots and also generalise map_opt to plt_opt?
+! TODO: generalise for all plots (or maps); make plot type an option
 
 ! ==== Declarations
   type(TYP_map)     , intent(in) :: map_opt
