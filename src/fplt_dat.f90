@@ -153,7 +153,6 @@ module fplt_dat
 ! default heatmap options
   data DAT_heatmap%name            /"default"/
   data DAT_heatmap%theme           /"light"/
-  data DAT_heatmap%theme           /"light"/
   data DAT_heatmap%fill            /200, 200, 200/
   data DAT_heatmap%projection      /"X"/
   data DAT_heatmap%scale           /400.0_wp/

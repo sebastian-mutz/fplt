@@ -51,8 +51,8 @@ subroutine fplt_map(map_opt)
   character(kind=c_char, len=20)          :: session_name !! gmt session name
   character(kind=c_char, len=256), target :: args         !! gmt argument string
   character(len=32), allocatable          :: stack(:)     !! module templates to work through
-  type(TYP_module)                        :: w_mod_opt    !! working copy of module template
-  type(TYP_map)                           :: w_map_opt    !! working copy of map options
+  type(TYP_module)                        :: mod_opt_w    !! working copy of module template
+  type(TYP_map)                           :: map_opt_w    !! working copy of map options
   character(len=256)                      :: w_infile     !! name of input file
   character(len=256)                      :: w_outfile    !! name of output file
   character(len=256)                      :: fstring      !! fortran string
@@ -66,6 +66,7 @@ subroutine fplt_map(map_opt)
   if (map_opt%projection .eq. "X") then
      ! heatmaps
      allocate(stack(6))
+     ! TODO: change stack to integers and map integers to gmt modules
      stack = [character(len=32) :: "basemap01", "grdimage01", "scale01"&
              &, "title01", "label01", "label02"]
   else
@@ -92,7 +93,7 @@ subroutine fplt_map(map_opt)
         ! check if names match
         if (stack(i) .eq. DAT_mod(j)%name) then
           ! make working copy of module template
-          w_mod_opt = DAT_mod(j)
+          mod_opt_w = DAT_mod(j)
           exit
         ! if end of dict is reached and no match found, stop
         elseif (j .eq. size(DAT_mod)) then
@@ -102,24 +103,24 @@ subroutine fplt_map(map_opt)
      enddo
      ! check if coordinate offset is needed (only for heatmap and gridimage gmt module)
      if (map_opt%projection .eq. "X" .and.&
-        & w_mod_opt%gmt_module .eq. "grdimage") then
+        & mod_opt_w%gmt_module .eq. "grdimage") then
         ! adjust heatmap plot region to centre boxes between discrete bounds
-        w_map_opt = map_opt
-        w_map_opt%xmin = w_map_opt%xmin + 0.5_wp
-        w_map_opt%xmax = w_map_opt%xmax + 0.5_wp
-        w_map_opt%ymin = w_map_opt%ymin + 0.5_wp
-        w_map_opt%ymax = w_map_opt%ymax + 0.5_wp
+        map_opt_w = map_opt
+        map_opt_w%xmin = map_opt_w%xmin + 0.5_wp
+        map_opt_w%xmax = map_opt_w%xmax + 0.5_wp
+        map_opt_w%ymin = map_opt_w%ymin + 0.5_wp
+        map_opt_w%ymax = map_opt_w%ymax + 0.5_wp
         ! prepare the arguments
-        fstring = f_arg_map(w_map_opt, w_infile, w_outfile, w_mod_opt)
+        fstring = f_arg_map(map_opt_w, w_infile, w_outfile, mod_opt_w)
      else
         ! prepare the arguments
-        fstring = f_arg_map(map_opt, w_infile, w_outfile, w_mod_opt)
+        fstring = f_arg_map(map_opt, w_infile, w_outfile, mod_opt_w)
      endif
      ! construct c arg string
      args = trim(fstring) // c_null_char
      write(std_o, *) "> Fortran-GMT args constructed: ", trim(fstring)
      ! gmt module calls
-     call fplt_module(session, trim(w_mod_opt%gmt_module), args)
+     call fplt_module(session, trim(mod_opt_w%gmt_module), args)
   enddo
 
 ! ---- Finish
