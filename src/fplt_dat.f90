@@ -39,7 +39,7 @@ module fplt_dat
   type(TYP_map)      :: DAT_map, DAT_heatmap
   type(TYP_settings) :: DAT_set(2)
   type(TYP_module)   :: DAT_mod(9)
-  type(TYP_cmap)     :: DAT_cmap(3)     ! colour map collection
+  type(TYP_cmap)     :: DAT_cmap(4)     ! colour map collection
   integer            :: i
 
 ! ==== Data (presents)
@@ -108,6 +108,34 @@ module fplt_dat
   data (DAT_cmap(3)%rgb(i,4), i=1,3) /150, 50, 150/
   data (DAT_cmap(3)%rgb(i,5), i=1,3) /80, 10, 80/
   data DAT_cmap(3)%picker            /1, 1, 1, 1, 1/
+
+! monochrome scale - black to white
+  data DAT_cmap(1)%name /"monochrome"/
+  data (DAT_cmap(1)%rgb(i,1), i=1,3) /0, 0, 0/
+  data (DAT_cmap(1)%rgb(i,2), i=1,3) /0, 0, 0/
+  data (DAT_cmap(1)%rgb(i,3), i=1,3) /0, 0, 0/
+  data (DAT_cmap(1)%rgb(i,4), i=1,3) /0, 0, 0/
+  data (DAT_cmap(1)%rgb(i,5), i=1,3) /255, 255, 255/
+  data DAT_cmap(1)%picker            /1, 0, 0, 0, 1/
+
+! 2 colour scale - blue-white-red
+  data DAT_cmap(2)%name /"bluered01"/
+  data (DAT_cmap(2)%rgb(i,1), i=1,3) /0, 20, 180/
+  data (DAT_cmap(2)%rgb(i,2), i=1,3) /0, 0, 0/
+  data (DAT_cmap(2)%rgb(i,3), i=1,3) /220, 220, 220/
+  data (DAT_cmap(2)%rgb(i,4), i=1,3) /0, 0, 0/
+  data (DAT_cmap(2)%rgb(i,5), i=1,3) /180, 20, 0/
+  data DAT_cmap(2)%picker            /1, 0, 1, 0, 1/
+
+! 5 colour scale using darkened colours in tails - green-white-purple
+  data DAT_cmap(4)%name /"blueyellow01"/
+  data (DAT_cmap(4)%rgb(i,1), i=1,3) /11, 36, 70/
+  data (DAT_cmap(4)%rgb(i,2), i=1,3) /15, 85, 125/
+  data (DAT_cmap(4)%rgb(i,3), i=1,3) /20, 140, 145/
+  data (DAT_cmap(4)%rgb(i,4), i=1,3) /85, 190, 130/
+  data (DAT_cmap(4)%rgb(i,5), i=1,3) /175, 225, 95/
+  data DAT_cmap(4)%picker            /1, 1, 1, 1, 1/
+
 
 ! ---- maps
 
