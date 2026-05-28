@@ -32,7 +32,8 @@ program main
   my_map%label_right= "deg C"
 
 ! change colour map
-  my_map%cmap="greenpurple01"
+  !my_map%cmap="greenpurple01"
+  my_map%cmap="blueyellow01"
 
 ! modify preset colour map
   my_map%zmin  = -30

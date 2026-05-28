@@ -131,9 +131,9 @@ module fplt_dat
   data DAT_cmap(4)%name /"blueyellow01"/
   data (DAT_cmap(4)%rgb(i,1), i=1,3) /11, 36, 70/
   data (DAT_cmap(4)%rgb(i,2), i=1,3) /15, 85, 125/
-  data (DAT_cmap(4)%rgb(i,3), i=1,3) /20, 140, 145/
-  data (DAT_cmap(4)%rgb(i,4), i=1,3) /85, 190, 130/
-  data (DAT_cmap(4)%rgb(i,5), i=1,3) /175, 225, 95/
+  data (DAT_cmap(4)%rgb(i,3), i=1,3) /60, 165, 140/
+  data (DAT_cmap(4)%rgb(i,4), i=1,3) /175, 225, 95/
+  data (DAT_cmap(4)%rgb(i,5), i=1,3) /255, 245, 70/
   data DAT_cmap(4)%picker            /1, 1, 1, 1, 1/
 
 
